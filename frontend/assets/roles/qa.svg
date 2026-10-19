@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" role="img" aria-label="QA tester finding a bug in code">
+<title>QA tester finding a bug in code</title>
+<style>
+.bl{animation:blink 5.2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+.br{animation:breathe 3.8s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes breathe{to{transform:translateY(-2px) scaleY(1.012)}}
+.hd{animation:nod 6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 90%}
+@keyframes nod{0%,100%{transform:rotate(0)}40%{transform:rotate(-3deg)}70%{transform:rotate(2deg)}}
+.ty1{animation:type .42s ease-in-out infinite alternate;transform-box:fill-box}
+.ty2{animation:type .42s ease-in-out -.21s infinite alternate;transform-box:fill-box}
+@keyframes type{to{transform:translateY(-4px)}}
+.bob{animation:bob 3.2s ease-in-out infinite alternate;transform-box:fill-box}
+@keyframes bob{to{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.mag{animation:mag 4.8s cubic-bezier(.45,0,.55,1) infinite;transform-box:view-box;transform-origin:202px 236px}
+@keyframes mag{0%,100%{transform:rotate(0)}35%,75%{transform:rotate(11deg)}}
+.bug{animation:bug 4.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes bug{0%{transform:translate(-44px,16px)}35%{transform:translate(0,0)}55%{transform:translate(0,0) scale(1)}62%,100%{transform:translate(0,0) scale(0);opacity:0}}
+.ok{animation:ok 4.8s cubic-bezier(.34,1.56,.64,1) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes ok{0%,60%{transform:scale(0)}70%,92%{transform:scale(1)}100%{transform:scale(0)}}
+.leg{animation:leg .2s linear infinite alternate;transform-box:fill-box;transform-origin:center}
+@keyframes leg{to{transform:rotate(12deg)}}
+</style>
+<ellipse cx="205" cy="200" rx="178" ry="150" fill="#ffffff" opacity=".7"/><circle cx="62" cy="96" r="5" fill="#98ded9"/><circle cx="352" cy="78" r="4" fill="#c9c9f6"/><circle cx="360" cy="236" r="6" fill="#7fe0a9" opacity=".7"/>
+<rect x="30" y="288" width="340" height="12" rx="6" fill="#161d6f"/><rect x="60" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/><rect x="330" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/>
+<g>
+  <rect x="212" y="130" width="150" height="122" rx="10" fill="#161d6f"/>
+  <rect x="220" y="138" width="134" height="106" rx="5" fill="#252e85"/>
+  <rect x="230" y="150" width="60" height="6" rx="3" fill="#98ded9"/><rect x="242" y="166" width="74" height="6" rx="3" fill="#c9c9f6"/><rect x="242" y="182" width="40" height="6" rx="3" fill="#c7ffd8"/><rect x="254" y="198" width="64" height="6" rx="3" fill="#98ded9"/><rect x="242" y="214" width="50" height="6" rx="3" fill="#c9c9f6"/><rect x="230" y="230" width="36" height="6" rx="3" fill="#c7ffd8"/>
+  <g class="bug"><ellipse cx="333" cy="184" rx="8" ry="10" fill="#ff7a8a"/><circle cx="333" cy="172" r="5" fill="#ff7a8a"/><g class="leg" stroke="#ff7a8a" stroke-width="2.2" stroke-linecap="round"><path d="M325 180h-7M325 188h-7M341 180h7M341 188h7"/></g></g>
+  <g class="ok"><circle cx="333" cy="182" r="14" fill="#7fe0a9"/><path d="M326 182l5 5 9-10" stroke="#161d6f" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <rect x="276" y="252" width="22" height="30" fill="#0e1350"/><rect x="254" y="280" width="66" height="8" rx="4" fill="#0e1350"/>
+</g>
+
+<g class="br">
+  <path d="M106 290c0-50 20-78 55-80 35 2 55 30 55 80z" fill="#5b63c9"/>
+  <path d="M146 211l15 16 15-16" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="151" y="190" width="20" height="24" rx="9" fill="#8d5a3b"/>
+</g>
+<g class="hd">
+  <circle cx="127" cy="170" r="7" fill="#8d5a3b"/>
+  <circle cx="161" cy="164" r="35" fill="#8d5a3b"/>
+  <path d="M124 158c0-24 17-38 38-38s37 14 37 38z" fill="#161d6f"/><path d="M190 156h26c4 0 4 6 0 7h-27z" fill="#161d6f"/><circle cx="161" cy="121" r="4" fill="#c7ffd8"/>
+  <ellipse class="bl" cx="150" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <ellipse class="bl" cx="174" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <circle cx="142" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/><circle cx="182" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/>
+  <path d="M154 182q8 7 16 0" fill="none" stroke="#1f1a3a" stroke-width="2.6" stroke-linecap="round"/>
+  
+</g>
+<g><path d="M122 236c-10 22-6 40 16 46" stroke="#4a51a4" stroke-width="20" stroke-linecap="round" fill="none"/><circle cx="148" cy="283" r="9" fill="#8d5a3b"/></g>
+<g class="mag">
+  <path d="M202 236c30 2 52-16 70-42" stroke="#4a51a4" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <circle cx="276" cy="196" r="9" fill="#8d5a3b"/>
+  <path d="M290 188l22-24" stroke="#1f1a3a" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="320" cy="156" r="22" fill="rgba(255,255,255,.35)" stroke="#1f1a3a" stroke-width="6"/>
+</g>
+
+</svg>

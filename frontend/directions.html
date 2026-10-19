@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EduPath | Hero directions</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css">
+<style>
+:root{--bg:#fbfbfd;--bg2:#f2f3f7;--ink:#0f1450;--ink2:#474c78;--ink3:#5d6289;--brand:#161d6f;--mint:#c7ffd8;--teal:#0b6560;--aqua:#98ded9;--hair:rgba(15,20,80,.08);--spring:cubic-bezier(.32,.72,0,1)}
+*{box-sizing:border-box}
+body{margin:0;background:#e9eaf0;font-family:Manrope,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.label{max-width:1440px;margin:0 auto;padding:56px 32px 20px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.label h2{margin:0;font-size:28px;font-weight:800;letter-spacing:-.03em}
+.label p{margin:6px 0 0;color:var(--ink2);max-width:70ch;font-size:15.5px;line-height:1.55}
+.label span{font-size:13px;font-weight:700;background:var(--ink);color:#fff;border-radius:999px;padding:6px 12px;white-space:nowrap}
+.frame{max-width:1440px;height:820px;margin:0 auto;position:relative;overflow:hidden;background:var(--bg);border-radius:20px;box-shadow:0 30px 80px -40px rgba(15,20,80,.35)}
+
+/* Shared: the navbar the user approved */
+.nav{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:28px;padding:8px 8px 8px 20px;border-radius:999px;background:rgba(251,251,253,.72);backdrop-filter:saturate(1.6) blur(20px);box-shadow:0 0 0 1px var(--hair),0 12px 32px -18px rgba(15,20,80,.3)}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;letter-spacing:-.04em}
+.nav nav{display:flex;gap:26px;font-size:14px;color:var(--ink2)}
+.nav .si{font-size:14px;font-weight:600;color:var(--ink2);padding:0 6px}
+.btn{display:inline-flex;align-items:center;gap:12px;border-radius:999px;background:var(--brand);color:#fbfbff;font-weight:600;font-size:15px;padding:7px 7px 7px 22px;text-decoration:none;box-shadow:0 14px 30px -14px rgba(15,20,80,.55)}
+.btn .isle{width:34px;height:34px;border-radius:999px;background:rgba(255,255,255,.14);display:grid;place-items:center}
+.btn.sm{font-size:14px;padding:6px 6px 6px 18px}.btn.sm .isle{width:30px;height:30px}
+.h1{font-weight:800;font-size:60px;line-height:1.02;letter-spacing:-.045em;margin:0}
+.sub{font-size:18px;line-height:1.6;color:var(--ink2);margin:20px 0 32px;max-width:42ch}
+
+/* ---------- A. Career transit map ---------- */
+.a .copy{position:absolute;left:96px;top:210px;width:520px;z-index:2}
+.a svg.map{position:absolute;right:30px;top:80px;width:860px;height:707px}
+.route{fill:none;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s var(--spring) forwards}
+.route.r2{animation-delay:.15s}.route.r3{animation-delay:.3s}.route.r4{animation-delay:.45s}.route.r5{animation-delay:.6s}.route.r6{animation-delay:.75s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.stn{fill:#fff;stroke-width:4;opacity:0;animation:pop .6s var(--spring) forwards}
+@keyframes pop{to{opacity:1}}
+.slabel{font:600 15px Manrope,sans-serif;fill:var(--ink);opacity:0;animation:pop .8s var(--spring) forwards}
+.slabel.small{font-size:12.5px;font-weight:600;fill:var(--ink3)}
+.you{font:800 14px Manrope,sans-serif;fill:#fff}
+.legend{position:absolute;left:96px;bottom:56px;display:flex;gap:28px;font-size:13.5px;color:var(--ink3);z-index:2}
+.legend b{color:var(--ink);font-weight:700}
+
+/* ---------- B. People and campus ---------- */
+.b .copy{position:absolute;left:96px;top:220px;width:560px}
+.b .collage{position:absolute;right:72px;top:110px;width:640px;height:640px}
+.ph{position:absolute;border-radius:28px;background:linear-gradient(135deg,#dfe2ee,#eef0f6);display:grid;place-items:center;color:var(--ink3);font-size:14px;font-weight:600;text-align:center;padding:20px;box-shadow:0 30px 60px -36px rgba(15,20,80,.35)}
+.ph i{display:block;font-size:30px;margin-bottom:8px;color:#8b90b3}
+.p1{left:0;top:40px;width:330px;height:420px}
+.p2{right:0;top:0;width:280px;height:280px}
+.p3{right:20px;bottom:30px;width:300px;height:320px}
+.tagcard{position:absolute;left:210px;bottom:20px;background:#fff;border-radius:20px;padding:16px 18px;box-shadow:0 24px 50px -24px rgba(15,20,80,.4);width:250px}
+.tagcard small{font-size:12px;color:var(--ink3);font-weight:600}
+.tagcard b{display:block;font-size:17px;margin-top:2px}
+.tagcard span{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:700;background:#e3fbea;color:var(--teal);border-radius:999px;padding:4px 10px}
+.note{position:absolute;left:96px;bottom:40px;font-size:13px;color:var(--ink3)}
+
+/* ---------- C. Soft color field ---------- */
+.c{background:#f6f7fb}
+.c .field{position:absolute;inset:96px 40px 40px;border-radius:40px;overflow:hidden;background:#eef7f6}
+.c .field::before,.c .field::after,.c .blob{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.9}
+.c .field::before{width:620px;height:620px;left:-120px;top:-160px;background:#bfeee9}
+.c .field::after{width:560px;height:560px;right:-80px;bottom:-200px;background:#dcdcfb}
+.c .blob{width:420px;height:420px;left:46%;top:30%;background:#d8fbe4}
+.c .copy{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;width:760px;z-index:2}
+.c .copy .sub{margin-inline:auto}
+.chipf{position:absolute;z-index:2;background:rgba(255,255,255,.78);backdrop-filter:blur(10px);border-radius:18px;padding:12px 16px;box-shadow:0 20px 40px -24px rgba(15,20,80,.35),0 0 0 1px rgba(255,255,255,.7);font-size:13.5px;animation:float 6s ease-in-out infinite alternate}
+.chipf small{display:block;font-size:11.5px;color:var(--ink3);font-weight:600}
+.chipf b{font-size:15px}
+.f1{left:150px;top:230px}.f2{right:150px;top:270px;animation-delay:-2s}.f3{left:200px;bottom:120px;animation-delay:-4s}.f4{right:190px;bottom:150px;animation-delay:-1s}
+@keyframes float{to{transform:translateY(-12px)}}
+</style>
+</head>
+<body>
+
+<!-- A -->
+<div class="label"><div><h2>A. Career transit map</h2><p>EduPath as a transit map: your skills are the starting station, six coloured lines run to the six roles, and the line you're closest to is drawn boldest. The lines draw themselves in on load. The map becomes the page's thread: How It Works is a ride along one line, and the roles section is the full map. Fully ours, needs no photos.</p></div><span>My pick</span></div>
+<div class="frame a">
+  <div class="nav"><span class="brand"><svg width="26" height="26" viewBox="0 0 32 32"><rect width="32" height="32" rx="10" fill="#161d6f"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/></svg>EduPath</span><nav><span>How It Works</span><span>Roles</span><span>FAQ</span></nav><span class="si">Sign In</span><a class="btn sm">Analyze My Skills <span class="isle"><i class="ph-light ph-arrow-up-right"></i></span></a></div>
+  <div class="copy">
+    <h1 class="h1">Find your route into tech.</h1>
+    <p class="sub">Rate your skills once. EduPath maps them to six entry-level IT roles and shows the subjects that get you there.</p>
+    <a class="btn">Analyze My Skills <span class="isle"><i class="ph-light ph-arrow-up-right"></i></span></a>
+  </div>
+  <svg class="map" viewBox="0 0 900 740" aria-hidden="true">
+    <path class="route r1" stroke="#161d6f" stroke-width="12" d="M120 640 C 300 640, 330 470, 470 400 S 700 300, 780 150"/>
+    <path class="route r2" stroke="#3fbf86" d="M120 640 C 320 650, 420 560, 560 520 S 760 470, 820 330"/>
+    <path class="route r3" stroke="#5fc7bf" d="M120 640 C 260 600, 300 360, 420 260 S 560 110, 640 80"/>
+    <path class="route r4" stroke="#8b90d9" d="M120 640 C 340 700, 520 690, 640 640 S 800 600, 840 520"/>
+    <path class="route r5" stroke="#c9a7e8" d="M120 640 C 220 560, 200 340, 260 230 S 330 120, 360 70"/>
+    <path class="route r6" stroke="#9fb4c9" d="M120 640 C 380 720, 600 730, 720 710"/>
+    <circle class="stn" cx="780" cy="150" r="13" stroke="#161d6f" style="animation-delay:1.6s"/><text class="slabel" text-anchor="end" x="758" y="146" style="animation-delay:1.7s">Backend Developer</text><text class="slabel small" text-anchor="end" x="758" y="168" style="animation-delay:1.8s">88% match</text>
+    <circle class="stn" cx="820" cy="330" r="11" stroke="#3fbf86" style="animation-delay:1.7s"/><text class="slabel" text-anchor="end" x="798" y="335" style="animation-delay:1.8s">Frontend Developer</text>
+    <circle class="stn" cx="640" cy="80" r="11" stroke="#5fc7bf" style="animation-delay:1.8s"/><text class="slabel" text-anchor="end" x="618" y="85" style="animation-delay:1.9s">Database Administrator</text>
+    <circle class="stn" cx="840" cy="520" r="11" stroke="#8b90d9" style="animation-delay:1.9s"/><text class="slabel" text-anchor="end" x="818" y="525" style="animation-delay:2s">QA / Software Tester</text>
+    <circle class="stn" cx="360" cy="70" r="11" stroke="#c9a7e8" style="animation-delay:2s"/><text class="slabel" text-anchor="end" x="338" y="75" style="animation-delay:2.1s">Mobile App Developer</text>
+    <circle class="stn" cx="720" cy="710" r="11" stroke="#9fb4c9" style="animation-delay:2.1s"/><text class="slabel" text-anchor="end" x="698" y="690" style="animation-delay:2.2s">Network / Systems</text>
+    <circle cx="120" cy="640" r="30" fill="#161d6f"/><text class="you" x="101" y="645">You</text>
+    <circle class="stn" cx="470" cy="400" r="8" stroke="#161d6f" style="animation-delay:1.2s"/><text class="slabel small" x="490" y="430" style="animation-delay:1.3s">Docker, 3 pts short</text>
+  </svg>
+  <div class="legend"><span><b>6</b> entry-level roles</span><span><b>4</b> CSE programs</span><span><b>~5 min</b> to rate your skills</span></div>
+</div>
+
+<!-- B -->
+<div class="label"><div><h2>B. People and campus</h2><p>Warm and human: real photos of JRU computing students, labs and graduation in soft rounded frames, with one small result card for context. It only works with real photos from your team. The grey frames below are where they'd go.</p></div></div>
+<div class="frame b">
+  <div class="nav"><span class="brand"><svg width="26" height="26" viewBox="0 0 32 32"><rect width="32" height="32" rx="10" fill="#161d6f"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/></svg>EduPath</span><nav><span>How It Works</span><span>Roles</span><span>FAQ</span></nav><span class="si">Sign In</span><a class="btn sm">Analyze My Skills <span class="isle"><i class="ph-light ph-arrow-up-right"></i></span></a></div>
+  <div class="copy">
+    <h1 class="h1">Your degree, mapped to a career.</h1>
+    <p class="sub">See which entry-level IT roles fit your skills today, and the JRU subjects that close the gap.</p>
+    <a class="btn">Analyze My Skills <span class="isle"><i class="ph-light ph-arrow-up-right"></i></span></a>
+  </div>
+  <div class="collage">
+    <div class="ph p1"><div><i class="ph-light ph-image"></i>Your photo: JRU computing students working together</div></div>
+    <div class="ph p2"><div><i class="ph-light ph-image"></i>Your photo: CCSE lab</div></div>
+    <div class="ph p3"><div><i class="ph-light ph-image"></i>Your photo: a student at a laptop</div></div>
+    <div class="tagcard"><small>Sample result</small><b>Backend Developer</b><span>88% match</span></div>
+  </div>
+  <p class="note">Photos must be real and used with permission.</p>
+</div>
+
+<!-- C -->
+<div class="label"><div><h2>C. Soft colour field</h2><p>A large rounded panel washed in your brand's aqua, mint and lavender, with a few result snippets floating gently around a centred headline. Calm and premium, but closer to what many modern sites already do.</p></div></div>
+<div class="frame c">
+  <div class="nav"><span class="brand"><svg width="26" height="26" viewBox="0 0 32 32"><rect width="32" height="32" rx="10" fill="#161d6f"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/></svg>EduPath</span><nav><span>How It Works</span><span>Roles</span><span>FAQ</span></nav><span class="si">Sign In</span><a class="btn sm">Analyze My Skills <span class="isle"><i class="ph-light ph-arrow-up-right"></i></span></a></div>
+  <div class="field"><span class="blob"></span></div>
+  <div class="copy">
+    <h1 class="h1">See how ready you are for tech.</h1>
+    <p class="sub">Rate your skills, find the roles that fit, and get the JRU subjects that close each gap.</p>
+    <a class="btn">Analyze My Skills <span class="isle"><i class="ph-light ph-arrow-up-right"></i></span></a>
+  </div>
+  <div class="chipf f1"><small>Best fit</small><b>Backend Developer</b></div>
+  <div class="chipf f2"><small>Match</small><b>88%</b></div>
+  <div class="chipf f3"><small>Gap</small><b>Docker, 3 pts short</b></div>
+  <div class="chipf f4"><small>Next step</small><b>DevOps Fundamentals</b></div>
+</div>
+<div style="height:80px"></div>
+</body>
+</html>

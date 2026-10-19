@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Create your account | EduPath</title>
+<meta name="description" content="Create an EduPath account to take the skill assessment, see which entry-level IT roles fit you, and get a learning pathway.">
+<meta name="theme-color" content="#fbfbfd">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="nav" aria-label="Site">
+  <a href="index.html" class="brand" aria-label="EduPath home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#161d6f"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/></svg>
+    EduPath
+  </a>
+  <div class="nav-end"><a href="login.html" class="nav-btn">Sign In</a></div>
+</header>
+
+<main class="auth">
+  <div class="field">
+    <span class="orb o1" aria-hidden="true"></span><span class="orb o2" aria-hidden="true"></span><span class="orb o3" aria-hidden="true"></span>
+
+    <section class="plate auth-card rise" aria-labelledby="reg-title">
+      <h1 id="reg-title">Create your account</h1>
+      <p class="lead">One minute here, then about five for the skill assessment.</p>
+
+      <form data-form="register" novalidate>
+        <p class="form-alert" role="alert"></p>
+
+        <div class="field-group">
+          <label for="name">Full name</label>
+          <input class="input" id="name" name="name" type="text" autocomplete="name" autocapitalize="words" placeholder="Juan Dela Cruz" aria-describedby="name-error">
+          <p class="error" id="name-error"></p>
+        </div>
+
+        <div class="field-group">
+          <label for="email">Email</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="email-hint email-error">
+          <p class="hint" id="email-hint">Any email works. Graduates can use a personal address.</p>
+          <p class="error" id="email-error"></p>
+        </div>
+
+        <div class="field-group">
+          <label for="password">Password</label>
+          <div class="pw">
+            <input class="input" id="password" name="password" type="password" autocomplete="new-password" aria-describedby="password-hint password-error">
+            <button type="button" class="pw-toggle" aria-controls="password" aria-pressed="false">Show</button>
+          </div>
+          <p class="hint" id="password-hint" data-min="8">At least 8 characters.</p>
+          <p class="error" id="password-error"></p>
+        </div>
+
+        <div class="field-group">
+          <fieldset class="tiles" data-group="program" aria-describedby="program-error">
+            <legend>Degree program</legend>
+            <label class="tile"><input type="radio" name="program" value="BSIT"><span><b>BSIT</b><small>Information Technology</small></span></label>
+            <label class="tile"><input type="radio" name="program" value="BSCpE"><span><b>BSCpE</b><small>Computer Engineering</small></span></label>
+            <label class="tile"><input type="radio" name="program" value="BSECE"><span><b>BSECE</b><small>Electronics Engineering</small></span></label>
+            <label class="tile"><input type="radio" name="program" value="BSEMC"><span><b>BSEMC</b><small>Entertainment &amp; Multimedia Computing</small></span></label>
+          </fieldset>
+          <p class="error" id="program-error"></p>
+        </div>
+
+        <div class="field-group">
+          <fieldset class="choices" data-group="yearLevel" aria-describedby="yearLevel-error">
+            <legend>Year level</legend>
+            <label class="choice"><input type="radio" name="yearLevel" value="3"><span>3rd year</span></label>
+            <label class="choice"><input type="radio" name="yearLevel" value="4"><span>4th year</span></label>
+            <label class="choice"><input type="radio" name="yearLevel" value="grad"><span>Recent graduate</span></label>
+          </fieldset>
+          <p class="error" id="yearLevel-error"></p>
+        </div>
+
+        <div class="field-group">
+          <label class="check">
+            <input type="checkbox" name="consent" aria-describedby="consent-error">
+            <span>I agree that EduPath may store my profile and skill ratings to compute my role matches and learning pathway, in line with the Data Privacy Act of 2012 (RA 10173).</span>
+          </label>
+          <p class="error" id="consent-error"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+      <p class="switch">Already have an account? <a href="login.html" class="text-link">Sign in</a></p>
+      <p class="demo-note" data-demo-note>Demo mode: accounts are saved only in this browser.</p>
+    </section>
+
+    <aside class="auth-side rise r2" aria-label="Roles you could match">
+      <h2>Six roles are waiting to be matched to you.</h2>
+      <p>Your assessment compares your skills with every one of them.</p>
+      <div class="cast" data-cast="all"></div>
+      <div class="cast-caption" data-cast-caption aria-live="polite"></div>
+    </aside>
+  </div>
+</main>
+
+<script src="js/app.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cast.js"></script>
+</body>
+</html>

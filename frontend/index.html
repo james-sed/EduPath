@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EduPath | Find the tech role that fits you</title>
+<meta name="description" content="EduPath helps JRU computing students and recent graduates take a skill assessment, see which entry-level IT roles fit, and find the subjects and microcredentials that close each gap.">
+<meta name="theme-color" content="#fbfbfd">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/landing.css">
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+<link rel="preload" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css"></noscript>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="nav" aria-label="Site">
+  <a href="#top" class="brand" aria-label="EduPath home">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="10" fill="#161d6f"/>
+      <path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/>
+    </svg>
+    EduPath
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#roles">Roles</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="nav-end">
+    <a href="login.html" class="nav-signin">Sign In</a>
+    <a href="register.html" class="btn btn-primary btn-sm">Analyze My Skills <span class="isle" aria-hidden="true"><i class="ph-light ph-arrow-up-right"></i></span></a>
+    <button type="button" class="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <a href="#how-it-works">How It Works</a>
+  <a href="#roles">Roles</a>
+  <a href="#about">About</a>
+  <a href="#faq">FAQ</a>
+  <a href="login.html">Sign In</a>
+  <p class="menu-foot">EduPath, by TypeShift. A student project, not an official JRU service.</p>
+</div>
+
+<div class="page" data-page>
+<main id="top">
+
+  <!-- 1. HERO: the promise stays fixed; the role theater rotates through six roles -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="field">
+      <span class="orb o1" aria-hidden="true"></span><span class="orb o2" aria-hidden="true"></span><span class="orb o3" aria-hidden="true"></span>
+
+      <h1 id="hero-title" class="rise">Find the tech role that fits you.</h1>
+      <p class="lede rise r2">Take one skill assessment. EduPath matches you to six entry-level IT roles and shows the JRU subjects that close each gap.</p>
+      <div class="cta rise r3">
+        <a href="register.html" class="btn btn-primary">Analyze My Skills <span class="isle" aria-hidden="true"><i class="ph-light ph-arrow-up-right"></i></span></a>
+      </div>
+
+      <div class="theater rise r4" data-theater aria-roledescription="carousel" aria-label="Entry-level IT roles">
+        <div class="role-copy" aria-live="polite" data-copy></div>
+        <div class="stage" data-stage></div>
+        <div class="chips" data-chips aria-hidden="true"></div>
+      </div>
+      <div class="tab-row rise r4">
+        <div class="tabs" role="tablist" aria-label="Choose a role" data-tabs></div>
+        <button type="button" class="pause" data-pause aria-label="Pause role rotation"><i class="ph-light ph-pause" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. HOW IT WORKS -->
+  <section id="how-it-works" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="reveal">
+        <h2 class="h2" id="how-title">How EduPath works.</h2>
+        <p class="sub">Four stops between you and a clear plan. No guesswork, and every result explains itself.</p>
+      </div>
+      <ol class="road reveal" data-road>
+        <li><span class="vig"><svg viewBox="0 0 96 64" aria-hidden="true"><g class="v-rate"><circle cx="14" cy="32" r="7"/><circle cx="31" cy="32" r="7"/><circle cx="48" cy="32" r="7"/><circle cx="65" cy="32" r="7"/><circle cx="82" cy="32" r="7"/></g></svg></span><span class="dot" aria-hidden="true"></span><h3>Take the skill assessment</h3><p>Answer questions on programming, databases, tools, and soft skills. It takes about five minutes.</p></li>
+        <li><span class="vig"><svg viewBox="0 0 96 64" aria-hidden="true"><g class="v-match"><rect x="18" y="16" width="14" height="38" rx="5"/><rect x="41" y="28" width="14" height="26" rx="5"/><rect x="64" y="36" width="14" height="18" rx="5"/></g></svg></span><span class="dot" aria-hidden="true"></span><h3>See your role matches</h3><p>Machine learning models rank six roles by how well your results fit each one, and show which skills decided it.</p></li>
+        <li><span class="vig"><svg viewBox="0 0 96 64" aria-hidden="true"><g class="v-gap"><rect x="8" y="27" width="14" height="10" rx="5" class="on"/><rect x="25" y="27" width="14" height="10" rx="5" class="on"/><rect x="42" y="27" width="14" height="10" rx="5" class="on"/><rect x="59" y="27" width="14" height="10" rx="5" class="close"/><rect x="76" y="27" width="14" height="10" rx="5" class="need"/></g></svg></span><span class="dot" aria-hidden="true"></span><h3>Get your skill gap analysis</h3><p>See your match percentage and exactly how many points you are short on each skill the role needs.</p></li>
+        <li><span class="vig"><svg viewBox="0 0 96 64" aria-hidden="true"><g class="v-plan"><path class="trail" d="M10 52c18 0 14-22 34-22s20-16 38-16"/><circle class="walker" cx="10" cy="52" r="5"/><g class="flag"><path d="M82 14v-12" /><path d="M82 2h12l-4 4 4 4H82z"/></g></g></svg></span><span class="dot" aria-hidden="true"></span><h3>Follow your learning pathway</h3><p>Every skill gap maps to JRU CSE subjects and CHED-recognized microcredentials.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3. ROLES -->
+  <section id="roles" class="alt" aria-labelledby="roles-title">
+    <div class="wrap">
+      <div class="center reveal">
+        <h2 class="h2" id="roles-title">Six roles, one assessment.</h2>
+        <p class="sub">You're scored against every role, so you see your best fit and your next-best options. Tap a role to meet its character.</p>
+      </div>
+      <ul class="roles" data-role-tiles></ul>
+    </div>
+  </section>
+
+  <!-- 4. EVIDENCE -->
+  <section aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="reveal">
+        <h2 class="h2" id="why-title">A degree alone isn't a job match.</h2>
+        <p class="sub">Philippine research shows a wide gap between what graduates studied and the work they end up doing.</p>
+      </div>
+      <div class="field band reveal">
+        <span class="orb o1" aria-hidden="true"></span><span class="orb o2" aria-hidden="true"></span><span class="orb o3" aria-hidden="true"></span>
+        <div class="figures">
+          <div class="figure"><strong>Fewer than half</strong><p>of employed Filipino college graduates hold jobs aligned with their degree.</p><cite>Tutor et al., 2021, PIDS Graduate Tracer Study</cite></div>
+          <div class="figure"><strong><span data-count-to="39">39</span>%</strong><p>of employed Filipinos are overeducated for the work they do.</p><cite>Melchor, 2022, Philippine Journal of Development</cite></div>
+          <div class="figure"><strong><span data-count-to="8.5" data-decimals="1">8.5</span>%</strong><p>of Philippine GDP comes from the digital economy.</p><cite>Philippine Statistics Authority, 2025</cite></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ABOUT -->
+  <section id="about" class="alt" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="about">
+        <div class="reveal">
+          <h2 class="h2" id="about-title">Built by students, for JRU computing students.</h2>
+          <p class="sub">TypeShift, a team of JRU computing students, built EduPath for third- and fourth-year students and recent graduates of four programs.</p>
+        </div>
+        <ul class="progs badges reveal d1">
+          <li><b>BSIT</b><span>Information Technology</span></li>
+          <li><b>BSCpE</b><span>Computer Engineering</span></li>
+          <li><b>BSECE</b><span>Electronics Engineering</span></li>
+          <li><b>BSEMC</b><span>Entertainment and Multimedia Computing</span></li>
+        </ul>
+      </div>
+      <div class="notes reveal">
+        <div><h3>Independent</h3><p>A student project by TypeShift, not an official José Rizal University service.</p></div>
+        <div><h3>Guidance, not a guarantee</h3><p>Matches and pathways help you plan. They are not job offers or placement promises.</p></div>
+        <div><h3>Privacy by design</h3><p>Built to follow the Data Privacy Act of 2012 (RA 10173), keeping only what your results need.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FAQ -->
+  <section id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="center reveal"><h2 class="h2" id="faq-title">Questions, answered.</h2></div>
+      <div class="faq reveal d1" data-faq>
+        <details><summary>Is EduPath a job board?<span class="plus" aria-hidden="true"><i class="ph-light ph-plus"></i></span></summary><div class="answer"><p>No. EduPath doesn't list jobs, take applications, or connect you with employers. It shows which roles fit your skills today and what to learn next.</p></div></details>
+        <details><summary>Does a high match mean I'll get hired?<span class="plus" aria-hidden="true"><i class="ph-light ph-plus"></i></span></summary><div class="answer"><p>No. Role matches and learning pathways are guidance for planning your studies. They are not job offers or placement guarantees.</p></div></details>
+        <details><summary>Where do the role benchmarks come from?<span class="plus" aria-hidden="true"><i class="ph-light ph-plus"></i></span></summary><div class="answer"><p>From industry frameworks for entry-level IT roles. JRU subjects and CHED-recognized microcredentials are the catalog EduPath recommends from, not the yardstick it measures you against.</p></div></details>
+        <details><summary>What happens to my data?<span class="plus" aria-hidden="true"><i class="ph-light ph-plus"></i></span></summary><div class="answer"><p>EduPath is built to follow the Data Privacy Act of 2012 (RA 10173) and keeps only what your results need.</p></div></details>
+        <details><summary>Is this an official JRU service?<span class="plus" aria-hidden="true"><i class="ph-light ph-plus"></i></span></summary><div class="answer"><p>No. EduPath is an independent student project by TypeShift, built for students of José Rizal University's College of Computer Studies and Engineering.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CLOSING -->
+  <section class="closing" aria-labelledby="close-title">
+    <div class="field reveal">
+      <span class="orb o1" aria-hidden="true"></span><span class="orb o2" aria-hidden="true"></span><span class="orb o3" aria-hidden="true"></span>
+      <div class="lineup" aria-hidden="true">
+        <img src="assets/roles/frontend.svg" alt=""><img src="assets/roles/backend.svg" alt=""><img src="assets/roles/mobile.svg" alt=""><img src="assets/roles/database.svg" alt=""><img src="assets/roles/qa.svg" alt=""><img src="assets/roles/network.svg" alt="">
+      </div>
+      <h2 class="h2" id="close-title">Which role will you grow into?</h2>
+      <p class="sub">Take the five-minute skill assessment and get your role matches and learning pathway.</p>
+      <a href="register.html" class="btn btn-primary">Analyze My Skills <span class="isle" aria-hidden="true"><i class="ph-light ph-arrow-up-right"></i></span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="foot-panel">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="brand" aria-label="EduPath home">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="10" fill="#0e1350"/>
+            <rect x=".75" y=".75" width="30.5" height="30.5" rx="9.25" fill="none" stroke="rgba(199,255,216,.35)" stroke-width="1.5"/>
+            <path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/>
+          </svg>
+          EduPath
+        </a>
+        <p>Find the tech role that fits you, and the subjects that get you there.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#roles">Roles</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="login.html">Sign In</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact TypeShift</h2>
+        <address>
+          <a href="mailto:edupath@typeshift.org">edupath@typeshift.org</a><br>
+          JRU College of Computer Studies and Engineering<br>
+          80 Shaw Boulevard, Mandaluyong City
+        </address>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 TypeShift. A student project, not an official José Rizal University service.</span>
+      <span>Illustrations by TypeShift</span>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/landing.js"></script>
+</body>
+</html>

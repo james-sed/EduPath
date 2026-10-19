@@ -1,0 +1,44 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "frontend/index.html"
+        ],
+        "createdAt": "2026-10-13T10:27:39.322Z",
+        "reason": "Claude triage: tight leading is on display headings (1.06–1.15) and single-line pills/buttons, documented in DESIGN.md typography; body text is 1.65"
+      },
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "frontend/index.html"
+        ],
+        "createdAt": "2026-10-19T11:53:52.760Z",
+        "reason": "Claude triage: intentional double-bezel (tray + plate) container from the high-end-visual-design skill the user chose"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "frontend/index.html"
+        ],
+        "createdAt": "2026-10-19T11:53:53.123Z",
+        "reason": "Claude triage: full-bleed tinted sections and split plates whose columns carry their own padding; no text touches an edge"
+      },
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "frontend/directions.html"
+        ],
+        "createdAt": "2026-10-19T12:36:04.750Z",
+        "reason": "Claude triage: throwaway comparison page; each mockup frame intentionally contains a mock hero"
+      }
+    ]
+  }
+}

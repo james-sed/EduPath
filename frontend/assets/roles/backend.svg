@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" role="img" aria-label="Backend developer working with servers and APIs">
+<title>Backend developer working with servers and APIs</title>
+<style>
+.bl{animation:blink 5.2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+.br{animation:breathe 3.8s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes breathe{to{transform:translateY(-2px) scaleY(1.012)}}
+.hd{animation:nod 6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 90%}
+@keyframes nod{0%,100%{transform:rotate(0)}40%{transform:rotate(-3deg)}70%{transform:rotate(2deg)}}
+.ty1{animation:type .42s ease-in-out infinite alternate;transform-box:fill-box}
+.ty2{animation:type .42s ease-in-out -.21s infinite alternate;transform-box:fill-box}
+@keyframes type{to{transform:translateY(-4px)}}
+.bob{animation:bob 3.2s ease-in-out infinite alternate;transform-box:fill-box}
+@keyframes bob{to{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.led{animation:led 1.6s steps(1) infinite}
+.l2{animation-delay:.4s}.l3{animation-delay:.8s}.l4{animation-delay:1.2s}
+@keyframes led{0%{fill:#c7ffd8}50%{fill:#2b3a8f}}
+.gear{animation:spin 6s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pk{animation:pk 2.4s cubic-bezier(.45,0,.55,1) infinite}
+.p2{animation-delay:.8s}.p3{animation-delay:1.6s}
+@keyframes pk{0%{transform:translate(0,0);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translate(-78px,52px);opacity:0}}
+</style>
+<ellipse cx="205" cy="200" rx="178" ry="150" fill="#ffffff" opacity=".7"/><circle cx="62" cy="96" r="5" fill="#98ded9"/><circle cx="352" cy="78" r="4" fill="#c9c9f6"/><circle cx="360" cy="236" r="6" fill="#7fe0a9" opacity=".7"/>
+<g class="gear"><path d="M318 64l6 0 2 9 7 3 8-5 4 4-5 8 3 7 9 2 0 6-9 2-3 7 5 8-4 4-8-5-7 3-2 9-6 0-2-9-7-3-8 5-4-4 5-8-3-7-9-2 0-6 9-2 3-7-5-8 4-4 8 5 7-3z" fill="#161d6f"/><circle cx="321" cy="80" r="8" fill="#ffffff"/></g>
+<text x="321" y="138" text-anchor="middle" font-family="Manrope,Arial,sans-serif" font-weight="800" font-size="15" fill="#161d6f">API</text>
+<g fill="#7fe0a9"><circle class="pk" cx="296" cy="150" r="5"/><circle class="pk p2" cx="296" cy="150" r="5"/><circle class="pk p3" cx="296" cy="150" r="5"/></g>
+<rect x="30" y="288" width="340" height="12" rx="6" fill="#161d6f"/><rect x="60" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/><rect x="330" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/>
+<g>
+  <rect x="244" y="150" width="108" height="138" rx="10" fill="#161d6f"/>
+  <rect x="254" y="162" width="88" height="22" rx="5" fill="#0e1350"/><rect x="262" y="170" width="44" height="6" rx="3" fill="#98ded9" opacity=".7"/><circle class="led l1" cx="328" cy="173" r="4" fill="#c7ffd8"/><rect x="254" y="192" width="88" height="22" rx="5" fill="#0e1350"/><rect x="262" y="200" width="44" height="6" rx="3" fill="#98ded9" opacity=".7"/><circle class="led l2" cx="328" cy="203" r="4" fill="#c7ffd8"/><rect x="254" y="222" width="88" height="22" rx="5" fill="#0e1350"/><rect x="262" y="230" width="44" height="6" rx="3" fill="#98ded9" opacity=".7"/><circle class="led l3" cx="328" cy="233" r="4" fill="#c7ffd8"/><rect x="254" y="252" width="88" height="22" rx="5" fill="#0e1350"/><rect x="262" y="260" width="44" height="6" rx="3" fill="#98ded9" opacity=".7"/><circle class="led l4" cx="328" cy="263" r="4" fill="#c7ffd8"/>
+</g>
+<rect x="150" y="276" width="76" height="10" rx="4" fill="#dfe3f0"/>
+
+<g class="br">
+  <path d="M106 290c0-50 20-78 55-80 35 2 55 30 55 80z" fill="#161d6f"/>
+  <path d="M146 211l15 16 15-16" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="151" y="190" width="20" height="24" rx="9" fill="#e2a983"/>
+</g>
+<g class="hd">
+  <circle cx="127" cy="170" r="7" fill="#e2a983"/>
+  <circle cx="161" cy="164" r="35" fill="#e2a983"/>
+  <circle cx="161" cy="116" r="14" fill="#3b2a2a"/><path d="M124 164c-3-31 17-45 37-44 23-1 39 15 36 42-9-14-26-19-42-15-12 2-23 8-31 17z" fill="#3b2a2a"/>
+  <ellipse class="bl" cx="150" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <ellipse class="bl" cx="174" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <circle cx="142" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/><circle cx="182" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/>
+  <path d="M154 182q8 7 16 0" fill="none" stroke="#1f1a3a" stroke-width="2.6" stroke-linecap="round"/>
+  
+</g>
+<g class="ty1"><path d="M122 236c-10 22-6 40 16 46" stroke="#12175b" stroke-width="20" stroke-linecap="round" fill="none"/><circle cx="148" cy="283" r="9" fill="#e2a983"/></g><g class="ty2"><path d="M200 236c8 22 6 40-8 46" stroke="#12175b" stroke-width="20" stroke-linecap="round" fill="none"/><circle cx="186" cy="283" r="9" fill="#e2a983"/></g>
+</svg>

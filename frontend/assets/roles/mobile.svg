@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" role="img" aria-label="Mobile app developer testing an app on a phone">
+<title>Mobile app developer testing an app on a phone</title>
+<style>
+.bl{animation:blink 5.2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+.br{animation:breathe 3.8s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes breathe{to{transform:translateY(-2px) scaleY(1.012)}}
+.hd{animation:nod 6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 90%}
+@keyframes nod{0%,100%{transform:rotate(0)}40%{transform:rotate(-3deg)}70%{transform:rotate(2deg)}}
+.ty1{animation:type .42s ease-in-out infinite alternate;transform-box:fill-box}
+.ty2{animation:type .42s ease-in-out -.21s infinite alternate;transform-box:fill-box}
+@keyframes type{to{transform:translateY(-4px)}}
+.bob{animation:bob 3.2s ease-in-out infinite alternate;transform-box:fill-box}
+@keyframes bob{to{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.feed{animation:feed 5s cubic-bezier(.32,.72,0,1) infinite}
+@keyframes feed{0%,20%{transform:translateY(0)}45%,65%{transform:translateY(-38px)}90%,100%{transform:translateY(-76px)}}
+.ping{transform-box:fill-box;transform-origin:left bottom;animation:ping 5s cubic-bezier(.34,1.56,.64,1) infinite}
+@keyframes ping{0%,30%{transform:scale(0);opacity:0}40%,80%{transform:scale(1);opacity:1}90%,100%{transform:scale(.6);opacity:0}}
+.hrt{transform-box:fill-box;transform-origin:center;animation:hrt 1.2s ease-in-out infinite alternate}
+@keyframes hrt{to{transform:scale(1.18)}}
+.arm{animation:bob 3s ease-in-out infinite alternate;transform-box:fill-box}
+</style>
+<ellipse cx="205" cy="200" rx="178" ry="150" fill="#ffffff" opacity=".7"/><circle cx="62" cy="96" r="5" fill="#98ded9"/><circle cx="352" cy="78" r="4" fill="#c9c9f6"/><circle cx="360" cy="236" r="6" fill="#7fe0a9" opacity=".7"/>
+<rect x="30" y="288" width="340" height="12" rx="6" fill="#161d6f"/><rect x="60" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/><rect x="330" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/>
+<rect x="236" y="262" width="70" height="26" rx="6" fill="#dfe3f0"/><rect x="246" y="270" width="30" height="6" rx="3" fill="#98ded9"/>
+
+<g class="br">
+  <path d="M106 290c0-50 20-78 55-80 35 2 55 30 55 80z" fill="#7fe0a9"/>
+  <path d="M146 211l15 16 15-16" fill="none" stroke="#161d6f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="151" y="190" width="20" height="24" rx="9" fill="#a86b47"/>
+</g>
+<g class="hd">
+  <circle cx="127" cy="170" r="7" fill="#a86b47"/>
+  <circle cx="161" cy="164" r="35" fill="#a86b47"/>
+  <circle cx="132" cy="146" r="15" fill="#1f1a3a"/><circle cx="146" cy="132" r="16" fill="#1f1a3a"/><circle cx="164" cy="126" r="17" fill="#1f1a3a"/><circle cx="182" cy="134" r="15" fill="#1f1a3a"/><circle cx="193" cy="150" r="12" fill="#1f1a3a"/><circle cx="126" cy="162" r="10" fill="#1f1a3a"/>
+  <ellipse class="bl" cx="150" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <ellipse class="bl" cx="174" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <circle cx="142" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/><circle cx="182" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/>
+  <path d="M154 182q8 7 16 0" fill="none" stroke="#1f1a3a" stroke-width="2.6" stroke-linecap="round"/>
+  
+</g>
+<g><path d="M122 236c-10 22-6 40 16 46" stroke="#68b78a" stroke-width="20" stroke-linecap="round" fill="none"/><circle cx="148" cy="283" r="9" fill="#a86b47"/></g>
+<g class="arm">
+  <path d="M202 236c26 4 44-14 52-38" stroke="#68b78a" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <rect x="236" y="88" width="78" height="138" rx="14" fill="#161d6f"/>
+  <rect x="243" y="98" width="64" height="118" rx="8" fill="#ffffff"/>
+  <clipPath id="scr"><rect x="243" y="98" width="64" height="118" rx="8"/></clipPath>
+  <g clip-path="url(#scr)"><g class="feed">
+    <rect x="249" y="106" width="52" height="30" rx="6" fill="#c7ffd8"/><rect x="254" y="112" width="26" height="5" rx="2.5" fill="#161d6f" opacity=".55"/><rect x="249" y="144" width="52" height="30" rx="6" fill="#c9c9f6"/><rect x="254" y="150" width="26" height="5" rx="2.5" fill="#161d6f" opacity=".55"/><rect x="249" y="182" width="52" height="30" rx="6" fill="#98ded9"/><rect x="254" y="188" width="26" height="5" rx="2.5" fill="#161d6f" opacity=".55"/><rect x="249" y="220" width="52" height="30" rx="6" fill="#c7ffd8"/><rect x="254" y="226" width="26" height="5" rx="2.5" fill="#161d6f" opacity=".55"/><rect x="249" y="258" width="52" height="30" rx="6" fill="#c9c9f6"/><rect x="254" y="264" width="26" height="5" rx="2.5" fill="#161d6f" opacity=".55"/><rect x="249" y="296" width="52" height="30" rx="6" fill="#98ded9"/><rect x="254" y="302" width="26" height="5" rx="2.5" fill="#161d6f" opacity=".55"/>
+  </g></g>
+  <circle cx="246" cy="210" r="10" fill="#a86b47"/>
+  <g class="ping"><rect x="300" y="70" width="58" height="30" rx="12" fill="#ffffff" stroke="#dfe3f0"/><path class="hrt" d="M318 80c-4-5-11-1-7 5l7 7 7-7c4-6-3-10-7-5z" fill="#ff7a8a"/><rect x="330" y="82" width="20" height="5" rx="2.5" fill="#161d6f" opacity=".5"/></g>
+</g>
+
+</svg>

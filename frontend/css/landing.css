@@ -1,0 +1,415 @@
+/* EduPath landing page.
+   World: a soft colour field (aqua, mint, lavender) on a light silver ground, Midnight Ink type.
+   Signature: the hero "role theater", six characters that rotate with the skills each role needs.
+   Motion: one spring curve, transform and opacity only, no scroll listeners. */
+
+:root{
+  --bg:#fbfbfd; --bg-2:#f2f3f7; --plate:#ffffff;
+  --ink:#0f1450; --ink-2:#474c78; --ink-3:#5d6289;
+  --hair:rgba(15,20,80,.07); --hair-2:rgba(15,20,80,.12);
+  --brand:#161d6f; --brand-2:#0e1350;
+  --mint:#c7ffd8; --mint-2:#e3fbea; --teal:#0b6560;
+  --f-aqua:#bfeee9; --f-mint:#d6fbe2; --f-lav:#dfdffb; --f-base:#eef6f6;
+  --spring:cubic-bezier(.32,.72,0,1);
+  --rebound:cubic-bezier(.34,1.42,.48,1);
+  --soft:0 30px 60px -34px rgba(15,20,80,.28),0 10px 24px -18px rgba(15,20,80,.12);
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit}
+.page{will-change:auto}
+img{display:block;max-width:100%;height:auto}
+:focus-visible{outline:2px solid var(--brand);outline-offset:4px;border-radius:8px}
+::selection{background:var(--mint);color:var(--ink)}
+.wrap{width:min(1160px,100% - 48px);margin-inline:auto}
+.ph-light{line-height:1}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:14px;border-radius:999px;font:600 16px/1 var(--sans);text-decoration:none;white-space:nowrap;cursor:pointer;border:0;transition:transform .5s var(--spring),background .4s var(--spring),box-shadow .5s var(--spring)}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--brand);color:#fbfbff;padding:8px 8px 8px 26px;box-shadow:0 14px 30px -14px rgba(15,20,80,.55)}
+.btn-primary:hover{background:var(--brand-2)}
+.btn .isle{width:38px;height:38px;border-radius:999px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:17px;transition:transform .6s var(--spring),background .4s}
+.btn-primary:hover .isle{transform:translate(3px,-1px) scale(1.06);background:rgba(199,255,216,.22)}
+.btn-sm{font-size:14px;padding:6px 6px 6px 18px;gap:10px}
+.btn-sm .isle{width:30px;height:30px;font-size:15px}
+
+/* ---------- Floating island nav (approved) ---------- */
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:28px;padding:8px 8px 8px 20px;border-radius:999px;
+  background:rgba(251,251,253,.72);backdrop-filter:saturate(1.6) blur(20px);-webkit-backdrop-filter:saturate(1.6) blur(20px);
+  box-shadow:0 0 0 1px var(--hair),0 12px 32px -18px rgba(15,20,80,.3);width:max-content;max-width:calc(100% - 24px)}
+.brand{display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:19px;letter-spacing:-.04em;text-decoration:none;color:var(--ink)}
+.brand svg{flex:none;width:26px;height:26px}
+.nav-links{display:flex;gap:26px;font-size:14px;font-weight:500;color:var(--ink-2)}
+.nav-links a{text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--ink)}
+.nav-end{display:flex;align-items:center;gap:6px}
+.nav-signin{font-size:14px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:8px 12px}
+.nav-signin:hover{color:var(--ink)}
+.burger{display:none;position:relative;width:42px;height:42px;border-radius:999px;border:0;background:var(--bg-2);cursor:pointer;flex:none}
+.burger span{position:absolute;left:13px;width:16px;height:1.5px;border-radius:2px;background:var(--ink);transition:transform .6s var(--spring),opacity .3s}
+.burger span:nth-child(1){top:16px}.burger span:nth-child(2){top:20.5px}.burger span:nth-child(3){top:25px}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-4.5px) rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:center;padding:96px 28px 48px;
+  background:rgba(251,251,253,.86);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  opacity:0;visibility:hidden;transition:opacity .5s var(--spring),visibility 0s .5s}
+.menu.is-open{opacity:1;visibility:visible;transition:opacity .5s var(--spring)}
+.menu a{display:block;font-size:clamp(30px,8vw,44px);font-weight:800;letter-spacing:-.04em;line-height:1.3;text-decoration:none;color:var(--ink);
+  opacity:0;transform:translateY(36px);transition:opacity .6s var(--spring),transform .8s var(--spring)}
+.menu.is-open a{opacity:1;transform:none}
+.menu.is-open a:nth-child(2){transition-delay:.05s}.menu.is-open a:nth-child(3){transition-delay:.1s}
+.menu.is-open a:nth-child(4){transition-delay:.15s}.menu.is-open a:nth-child(5){transition-delay:.2s}
+.menu .menu-foot{margin-top:36px;font-size:14.5px;color:var(--ink-3);opacity:0;transition:opacity .6s var(--spring) .25s}
+.menu.is-open .menu-foot{opacity:1}
+
+/* ---------- Colour field (shared by hero and closing panel) ---------- */
+.field{position:relative;isolation:isolate;overflow:hidden;overflow:clip;background:var(--f-base);border-radius:40px}
+.field .orb{position:absolute;z-index:-1;border-radius:50%;pointer-events:none;will-change:transform}
+.field .o1{width:80%;aspect-ratio:1;left:-14%;top:-30%;background:radial-gradient(circle,var(--f-aqua) 0%,rgba(191,238,233,.6) 38%,rgba(191,238,233,0) 70%);animation:drift1 22s var(--spring) infinite alternate}
+.field .o2{width:74%;aspect-ratio:1;right:-12%;bottom:-36%;background:radial-gradient(circle,var(--f-lav) 0%,rgba(223,223,251,.6) 38%,rgba(223,223,251,0) 70%);animation:drift2 26s var(--spring) infinite alternate}
+.field .o3{width:56%;aspect-ratio:1;left:40%;top:30%;background:radial-gradient(circle,var(--f-mint) 0%,rgba(214,251,226,.6) 38%,rgba(214,251,226,0) 70%);animation:drift3 18s var(--spring) infinite alternate}
+@keyframes drift1{to{transform:translate(8%,10%) scale(1.08)}}
+@keyframes drift2{to{transform:translate(-10%,-6%) scale(1.06)}}
+@keyframes drift3{to{transform:translate(-12%,8%) scale(.92)}}
+
+/* ---------- 1. Hero: fixed promise on top, the role theater below ---------- */
+.hero{padding:88px 16px 0}
+.hero .field{max-width:1400px;margin:0 auto;min-height:min(calc(100dvh - 104px),960px);padding:clamp(44px,5vw,64px) clamp(20px,5vw,72px) 26px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero h1{font-weight:800;font-size:clamp(36px,4.6vw,58px);line-height:1.05;letter-spacing:-.045em;margin:0;max-width:16ch}
+.hero .lede{font-size:clamp(16.5px,1.4vw,18.5px);color:var(--ink-2);margin:16px auto 0;max-width:56ch;line-height:1.6}
+.hero .cta{margin-top:26px}
+
+.theater{position:relative;width:100%;max-width:1060px;flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:24px;margin-top:clamp(8px,1.5vw,20px)}
+.stage{position:relative;aspect-ratio:1/1;width:100%;max-width:min(340px,38vh);justify-self:center}
+.art{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:translateY(18px) scale(.94);transition:opacity .7s var(--spring),transform 1s var(--spring)}
+.art.is-on{opacity:1;transform:none}
+.art.is-off{opacity:0;transform:translateY(-14px) scale(.96)}
+.art img{width:100%;height:100%;object-fit:contain}
+.art-in,.thumb-in{width:100%;height:100%;display:grid;place-items:center}
+/* Placeholder shown only if a role illustration file is missing */
+.ph-art{width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95),rgba(255,255,255,.55) 60%,rgba(255,255,255,.25));box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 30px 60px -30px rgba(15,20,80,.25);display:grid;place-items:center;text-align:center;padding:16%}
+.ph-art i{display:block;font-size:64px;color:var(--brand);margin:0 auto 10px;animation:bob 3.6s var(--spring) infinite alternate}
+.ph-art span{font-size:12.5px;font-weight:600;color:var(--ink-3);line-height:1.4}
+@keyframes bob{to{transform:translateY(-8px) rotate(-3deg)}}
+
+.role-copy{position:relative;text-align:left;min-height:180px;align-self:center}
+.role-copy article{position:absolute;inset:0 0 auto;opacity:0;transform:translateY(-10px);transition:opacity .28s var(--spring),transform .5s var(--spring);pointer-events:none}
+.role-copy article.is-on{position:relative;opacity:1;transform:none;pointer-events:auto;transition:opacity .6s var(--spring) .22s,transform .9s var(--spring) .22s}
+.js .role-copy article:not(.is-on){transform:translateY(-10px)}
+.role-copy small{display:block;font-size:13px;font-weight:600;color:var(--ink-3)}
+.role-copy h2{font-size:clamp(24px,2.3vw,30px);font-weight:800;letter-spacing:-.035em;line-height:1.1;margin:6px 0 10px}
+.role-copy p{margin:0;font-size:15.5px;color:var(--ink-2);max-width:30ch}
+
+/* Skill chips: depth-layered, drift toward the cursor, bob gently on their own */
+.chips{position:relative;height:100%;min-height:220px}
+.chip-set{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--spring)}
+.chip-set.is-on{opacity:1}
+.chip{position:absolute;will-change:transform}
+.chip > span{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font-size:14px;font-weight:600;color:var(--ink);padding:11px 16px;border-radius:999px;
+  background:rgba(255,255,255,.82);box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 18px 36px -20px rgba(15,20,80,.35);
+  animation:idle 5s var(--spring) infinite alternate;opacity:0;transform:translateY(12px) scale(.96);transition:opacity .6s var(--spring),transform .8s var(--spring)}
+.chip-set.is-on .chip > span{opacity:1;transform:none}
+.chip-set.is-on .chip:nth-child(2) > span{transition-delay:.08s;animation-delay:-1.6s}
+.chip-set.is-on .chip:nth-child(3) > span{transition-delay:.16s;animation-delay:-3.2s}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.chip:nth-child(1){left:6%;top:6%}.chip:nth-child(2){left:30%;top:42%}.chip:nth-child(3){left:2%;top:74%}
+@keyframes idle{from{translate:0 0}to{translate:0 -7px}}
+.chip-label{position:absolute;left:6%;top:-18px;font-size:12.5px;font-weight:600;color:var(--ink-3)}
+
+/* Role tabs with a fill-up timer */
+.tabs{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:clamp(10px,2vw,18px);padding:6px;border-radius:999px;background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75)}
+.tab{position:relative;overflow:hidden;border:0;background:transparent;font:600 13.5px/1 var(--sans);color:var(--ink-2);padding:11px 16px;border-radius:999px;cursor:pointer;transition:color .4s var(--spring),background .4s var(--spring)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:0 8px 20px -14px rgba(15,20,80,.45)}
+.tab .timer{position:absolute;left:14px;right:14px;bottom:5px;height:2px;border-radius:2px;background:var(--brand);transform:scaleX(0);transform-origin:left;opacity:0}
+.tab[aria-selected="true"] .timer{opacity:.85;animation:fill var(--dur,5600ms) linear forwards}
+.theater.is-paused .tab .timer,.theater.is-static .tab .timer{animation-play-state:paused}
+.theater.is-static .tab .timer{opacity:0}
+@keyframes fill{to{transform:scaleX(1)}}
+.pause{border:0;background:transparent;color:var(--ink-3);width:38px;height:38px;border-radius:999px;cursor:pointer;display:grid;place-items:center;font-size:18px;transition:background .3s,color .3s}
+.pause:hover{background:rgba(255,255,255,.7);color:var(--ink)}
+.tab-row{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(88px,11vw,136px) 0}
+.alt{background:var(--bg-2)}
+.h2{font-weight:800;font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-.04em;margin:0}
+.sub{font-size:17px;color:var(--ink-2);margin:16px 0 0;max-width:52ch}
+.center{text-align:center}.center .sub{margin-inline:auto}
+
+/* ---------- 2. How it works: three stops on one road ---------- */
+.road{list-style:none;margin:clamp(48px,6vw,72px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(28px,4vw,56px);position:relative}
+.road::before{content:"";position:absolute;left:14px;right:calc((100% - 3 * clamp(28px,4vw,56px)) / 4 - 14px);top:12px;height:4px;border-radius:99px;
+  background:repeating-linear-gradient(90deg,var(--brand) 0 14px,transparent 14px 24px);opacity:.75;transform-origin:left;transition:transform 1.4s var(--spring)}
+.js .road:not(.in)::before{transform:scaleX(0)}
+.road li{position:relative}
+.road .dot{display:block;width:28px;height:28px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 3px var(--brand);margin-bottom:22px;position:relative;z-index:1}
+.road li:last-child .dot{background:var(--mint)}
+.road h3{font-size:20px;font-weight:700;letter-spacing:-.025em;line-height:1.25;margin:0 0 8px}
+.road p{margin:0;font-size:15.5px;color:var(--ink-2);max-width:30ch}
+
+/* ---------- 3. Roles: six tiles with the same characters ---------- */
+.roles{list-style:none;margin:clamp(48px,6vw,72px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,24px)}
+.roles li{display:grid;grid-template-columns:76px 1fr;gap:18px;align-items:center;padding:18px;border-radius:28px;transition:background .5s var(--spring),transform .6s var(--spring)}
+.roles li:hover{background:#fff;transform:translateY(-3px);box-shadow:var(--soft)}
+.thumb{width:76px;height:76px;border-radius:24px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(140deg,var(--f-aqua),var(--f-lav))}
+.thumb i{font-size:30px;color:var(--brand)}
+.roles h3{margin:0;font-size:17px;font-weight:700;letter-spacing:-.02em}
+.roles p{margin:4px 0 0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+
+/* ---------- 4. Evidence ---------- */
+.figures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,56px);margin-top:clamp(44px,6vw,64px)}
+.figure strong{display:block;font-weight:800;font-size:clamp(36px,4vw,52px);line-height:1;letter-spacing:-.05em;color:var(--brand)}
+.figure p{margin:14px 0 8px;font-size:16px;max-width:28ch}
+.figure cite{font-style:normal;font-size:13px;color:var(--ink-3)}
+
+/* ---------- 5. About ---------- */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:start}
+.progs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px 24px}
+.progs b{display:block;font-weight:800;font-size:clamp(28px,3vw,38px);letter-spacing:-.05em;line-height:1;color:var(--brand)}
+.progs span{display:block;margin-top:8px;font-size:14.5px;color:var(--ink-3)}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,48px);margin-top:clamp(48px,6vw,72px);padding-top:32px;position:relative}
+.notes::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--hair-2)}
+.notes h3{margin:0 0 6px;font-size:16px;font-weight:700}
+.notes p{margin:0;font-size:15px;color:var(--ink-2)}
+
+/* ---------- 6. FAQ: smooth open and close ---------- */
+.faq{max-width:820px;margin:clamp(40px,5vw,56px) auto 0}
+.faq details{position:relative;border-radius:22px;transition:background .4s var(--spring)}
+.faq details[open]{background:#fff;box-shadow:var(--soft)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:22px 24px;font-size:17.5px;font-weight:700;letter-spacing:-.02em;cursor:pointer;border-radius:22px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{flex:none;width:30px;height:30px;border-radius:50%;background:var(--bg-2);display:grid;place-items:center;font-size:16px;color:var(--ink-2);transition:transform .6s var(--spring),background .4s}
+.faq details[open] summary .plus{transform:rotate(45deg);background:var(--mint-2);color:var(--teal)}
+.faq .answer{overflow:hidden}
+.faq .answer p{margin:0;padding:0 24px 24px;font-size:16px;color:var(--ink-2);max-width:64ch}
+.faq details + details{margin-top:6px}
+
+/* ---------- 7. Closing panel ---------- */
+.closing{padding:clamp(56px,8vw,96px) 16px clamp(56px,8vw,88px)}
+.closing .field{max-width:1400px;margin:0 auto;padding:clamp(64px,9vw,112px) 24px;text-align:center}
+.closing .h2{max-width:18ch;margin-inline:auto}
+.closing .sub{margin-inline:auto}
+.closing .btn{margin-top:30px}
+
+/* ---------- Footer ---------- */
+.site-foot{padding:0 16px 24px}
+.foot-panel{max-width:1400px;margin:0 auto;background:var(--brand);color:#e9ebff;border-radius:36px;padding:clamp(40px,6vw,72px) clamp(24px,5vw,72px) 28px;position:relative;overflow:hidden;isolation:isolate}
+.foot-panel::after{content:"EduPath";position:absolute;right:-1%;bottom:-.24em;z-index:-1;font-weight:800;font-size:clamp(96px,17vw,260px);letter-spacing:-.06em;line-height:1;color:rgba(199,255,216,.07);pointer-events:none}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:40px}
+.foot-panel .brand{color:#fff}
+.foot-panel p{margin:14px 0 0;color:rgba(233,235,255,.78);font-size:15px;max-width:34ch}
+.foot-panel h2{margin:0 0 14px;font-size:13px;font-weight:700;color:var(--mint);letter-spacing:.02em}
+.foot-panel ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px}
+.foot-panel a{color:#fff;text-decoration:none;transition:color .3s}
+.foot-panel a:hover{color:var(--mint)}
+.foot-panel address{font-style:normal;font-size:15px;line-height:1.7;color:rgba(233,235,255,.85)}
+.foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:clamp(40px,6vw,64px);padding-top:20px;font-size:13px;color:rgba(233,235,255,.72);position:relative}
+.foot-base::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:rgba(233,235,255,.14)}
+.foot-base a{color:rgba(233,235,255,.88);text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- Motion ---------- */
+.js .reveal{opacity:0;transform:translateY(44px) scale(.985);transition:opacity .8s var(--spring),transform 1.15s var(--rebound)}
+.js .reveal.in{opacity:1;transform:none}
+.js .reveal.d1{transition-delay:.08s}.js .reveal.d2{transition-delay:.16s}
+.js .rise{animation:rise 1.1s var(--spring) both}
+.js .rise.r2{animation-delay:.08s}.js .rise.r3{animation-delay:.16s}.js .rise.r4{animation-delay:.28s}
+@keyframes rise{from{opacity:.02;transform:translateY(26px)}to{opacity:1;transform:none}}
+.js h1.rise{animation-name:rise-h1}
+@keyframes rise-h1{from{transform:translateY(22px)}to{transform:none}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1020px){
+  .nav-links,.nav-signin{display:none}
+  .burger{display:inline-block}
+  .nav{gap:14px}
+  .theater{grid-template-columns:1fr;gap:12px;justify-items:center}
+  .stage{max-width:300px;order:1}
+  .role-copy{order:2;text-align:center;min-height:150px;width:100%;max-width:460px}
+  .role-copy p{margin-inline:auto}
+  /* Below 1020px the skill chips sit in a tidy row under the description instead of floating over the art */
+  .chips{order:3;position:relative;height:auto;min-height:0;width:100%}
+  .chip-set{position:static;display:none;flex-wrap:wrap;justify-content:center;gap:8px}
+  .chip-set.is-on{display:flex}
+  .chip{position:static}
+  .chip-label{display:none}
+  .roles{grid-template-columns:1fr 1fr}
+  .about{grid-template-columns:1fr}
+  .road{grid-template-columns:1fr 1fr;row-gap:44px}
+  .road::before{display:none}
+}
+@media (max-width:767px){
+  .wrap{width:calc(100% - 32px)}
+  body{font-size:16px}
+  .nav{top:12px;left:12px;right:12px;transform:none;width:auto;max-width:none;justify-content:space-between;padding:6px 6px 6px 16px}
+  .nav .btn-sm{padding:5px 5px 5px 14px;font-size:13px}
+  .hero{padding:76px 10px 0}
+  .hero .field{border-radius:30px;min-height:0;padding:44px 18px 22px}
+  .hero .cta .btn{width:100%;justify-content:space-between}
+  .hero .cta{width:100%;max-width:360px}
+  .stage{max-width:240px}
+  .chip > span{font-size:12.5px;padding:8px 12px}
+  .chip i{width:6px;height:6px}
+  .tabs{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;max-width:100%;border-radius:22px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none}
+  .road{grid-template-columns:1fr;gap:34px}
+  .road::before{display:block;left:12px;right:auto;top:14px;bottom:14px;width:4px;height:auto;background:repeating-linear-gradient(180deg,var(--brand) 0 14px,transparent 14px 24px);transform-origin:top}
+  .road li{padding-left:50px}
+  .road .dot{position:absolute;left:0;top:0;margin:0}
+  .roles{grid-template-columns:1fr;gap:8px}
+  .roles li{padding:12px}
+  .figures{grid-template-columns:1fr;gap:36px}
+  .notes{grid-template-columns:1fr}
+  .closing .field{border-radius:30px}
+  .closing .btn{width:100%;max-width:360px;justify-content:space-between}
+  .foot-grid{grid-template-columns:1fr;gap:32px}
+  .foot-panel{border-radius:28px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .js .reveal,.js .rise{opacity:1;transform:none}
+}
+
+/* ---------- Hero fit: the hero is always exactly one screen tall ----------
+   Desktop: promise on the left, role theater on the right. Phones and tablets: compact stack. */
+@media (min-width:1021px){
+  .hero{padding-top:88px}
+  .hero .field{min-height:0;height:calc(100svh - 100px);max-height:880px;display:grid;
+    grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);grid-template-rows:1fr auto auto auto 1fr auto;
+    column-gap:clamp(20px,3vw,48px);text-align:left;padding:clamp(16px,3vh,48px) clamp(32px,5vw,80px) clamp(30px,5.4vh,56px)}
+  /* Left column: the promise, centred vertically against the theater */
+  .hero h1{grid-column:1;grid-row:2;font-size:clamp(36px,min(4.7vw,7.4vh),66px);line-height:1.02;max-width:12ch;margin:0;text-wrap:balance}
+  .hero .lede{grid-column:1;grid-row:3;margin:clamp(12px,2.2vh,22px) 0 0;max-width:38ch;font-size:clamp(16px,min(1.35vw,2.4vh),19.5px)}
+  .hero .cta{grid-column:1;grid-row:4;margin-top:clamp(18px,3.4vh,32px);justify-self:start}
+  /* Right column: character centred, skills floating around it, role text below */
+  .theater{grid-column:2;grid-row:1 / 6;align-self:stretch;margin:0;max-width:none;width:100%;height:100%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(6px,1.4vh,16px)}
+  .stage{order:1;width:min(100%,46vh,420px);max-width:none;flex:none}
+  .role-copy{order:2;text-align:center;min-height:0;width:100%;max-width:460px}
+  .role-copy p{margin-inline:auto;max-width:36ch}
+  .role-copy h2{font-size:clamp(21px,min(2vw,3.3vh),28px);margin:4px 0 6px}
+  .chips{position:absolute;inset:0;height:auto;min-height:0;pointer-events:none;order:3}
+  .chip-set{position:absolute;inset:0}
+  .chip-label{display:none}
+  /* Asymmetric placement, kept clear of the character and the role text */
+  .chip:nth-child(1){left:0;top:17%}
+  .chip:nth-child(2){left:auto;right:0;top:30%}
+  .chip:nth-child(3){left:0;top:52%}
+  .tab-row{grid-column:2;grid-row:6;justify-self:center;margin-top:clamp(6px,1.2vh,14px)}
+  .tabs{margin-top:0}
+}
+
+/* Phones and tablets: compact stack (same as option A) */
+@media (max-width:1020px){
+  .hero{padding-top:72px}
+  .hero .field{min-height:calc(100svh - 82px);height:auto;justify-content:space-between;padding:clamp(16px,3vh,40px) 16px clamp(10px,1.6vh,22px)}
+  .hero h1{font-size:clamp(25px,min(7.6vw,4.6vh),40px)}
+  .hero .lede{font-size:clamp(14px,2vh,17px);margin-top:clamp(6px,1.2vh,14px)}
+  .hero .cta{margin-top:clamp(10px,2vh,24px)}
+  .theater{flex:1 1 auto;min-height:0;margin-top:clamp(4px,1vh,14px);gap:clamp(4px,1vh,12px)}
+  .stage{max-width:min(240px,19vh)}
+  .theater{flex:0 0 auto}
+  .role-copy{min-height:0}
+  .role-copy small{display:none}
+  .role-copy h2{font-size:clamp(18px,2.9vh,24px);margin:2px 0 4px}
+  .role-copy p{font-size:clamp(13px,1.9vh,15px);line-height:1.45}
+  .chip > span{font-size:12px;padding:6px 10px}
+  .tabs{margin-top:clamp(6px,1vh,14px)}
+  /* phone fit: tab row and pause share one line; panel may grow rather than clip */
+  .tab-row{flex-wrap:nowrap;width:100%;max-width:100%}
+  .tabs{flex:1 1 auto;min-width:0}
+
+}
+
+/* ---------- Section personality (matches the hero) ---------- */
+/* How it works: a small looping scene above each stop */
+.vig{display:grid;place-items:center;width:96px;height:68px;margin-bottom:18px;border-radius:22px;
+  background:linear-gradient(140deg,var(--f-aqua),var(--f-lav));box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 16px 30px -22px rgba(15,20,80,.4)}
+.road li:nth-child(2) .vig{background:linear-gradient(140deg,var(--f-mint),var(--f-aqua))}
+.road li:nth-child(3) .vig{background:linear-gradient(140deg,var(--f-lav),#f2f0ff)}
+.road li:nth-child(4) .vig{background:linear-gradient(140deg,var(--f-mint),var(--f-lav))}
+.vig svg{width:84px;height:56px;overflow:visible}
+.v-rate circle{fill:#fff;stroke:var(--brand);stroke-width:2.2}
+.v-match rect{fill:var(--brand);transform-box:fill-box;transform-origin:50% 100%}
+.v-match rect:nth-child(2){fill:#5b63c9}.v-match rect:nth-child(3){fill:#98ded9}
+.v-gap rect{fill:#fff;stroke:var(--brand);stroke-width:1.8}
+.v-gap rect.on{fill:var(--brand)}
+.v-gap rect.need{stroke-dasharray:3 2}
+.v-plan .trail{fill:none;stroke:var(--brand);stroke-width:3;stroke-linecap:round;stroke-dasharray:4 6}
+.v-plan .walker{fill:var(--teal)}
+.v-plan .flag path:first-child{stroke:var(--brand);stroke-width:2.4;stroke-linecap:round}
+.v-plan .flag path:last-child{fill:var(--teal)}
+.v-plan .flag{transform-box:fill-box;transform-origin:0 100%}
+@media (prefers-reduced-motion:no-preference){
+  .road.in .v-rate circle{animation:v-rate 3.6s var(--spring) infinite}
+  .road.in .v-rate circle:nth-child(2){animation-delay:.25s}.road.in .v-rate circle:nth-child(3){animation-delay:.5s}
+  .road.in .v-rate circle:nth-child(4){animation-delay:.75s}.road.in .v-rate circle:nth-child(5){animation-delay:1s}
+  @keyframes v-rate{0%,8%{fill:#fff}18%,70%{fill:var(--brand)}82%,100%{fill:#fff}}
+  .road.in .v-match rect{animation:v-match 3.6s var(--rebound) infinite}
+  .road.in .v-match rect:nth-child(2){animation-delay:.15s}.road.in .v-match rect:nth-child(3){animation-delay:.3s}
+  @keyframes v-match{0%,6%{transform:scaleY(.08)}26%,74%{transform:scaleY(1)}92%,100%{transform:scaleY(.08)}}
+  .road.in .v-gap rect.close{animation:v-gap 3.6s var(--spring) infinite}
+  @keyframes v-gap{0%,25%{fill:#fff;stroke-dasharray:3 2}45%,80%{fill:#7fe0a9;stroke-dasharray:none}100%{fill:#fff;stroke-dasharray:3 2}}
+  .road.in .v-plan .trail{animation:v-trail 2.4s linear infinite}
+  @keyframes v-trail{to{stroke-dashoffset:-20}}
+  .road.in .v-plan .walker{animation:v-walk 3.6s var(--spring) infinite}
+  @keyframes v-walk{0%{transform:translate(0,0)}35%{transform:translate(34px,-22px)}70%,100%{transform:translate(70px,-38px)}}
+  .road.in .v-plan .flag{animation:v-flag 1.4s ease-in-out infinite alternate}
+  @keyframes v-flag{to{transform:skewY(-6deg) scaleX(.94)}}
+  .road.in::before{animation:road-flow 3s linear infinite}
+  @keyframes road-flow{to{background-position:24px 0}}
+}
+@media (min-width:768px){ .road::before{top:98px} }
+
+/* Roles: each tile is a button that shows the role in the hero */
+.roles li{display:block;padding:0}
+.role-tile{all:unset;box-sizing:border-box;display:grid;grid-template-columns:76px 1fr;gap:18px;align-items:center;width:100%;padding:18px;border-radius:28px;cursor:pointer;text-align:left;
+  transition:background .5s var(--spring),transform .6s var(--spring),box-shadow .5s var(--spring)}
+.role-tile:hover{background:#fff;transform:translateY(-3px);box-shadow:var(--soft)}
+.role-tile:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+.role-tile .thumb{transition:transform .6s var(--rebound)}
+.role-tile:hover .thumb{transform:rotate(-6deg) scale(1.06)}
+.roles li:nth-child(2) .thumb{background:linear-gradient(140deg,var(--f-mint),var(--f-aqua))}
+.roles li:nth-child(3) .thumb{background:linear-gradient(140deg,var(--f-lav),#f2f0ff)}
+.roles li:nth-child(4) .thumb{background:linear-gradient(140deg,var(--f-aqua),var(--f-mint))}
+.roles li:nth-child(5) .thumb{background:linear-gradient(140deg,#ffe3e8,var(--f-lav))}
+.roles li:nth-child(6) .thumb{background:linear-gradient(140deg,var(--f-lav),var(--f-aqua))}
+.role-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.role-skills span{font-size:12px;font-weight:600;color:var(--teal);background:var(--mint-2);border-radius:999px;padding:4px 10px}
+.role-go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:600;color:var(--brand);opacity:0;transform:translateX(-6px);transition:opacity .4s var(--spring),transform .5s var(--spring)}
+.role-tile:hover .role-go,.role-tile:focus-visible .role-go{opacity:1;transform:none}
+
+/* Evidence: figures live in a soft colour band */
+.band{margin-top:clamp(40px,5vw,56px);padding:clamp(28px,4vw,56px);border-radius:36px}
+.band .figures{margin-top:0}
+
+/* About: programs as coloured badges */
+.badges li{padding:18px 18px 16px;border-radius:24px;background:linear-gradient(140deg,var(--f-aqua),#f4fbfb);transition:transform .6s var(--rebound)}
+.badges li:nth-child(2){background:linear-gradient(140deg,var(--f-mint),#f6fdf8)}
+.badges li:nth-child(3){background:linear-gradient(140deg,var(--f-lav),#f7f7fe)}
+.badges li:nth-child(4){background:linear-gradient(140deg,#ffe3e8,#fff8f9)}
+.badges li:hover{transform:translateY(-4px) rotate(-1deg)}
+
+/* Closing: the whole cast lines up */
+.lineup{display:flex;justify-content:center;margin:0 auto clamp(18px,3vw,28px);max-width:820px}
+.lineup img{width:clamp(84px,13vw,150px);height:auto;margin:0 clamp(-22px,-1.6vw,-10px);filter:drop-shadow(0 14px 18px rgba(15,20,80,.12))}
+@media (prefers-reduced-motion:no-preference){
+  .closing .in .lineup img{animation:line-bob 3.2s var(--spring) infinite alternate}
+  .closing .in .lineup img:nth-child(2){animation-delay:-.6s}.closing .in .lineup img:nth-child(3){animation-delay:-1.2s}
+  .closing .in .lineup img:nth-child(4){animation-delay:-1.8s}.closing .in .lineup img:nth-child(5){animation-delay:-2.4s}
+  .closing .in .lineup img:nth-child(6){animation-delay:-3s}
+  @keyframes line-bob{to{transform:translateY(-8px)}}
+}
+@media (max-width:767px){
+  .vig{margin:0 0 12px}
+  .lineup{flex-wrap:wrap;row-gap:4px}
+  .lineup img{width:30%;margin:0 -2%}
+  .band{border-radius:28px;padding:26px 20px}
+}

@@ -1,0 +1,463 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-19T14:30:53+00:00",
+  "title": "Design System: EduPath",
+  "extensions": {
+    "colorMeta": {
+      "midnight-ink": {
+        "role": "primary",
+        "displayName": "Midnight Ink",
+        "canonical": "oklch(29.2% 0.139 271)",
+        "tonalRamp": [
+          "#070044",
+          "#101265",
+          "#263587",
+          "#4155ab",
+          "#5f76cf",
+          "#7e98f4",
+          "#a5c2ff",
+          "#d0ebff"
+        ]
+      },
+      "midnight-ink-deep": {
+        "role": "primary",
+        "displayName": "Midnight Ink Deep",
+        "canonical": "oklch(23.4% 0.109 271)",
+        "tonalRamp": [
+          "#040038",
+          "#131a58",
+          "#2b3979",
+          "#47589b",
+          "#6579be",
+          "#859ae3",
+          "#adc4ff",
+          "#d3ebff"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(23.7% 0.108 271)",
+        "tonalRamp": [
+          "#040037",
+          "#131b57",
+          "#2c3978",
+          "#48589a",
+          "#6679bd",
+          "#869ae2",
+          "#aec4ff",
+          "#d4ebff"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "oklch(39.2% 0.086 277)",
+        "tonalRamp": [
+          "#07022e",
+          "#1b1d4c",
+          "#343a6c",
+          "#51598e",
+          "#7079b0",
+          "#909ad4",
+          "#b8c3ff",
+          "#dfeaff"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "oklch(54.2% 0.061 277)",
+        "tonalRamp": [
+          "#070624",
+          "#1d2041",
+          "#383c60",
+          "#555a80",
+          "#747aa2",
+          "#959bc5",
+          "#bdc4f0",
+          "#e4ecff"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "canonical": "oklch(97.3% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c7c7c7",
+          "#eeeeee"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c7c7c7",
+          "#eeeeee"
+        ]
+      },
+      "sea-glass": {
+        "role": "secondary",
+        "displayName": "Sea Glass",
+        "canonical": "oklch(85.3% 0.070 190)",
+        "tonalRamp": [
+          "#001312",
+          "#002e2c",
+          "#004b48",
+          "#226a67",
+          "#468b87",
+          "#68ada8",
+          "#91d6d2",
+          "#b7fef9"
+        ]
+      },
+      "sea-glass-wash": {
+        "role": "secondary",
+        "displayName": "Sea Glass Wash",
+        "canonical": "oklch(92.9% 0.028 191)",
+        "tonalRamp": [
+          "#000f0e",
+          "#122827",
+          "#2e4543",
+          "#4b6361",
+          "#6a8381",
+          "#8ba4a3",
+          "#b3cecc",
+          "#daf5f3"
+        ]
+      },
+      "fresh-mint": {
+        "role": "tertiary",
+        "displayName": "Fresh Mint",
+        "canonical": "oklch(95.1% 0.077 154)",
+        "tonalRamp": [
+          "#001300",
+          "#002e11",
+          "#164b2d",
+          "#376a4a",
+          "#578b68",
+          "#78ad89",
+          "#a0d7b1",
+          "#c7ffd8"
+        ]
+      },
+      "mint-wash": {
+        "role": "neutral",
+        "displayName": "Mint Wash",
+        "canonical": "oklch(96.0% 0.023 166)",
+        "tonalRamp": [
+          "#030e09",
+          "#192821",
+          "#34443d",
+          "#52625b",
+          "#71827a",
+          "#92a39b",
+          "#baccc4",
+          "#e1f4eb"
+        ]
+      },
+      "met-teal": {
+        "role": "tertiary",
+        "displayName": "Met Teal",
+        "canonical": "oklch(45.8% 0.077 189)",
+        "tonalRamp": [
+          "#001312",
+          "#002f2b",
+          "#004c48",
+          "#176b66",
+          "#3f8c86",
+          "#62aea8",
+          "#8bd8d1",
+          "#b2fff9"
+        ]
+      },
+      "met-wash": {
+        "role": "tertiary",
+        "displayName": "Met Wash",
+        "canonical": "oklch(96.6% 0.051 156)",
+        "tonalRamp": [
+          "#001103",
+          "#0a2b19",
+          "#274834",
+          "#456752",
+          "#648771",
+          "#85a891",
+          "#add2ba",
+          "#d4fae1"
+        ]
+      },
+      "gap-wash": {
+        "role": "neutral",
+        "displayName": "Gap Wash",
+        "canonical": "oklch(92.9% 0.024 281)",
+        "tonalRamp": [
+          "#090a15",
+          "#222330",
+          "#3d3e4d",
+          "#5b5c6b",
+          "#7a7c8c",
+          "#9b9dae",
+          "#c4c6d7",
+          "#ebedff"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "canonical": "rgba(22,29,111,.13)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only, one per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings; they stand alone with no label above."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card and step titles."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Match percentages and step numbers; the loudest element on data surfaces."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Hero and section intro paragraphs."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase tags, in-component captions, and footer column headings; never above a heading."
+      },
+      "accent": {
+        "displayName": "Accent (Margin Note)",
+        "purpose": "One italic serif phrase per heading, on the Fresh Mint highlighter stroke."
+      }
+    },
+    "shadows": [
+      {
+        "name": "rest",
+        "value": "0 1px 2px rgba(22,29,111,.04)",
+        "purpose": "Default card state."
+      },
+      {
+        "name": "hover-lift",
+        "value": "0 22px 40px -24px rgba(22,29,111,.3)",
+        "purpose": "Interactive cards on hover, with translateY(-4px)."
+      },
+      {
+        "name": "hero-lift",
+        "value": "0 30px 60px -30px rgba(22,29,111,.28), 0 2px 6px rgba(22,29,111,.05)",
+        "purpose": "The one floating object per screen (scorecard / main result)."
+      },
+      {
+        "name": "panel",
+        "value": "0 20px 50px -30px rgba(22,29,111,.3)",
+        "purpose": "Large composite panels."
+      },
+      {
+        "name": "button",
+        "value": "0 8px 20px -8px rgba(22,29,111,.55)",
+        "purpose": "Primary buttons only."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 4px rgba(22,29,111,.12)",
+        "purpose": "Input focus; extend to :focus-visible on controls."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state",
+        "value": ".2s ease",
+        "purpose": "Buttons and inputs: color, background, border, 1px lift."
+      },
+      {
+        "name": "underline",
+        "value": ".25s ease",
+        "purpose": "Nav link underline growing from the left."
+      },
+      {
+        "name": "card-lift",
+        "value": ".3s ease",
+        "purpose": "Card hover lift and shadow."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition: none",
+        "purpose": "All transitions disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tablet",
+        "value": "1020px"
+      },
+      {
+        "name": "mobile",
+        "value": "720px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main call to action; one per view region.",
+      "html": "<button class=\"ds-btn-primary\">Analyze My Skills <span aria-hidden=\"true\">→</span></button>",
+      "css": ".ds-btn-primary{font-family:Manrope,system-ui,sans-serif;display:inline-flex;align-items:center;gap:8px;background:#161d6f;color:#fff;font-weight:600;font-size:14px;line-height:1;padding:14px 24px;border:1px solid transparent;border-radius:999px;box-shadow:0 8px 20px -8px rgba(22,29,111,.55);cursor:pointer;transition:transform .2s,background .2s}.ds-btn-primary:hover{background:#0e1350;transform:translateY(-1px)}.ds-btn-primary:active{transform:translateY(0)}.ds-btn-primary:focus-visible{outline:2px solid #0e1350;outline-offset:3px;box-shadow:0 0 0 4px rgba(22,29,111,.12)}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action beside a primary.",
+      "html": "<button class=\"ds-btn-outline\">See How It Works</button>",
+      "css": ".ds-btn-outline{font-family:Manrope,system-ui,sans-serif;background:transparent;color:#0f1450;font-weight:600;font-size:14px;line-height:1;padding:14px 24px;border:1px solid #0f1450;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}.ds-btn-outline:hover{background:#0f1450;color:#fff}.ds-btn-outline:focus-visible{outline:2px solid #0e1350;outline-offset:3px;box-shadow:0 0 0 4px rgba(22,29,111,.12)}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-priority action such as Sign In.",
+      "html": "<button class=\"ds-btn-ghost\">Sign In</button>",
+      "css": ".ds-btn-ghost{font-family:Manrope,system-ui,sans-serif;background:transparent;color:#3a4073;font-weight:600;font-size:13px;line-height:1;padding:11px 12px;border:0;border-radius:999px;cursor:pointer;transition:color .2s}.ds-btn-ghost:hover{color:#161d6f}.ds-btn-ghost:focus-visible{outline:2px solid #0e1350;outline-offset:3px;box-shadow:0 0 0 4px rgba(22,29,111,.12)}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Labelled input on Canvas fill; brightens to Paper on focus.",
+      "html": "<label class=\"ds-field\">Email<input class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\"></label>",
+      "css": ".ds-field{font-family:Manrope,system-ui,sans-serif;display:grid;gap:8px;font-size:13px;font-weight:600;color:#3a4073;max-width:320px}.ds-input{font-family:Manrope,system-ui,sans-serif;font-size:15px;color:#0f1450;background:#f6f6f6;border:1px solid rgba(22,29,111,.13);border-radius:14px;padding:14px 16px;transition:border-color .2s,box-shadow .2s,background .2s}.ds-input:focus{outline:none;border-color:#161d6f;background:#fff;box-shadow:0 0 0 4px rgba(22,29,111,.12)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Sticky blurred header with growing-underline links.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><rect width=\"32\" height=\"32\" rx=\"10\" fill=\"#161d6f\"/><path d=\"M8 22 L14 14 L18 18 L24 9\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"24\" cy=\"9\" r=\"2.4\" fill=\"#c7ffd8\"/></svg>EduPath</a><div class=\"ds-links\"><a href=\"#\">How It Works</a><a href=\"#\">Features</a><a href=\"#\">About</a></div></nav>",
+      "css": ".ds-nav{font-family:Manrope,system-ui,sans-serif;display:flex;align-items:center;justify-content:space-between;gap:24px;height:72px;padding:0 24px;background:rgba(246,246,246,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(22,29,111,.13)}.ds-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;letter-spacing:-.04em;color:#0f1450;text-decoration:none}.ds-links{display:flex;gap:34px;font-size:14px;font-weight:500}.ds-links a{position:relative;padding:4px 0;color:#3a4073;text-decoration:none}.ds-links a::after{content:\"\";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:#161d6f;transition:width .25s}.ds-links a:hover{color:#0f1450}.ds-links a:hover::after{width:100%}.ds-links a:focus-visible{outline:2px solid #0e1350;outline-offset:3px;border-radius:4px}"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Static descriptor tag.",
+      "html": "<span class=\"ds-chip\">Random Forests</span>",
+      "css": ".ds-chip{font-family:Manrope,system-ui,sans-serif;display:inline-block;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:#e4f7ee;color:#3a4073;line-height:1.3}"
+    },
+    {
+      "name": "Status Pills",
+      "kind": "chip",
+      "refersTo": "pill-met",
+      "description": "Met (teal on mint) and gap (navy on lavender-grey) skill states, plus a deficit badge. Gaps are never red.",
+      "html": "<div class=\"ds-pills\"><span class=\"ds-pill ds-pill-met\">SQL</span><span class=\"ds-pill ds-pill-gap\">Docker</span><span class=\"ds-deficit\">−3.0 pts</span></div>",
+      "css": ".ds-pills{font-family:Manrope,system-ui,sans-serif;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.ds-pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;padding:7px 12px;border-radius:999px;line-height:1.2}.ds-pill::before{content:\"\";width:6px;height:6px;border-radius:50%;background:currentColor}.ds-pill-met{background:#d9ffe6;color:#0b6560}.ds-pill-gap{background:#e4e6f8;color:#161d6f}.ds-deficit{font-size:12px;font-weight:700;color:#161d6f;background:#e4e6f8;padding:4px 10px;border-radius:999px}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Paper card with navy hairline and soft lift on hover.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-num\">03</span><h3>Vector Skill Gap Analysis</h3><p>Cosine Similarity measures fit; Euclidean deficit isolates each gap.</p></article>",
+      "css": ".ds-card{font-family:Manrope,system-ui,sans-serif;max-width:360px;background:#fff;border:1px solid rgba(22,29,111,.13);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:14px;color:#0f1450;box-shadow:0 1px 2px rgba(22,29,111,.04);transition:transform .3s,box-shadow .3s}.ds-card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -24px rgba(22,29,111,.3)}.ds-card h3{margin:0;font-size:20px;font-weight:700;letter-spacing:-.025em;line-height:1.25}.ds-card p{margin:0;font-size:15px;line-height:1.65;color:#3a4073}.ds-num{font-weight:800;font-size:52px;line-height:1;letter-spacing:-.05em;color:#161d6f}"
+    },
+    {
+      "name": "Scorecard",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "Signature component: the product in miniature. One Hero Lift object per screen; sample data always tagged.",
+      "html": "<div class=\"ds-score\"><span class=\"ds-tag\">Sample scorecard</span><small>Target role</small><h3>Backend Developer</h3><div class=\"ds-score-main\"><div class=\"ds-big\">88<sup>%</sup></div><div class=\"ds-bar\"><i style=\"width:88%\"></i></div></div><div class=\"ds-pills\"><span class=\"ds-pill ds-pill-met\">REST APIs</span><span class=\"ds-pill ds-pill-gap\">Docker</span></div></div>",
+      "css": ".ds-score{font-family:Manrope,system-ui,sans-serif;max-width:380px;background:#fff;border:1px solid rgba(22,29,111,.13);border-radius:28px;padding:28px;color:#0f1450;box-shadow:0 30px 60px -30px rgba(22,29,111,.28),0 2px 6px rgba(22,29,111,.05);transform:rotate(1.2deg)}.ds-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:#e4f7ee;color:#3a4073;margin-bottom:18px}.ds-score small{display:block;font-size:12px;color:#666c93;font-weight:500}.ds-score h3{margin:4px 0 0;font-size:24px;font-weight:700;letter-spacing:-.03em}.ds-score-main{display:flex;align-items:center;gap:16px;padding:20px 0;margin:18px 0;border-top:1px solid rgba(22,29,111,.13);border-bottom:1px solid rgba(22,29,111,.13)}.ds-big{font-weight:800;font-size:60px;line-height:1;letter-spacing:-.05em;color:#161d6f}.ds-big sup{font-size:26px;vertical-align:top;position:relative;top:6px}.ds-bar{flex:1;height:8px;border-radius:99px;background:#e4f7ee;overflow:hidden}.ds-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#98ded9,#161d6f)}.ds-pills{font-family:Manrope,system-ui,sans-serif;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.ds-pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;padding:7px 12px;border-radius:999px;line-height:1.2}.ds-pill::before{content:\"\";width:6px;height:6px;border-radius:50%;background:currentColor}.ds-pill-met{background:#d9ffe6;color:#0b6560}.ds-pill-gap{background:#e4e6f8;color:#161d6f}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Annotated Scorecard",
+    "overview": "EduPath looks like a well-marked paper: a clean white sheet where every number shows its working. Big confident numerals give the verdict, and around them the reasoning is spelled out in plain sight: which skills are met, which fall short, by how much, and what to take next. The interface should feel like a tutor's annotations rather than a machine's output. It is precise and legible, with a human hand in the margins.\n\nThe tone is friendly-rigorous. Heavy, tightly tracked Manrope carries authority. A single italic serif phrase per heading, set over a Fresh Mint highlighter stroke, adds the annotator's voice. Colour stays cool and quiet (deep navy ink on near-white, with sea-glass and mint washes), so the data and the highlights carry the emphasis. Surfaces are generously rounded and softly lifted, and density stays comfortable: sections breathe at 112px and cards hold 32–48px of padding.\n\nRejected outright: the generic SaaS template (purple gradients, glassy startup hero), the old university portal (grey, cramped, form-heavy), and gamified edtech (badges, confetti, cartoon mascots).",
+    "keyCharacteristics": [
+      "Numerals as the hero of any data surface: big, heavy, tightly tracked, in Midnight Ink.",
+      "One italic serif \"annotation\" on the whole page, in the hero headline, highlighted in Fresh Mint.",
+      "The road: How It Works is a single route connecting four stops, echoing the EduPath name.",
+      "Met skills read teal on mint; gaps read navy on lavender-grey. Gaps are never alarm-red.",
+      "Pill-shaped controls, 24–28px card corners, and navy-tinted soft shadows.",
+      "Sample data is always labelled as a sample (see PRODUCT.md)."
+    ],
+    "rules": [
+      {
+        "name": "The Gap Is Not a Failure Rule",
+        "body": "Skill gaps are styled in Midnight Ink on Gap Wash, never red, orange, or a warning palette. A gap is the start of a pathway, not a mark against the student.",
+        "section": "colors"
+      },
+      {
+        "name": "The Highlighter Budget Rule",
+        "body": "One Fresh Mint highlight per page, in the hero headline. If two things are highlighted, neither is.",
+        "section": "colors"
+      },
+      {
+        "name": "The Wash, Not Fill Rule",
+        "body": "Sea Glass and Mint appear as pale washes or thin strokes. No full-strength aqua or mint backgrounds behind text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Margin Note Rule",
+        "body": "The serif italic appears once per page, as the highlighted phrase in the hero headline. Never in section headings, body text, buttons, or as a standalone heading.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tight Big, Open Small Rule",
+        "body": "Negative tracking scales with size (−0.05em on numerals, −0.025em on titles). Uppercase labels go positive (+0.10–0.14em). Body text is never tracked.",
+        "section": "typography"
+      },
+      {
+        "name": "The Navy Shadow Rule",
+        "body": "Every shadow is tinted `rgba(22,29,111,…)`. Neutral black shadows break the ink-on-paper illusion.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Floating Object Rule",
+        "body": "Each screen gets one Hero Lift element, the scorecard or the main result. It may be tilted (1.2deg) on wide screens and is always straightened below 1020px.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do make the numeral the loudest thing on any data surface: Manrope 800, −0.05em, Midnight Ink.",
+      "Do pair every score with its reasoning (met/gap pills, deficits, the next step), in keeping with \"The Annotated Scorecard\".",
+      "Do tint every shadow and border with Midnight Ink (`rgba(22,29,111,…)`).",
+      "Do use full-pill shapes for buttons, chips, pills, and bars, and 24–28px corners for cards.",
+      "Do label sample or illustrative data visibly (the \"Sample scorecard\" tag pattern).",
+      "Do add `:focus-visible` rings to every interactive element and honour `prefers-reduced-motion` (already zeroed globally)."
+    ],
+    "donts": [
+      "Don't drift toward the generic SaaS template: no purple/blue gradient heroes, glassmorphism cards, or gradient text.",
+      "Don't drift toward the old university portal: no grey, cramped, form-heavy screens or dense tables without breathing room.",
+      "Don't add gamified edtech tropes: no badges, streaks, confetti, trophies, or cartoon mascots.",
+      "Don't colour gaps red or orange; use Gap Wash with Midnight Ink.",
+      "Don't set body copy, buttons, or whole headings in the serif italic.",
+      "Don't put a small uppercase label (eyebrow or kicker) above a heading; the heading carries its own weight.",
+      "Don't use the Fresh Mint highlight or the serif italic outside the hero headline.",
+      "Don't use black or grey shadows, or sharp (under 14px) corners on cards."
+    ]
+  }
+}

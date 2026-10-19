@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" role="img" aria-label="Frontend developer building a web page">
+<title>Frontend developer building a web page</title>
+<style>
+.bl{animation:blink 5.2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+.br{animation:breathe 3.8s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes breathe{to{transform:translateY(-2px) scaleY(1.012)}}
+.hd{animation:nod 6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 90%}
+@keyframes nod{0%,100%{transform:rotate(0)}40%{transform:rotate(-3deg)}70%{transform:rotate(2deg)}}
+.ty1{animation:type .42s ease-in-out infinite alternate;transform-box:fill-box}
+.ty2{animation:type .42s ease-in-out -.21s infinite alternate;transform-box:fill-box}
+@keyframes type{to{transform:translateY(-4px)}}
+.bob{animation:bob 3.2s ease-in-out infinite alternate;transform-box:fill-box}
+@keyframes bob{to{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.blk{transform-box:fill-box;transform-origin:left center;animation:build 4.8s cubic-bezier(.32,.72,0,1) infinite}
+.b2{animation-delay:.25s}.b3{animation-delay:.5s}.b4{animation-delay:.75s}
+@keyframes build{0%,8%{transform:scaleX(0);opacity:0}22%,82%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+.cur{animation:cur 4.8s cubic-bezier(.32,.72,0,1) infinite}
+@keyframes cur{0%,30%{transform:translate(0,0)}55%{transform:translate(-34px,-22px)}62%{transform:translate(-34px,-22px) scale(.85)}70%,100%{transform:translate(-34px,-22px)}}
+.tag{animation:bob 2.8s ease-in-out infinite alternate;transform-box:fill-box}
+</style>
+<ellipse cx="205" cy="200" rx="178" ry="150" fill="#ffffff" opacity=".7"/><circle cx="62" cy="96" r="5" fill="#98ded9"/><circle cx="352" cy="78" r="4" fill="#c9c9f6"/><circle cx="360" cy="236" r="6" fill="#7fe0a9" opacity=".7"/>
+<g class="tag"><rect x="262" y="70" width="76" height="40" rx="14" fill="#ffffff" stroke="#dfe3f0"/><text x="300" y="97" text-anchor="middle" font-family="Manrope,Arial,sans-serif" font-weight="800" font-size="20" fill="#161d6f">&lt;/&gt;</text></g>
+<rect x="30" y="288" width="340" height="12" rx="6" fill="#161d6f"/><rect x="60" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/><rect x="330" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/>
+<g>
+  <rect x="214" y="168" width="148" height="104" rx="10" fill="#161d6f"/>
+  <rect x="222" y="176" width="132" height="88" rx="5" fill="#ffffff"/>
+  <rect class="blk" x="230" y="184" width="116" height="10" rx="3" fill="#98ded9"/>
+  <rect class="blk b2" x="230" y="200" width="70" height="26" rx="4" fill="#c7ffd8"/>
+  <rect class="blk b3" x="306" y="200" width="40" height="26" rx="4" fill="#c9c9f6"/>
+  <rect class="blk b4" x="230" y="234" width="44" height="14" rx="7" fill="#161d6f"/>
+  <path d="M198 280h180l-12 8H210z" fill="#0e1350"/>
+  <g class="cur"><path d="M300 236l0 18 5-5 4 9 4-2-4-9h7z" fill="#1f1a3a" stroke="#ffffff" stroke-width="1.5"/></g>
+</g>
+
+<g class="br">
+  <path d="M106 290c0-50 20-78 55-80 35 2 55 30 55 80z" fill="#5b63c9"/>
+  <path d="M146 211l15 16 15-16" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="151" y="190" width="20" height="24" rx="9" fill="#c98f6b"/>
+</g>
+<g class="hd">
+  <circle cx="127" cy="170" r="7" fill="#c98f6b"/>
+  <circle cx="161" cy="164" r="35" fill="#c98f6b"/>
+  <path d="M124 162c-3-31 17-45 37-44 23-1 39 15 36 42-7-13-23-19-41-16-13 2-24 8-32 18z" fill="#1f1a3a"/>
+  <ellipse class="bl" cx="150" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <ellipse class="bl" cx="174" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <circle cx="142" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/><circle cx="182" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/>
+  <path d="M154 182q8 7 16 0" fill="none" stroke="#1f1a3a" stroke-width="2.6" stroke-linecap="round"/>
+  <g fill="none" stroke="#1f1a3a" stroke-width="2.4"><circle cx="150" cy="168" r="9"/><circle cx="174" cy="168" r="9"/><path d="M159 168h6"/></g>
+</g>
+<g class="ty1"><path d="M122 236c-10 22-6 40 16 46" stroke="#4a51a4" stroke-width="20" stroke-linecap="round" fill="none"/><circle cx="148" cy="283" r="9" fill="#c98f6b"/></g><g class="ty2"><path d="M200 236c8 22 6 40-8 46" stroke="#4a51a4" stroke-width="20" stroke-linecap="round" fill="none"/><circle cx="186" cy="283" r="9" fill="#c98f6b"/></g>
+</svg>

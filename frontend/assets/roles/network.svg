@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" role="img" aria-label="Network engineer keeping devices connected">
+<title>Network engineer keeping devices connected</title>
+<style>
+.bl{animation:blink 5.2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+.br{animation:breathe 3.8s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes breathe{to{transform:translateY(-2px) scaleY(1.012)}}
+.hd{animation:nod 6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 90%}
+@keyframes nod{0%,100%{transform:rotate(0)}40%{transform:rotate(-3deg)}70%{transform:rotate(2deg)}}
+.ty1{animation:type .42s ease-in-out infinite alternate;transform-box:fill-box}
+.ty2{animation:type .42s ease-in-out -.21s infinite alternate;transform-box:fill-box}
+@keyframes type{to{transform:translateY(-4px)}}
+.bob{animation:bob 3.2s ease-in-out infinite alternate;transform-box:fill-box}
+@keyframes bob{to{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.wave{animation:wave 2.4s ease-out infinite;transform-box:view-box;transform-origin:300px 168px;opacity:0}
+.w2{animation-delay:.8s}.w3{animation-delay:1.6s}
+@keyframes wave{0%{transform:scale(.6);opacity:0}25%{opacity:1}100%{transform:scale(1.25);opacity:0}}
+.pa{animation:pa 2.2s cubic-bezier(.45,0,.55,1) infinite}
+.pb{animation:pb 2.2s cubic-bezier(.45,0,.55,1) .7s infinite}
+.pc{animation:pc 2.2s cubic-bezier(.45,0,.55,1) 1.4s infinite}
+@keyframes pa{0%{transform:translate(0,0);opacity:0}15%,85%{opacity:1}100%{transform:translate(-58px,-62px);opacity:0}}
+@keyframes pb{0%{transform:translate(0,0);opacity:0}15%,85%{opacity:1}100%{transform:translate(52px,-70px);opacity:0}}
+@keyframes pc{0%{transform:translate(0,0);opacity:0}15%,85%{opacity:1}100%{transform:translate(68px,8px);opacity:0}}
+.nd{animation:nd 2.2s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+@keyframes nd{to{transform:scale(1.12)}}
+</style>
+<ellipse cx="205" cy="200" rx="178" ry="150" fill="#ffffff" opacity=".7"/><circle cx="62" cy="96" r="5" fill="#98ded9"/><circle cx="352" cy="78" r="4" fill="#c9c9f6"/><circle cx="360" cy="236" r="6" fill="#7fe0a9" opacity=".7"/>
+<g fill="none" stroke="#161d6f" stroke-width="5" stroke-linecap="round">
+  <path class="wave" d="M278 150a30 30 0 0 1 44 0"/><path class="wave w2" d="M268 140a44 44 0 0 1 64 0"/><path class="wave w3" d="M258 130a58 58 0 0 1 84 0"/>
+</g>
+<g stroke="#dfe3f0" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round"><path d="M300 200L242 138M300 200L352 130M300 200L368 208"/></g>
+<g class="nd"><circle cx="242" cy="138" r="14" fill="#ffffff" stroke="#98ded9" stroke-width="4"/></g>
+<g class="nd" style="animation-delay:.5s"><circle cx="352" cy="130" r="14" fill="#ffffff" stroke="#c9c9f6" stroke-width="4"/></g>
+<g class="nd" style="animation-delay:1s"><circle cx="368" cy="208" r="14" fill="#ffffff" stroke="#7fe0a9" stroke-width="4"/></g>
+<g fill="#0b6560"><circle class="pa" cx="300" cy="200" r="5"/><circle class="pb" cx="300" cy="200" r="5"/><circle class="pc" cx="300" cy="200" r="5"/></g>
+<rect x="30" y="288" width="340" height="12" rx="6" fill="#161d6f"/><rect x="60" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/><rect x="330" y="300" width="10" height="34" rx="4" fill="#0e1350" opacity=".5"/>
+<g>
+  <path d="M276 196v-30M324 196v-30" stroke="#161d6f" stroke-width="5" stroke-linecap="round"/>
+  <rect x="262" y="194" width="76" height="30" rx="10" fill="#161d6f"/>
+  <circle class="led" cx="280" cy="209" r="4" fill="#c7ffd8"/><circle cx="294" cy="209" r="4" fill="#98ded9"/><circle cx="308" cy="209" r="4" fill="#c7ffd8"/>
+  <rect x="236" y="250" width="108" height="38" rx="8" fill="#0e1350"/>
+  <rect x="246" y="260" width="60" height="6" rx="3" fill="#98ded9" opacity=".7"/><rect x="246" y="272" width="40" height="6" rx="3" fill="#c9c9f6" opacity=".7"/>
+</g>
+<style>.led{animation:led 1.2s steps(1) infinite}@keyframes led{0%{fill:#c7ffd8}50%{fill:#2b3a8f}}</style>
+
+<g class="br">
+  <path d="M106 290c0-50 20-78 55-80 35 2 55 30 55 80z" fill="#2b3a8f"/>
+  <path d="M146 211l15 16 15-16" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="151" y="190" width="20" height="24" rx="9" fill="#c98f6b"/>
+</g>
+<g class="hd">
+  <circle cx="127" cy="170" r="7" fill="#c98f6b"/>
+  <circle cx="161" cy="164" r="35" fill="#c98f6b"/>
+  <path d="M124 162c-3-31 17-45 37-44 23-1 39 15 36 42-7-13-23-19-41-16-13 2-24 8-32 18z" fill="#2a1f1f"/>
+  <ellipse class="bl" cx="150" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <ellipse class="bl" cx="174" cy="168" rx="3.4" ry="4.4" fill="#1f1a3a"/>
+  <circle cx="142" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/><circle cx="182" cy="181" r="5.5" fill="#ff9aa8" opacity=".38"/>
+  <path d="M154 182q8 7 16 0" fill="none" stroke="#1f1a3a" stroke-width="2.6" stroke-linecap="round"/>
+  
+</g>
+<g class="ty1"><path d="M122 236c-10 22-6 40 16 46" stroke="#232f75" stroke-width="20" stroke-linecap="round" fill="none"/><circle cx="148" cy="283" r="9" fill="#c98f6b"/></g><g class="ty2"><path d="M200 236c8 22 6 40-8 46" stroke="#232f75" stroke-width="20" stroke-linecap="round" fill="none"/><circle cx="186" cy="283" r="9" fill="#c98f6b"/></g>
+</svg>
