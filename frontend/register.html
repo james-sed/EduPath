@@ -9,6 +9,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -21,6 +22,7 @@
   <div class="nav-end"><a href="login.html" class="nav-btn">Sign In</a></div>
 </header>
 
+<div class="page" data-page>
 <main class="auth">
   <div class="field">
     <span class="orb o1" aria-hidden="true"></span><span class="orb o2" aria-hidden="true"></span><span class="orb o3" aria-hidden="true"></span>
@@ -32,20 +34,20 @@
       <form data-form="register" novalidate>
         <p class="form-alert" role="alert"></p>
 
-        <div class="field-group">
+        <div class="field-group reveal">
           <label for="name">Full name</label>
           <input class="input" id="name" name="name" type="text" autocomplete="name" autocapitalize="words" placeholder="Juan Dela Cruz" aria-describedby="name-error">
           <p class="error" id="name-error"></p>
         </div>
 
-        <div class="field-group">
+        <div class="field-group reveal">
           <label for="email">Email</label>
           <input class="input" id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="email-hint email-error">
           <p class="hint" id="email-hint">Any email works. Graduates can use a personal address.</p>
           <p class="error" id="email-error"></p>
         </div>
 
-        <div class="field-group">
+        <div class="field-group reveal">
           <label for="password">Password</label>
           <div class="pw">
             <input class="input" id="password" name="password" type="password" autocomplete="new-password" aria-describedby="password-hint password-error">
@@ -55,7 +57,7 @@
           <p class="error" id="password-error"></p>
         </div>
 
-        <div class="field-group">
+        <div class="field-group reveal">
           <fieldset class="tiles" data-group="program" aria-describedby="program-error">
             <legend>Degree program</legend>
             <label class="tile"><input type="radio" name="program" value="BSIT"><span><b>BSIT</b><small>Information Technology</small></span></label>
@@ -66,7 +68,7 @@
           <p class="error" id="program-error"></p>
         </div>
 
-        <div class="field-group">
+        <div class="field-group reveal">
           <fieldset class="choices" data-group="yearLevel" aria-describedby="yearLevel-error">
             <legend>Year level</legend>
             <label class="choice"><input type="radio" name="yearLevel" value="3"><span>3rd year</span></label>
@@ -76,7 +78,7 @@
           <p class="error" id="yearLevel-error"></p>
         </div>
 
-        <div class="field-group">
+        <div class="field-group reveal">
           <label class="check">
             <input type="checkbox" name="consent" aria-describedby="consent-error">
             <span>I agree that EduPath may store my profile and skill ratings to compute my role matches and learning pathway, in line with the Data Privacy Act of 2012 (RA 10173).</span>
@@ -84,7 +86,7 @@
           <p class="error" id="consent-error"></p>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        <button type="submit" class="btn btn-primary btn-block reveal">Create Account</button>
       </form>
       <p class="switch">Already have an account? <a href="login.html" class="text-link">Sign in</a></p>
       <p class="demo-note" data-demo-note>Demo mode: accounts are saved only in this browser.</p>
@@ -98,8 +100,11 @@
     </aside>
   </div>
 </main>
+</div>
 
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="js/app.js"></script>
+<script src="js/scroll.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/cast.js"></script>
 </body>

@@ -154,14 +154,39 @@ section{padding:clamp(88px,11vw,136px) 0}
 .road h3{font-size:20px;font-weight:700;letter-spacing:-.025em;line-height:1.25;margin:0 0 8px}
 .road p{margin:0;font-size:15.5px;color:var(--ink-2);max-width:30ch}
 
-/* ---------- 3. Roles: six tiles with the same characters ---------- */
-.roles{list-style:none;margin:clamp(48px,6vw,72px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,24px)}
-.roles li{display:grid;grid-template-columns:76px 1fr;gap:18px;align-items:center;padding:18px;border-radius:28px;transition:background .5s var(--spring),transform .6s var(--spring)}
-.roles li:hover{background:#fff;transform:translateY(-3px);box-shadow:var(--soft)}
-.thumb{width:76px;height:76px;border-radius:24px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(140deg,var(--f-aqua),var(--f-lav))}
-.thumb i{font-size:30px;color:var(--brand)}
-.roles h3{margin:0;font-size:17px;font-weight:700;letter-spacing:-.02em}
-.roles p{margin:4px 0 0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+/* ---------- 3. Roles: the roster. Big names on hairlines; one character stage beside them ---------- */
+.roster{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,7vw,112px);align-items:start}
+.roster-intro{position:sticky;top:112px}
+.roster-intro .h2{margin:0}
+.roster-intro .sub{margin:14px 0 0;max-width:34ch}
+.r-stage{position:relative;margin-top:clamp(28px,4vw,44px);aspect-ratio:1/0.86;border-radius:40px;overflow:hidden;overflow:clip;isolation:isolate;background:var(--f-base);transition:background 1s var(--spring)}
+.r-stage::before{content:"";position:absolute;inset:-20%;z-index:-1;background:radial-gradient(48% 48% at 30% 30%,var(--g1,var(--f-aqua)) 0%,transparent 70%),radial-gradient(52% 52% at 76% 74%,var(--g2,var(--f-lav)) 0%,transparent 70%);transition:opacity .8s var(--spring)}
+.r-stage[data-on="1"]{--g1:var(--f-mint);--g2:var(--f-aqua)}
+.r-stage[data-on="2"]{--g1:var(--f-lav);--g2:var(--f-mint)}
+.r-stage[data-on="3"]{--g1:var(--f-aqua);--g2:var(--f-mint)}
+.r-stage[data-on="4"]{--g1:#ffe3e8;--g2:var(--f-lav)}
+.r-stage[data-on="5"]{--g1:var(--f-lav);--g2:var(--f-aqua)}
+.r-stage img{position:absolute;left:8%;right:8%;bottom:4%;width:84%;height:auto;opacity:0;transform:translateY(22px) scale(.95);filter:blur(6px);transition:opacity .6s var(--spring),transform .9s var(--rebound),filter .6s var(--spring)}
+.r-stage img.is-on{opacity:1;transform:none;filter:none}
+.r-stage .stage-name{position:absolute;left:24px;top:20px;font-size:13px;font-weight:700;color:var(--brand);background:rgba(255,255,255,.72);border-radius:999px;padding:6px 12px}
+
+.roster-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-2)}
+.roster-list li{border-bottom:1px solid var(--hair-2)}
+.rr{all:unset;box-sizing:border-box;display:block;width:100%;padding:clamp(18px,2.2vw,26px) 4px;cursor:pointer}
+.rr-name{display:flex;align-items:center;gap:14px;font-size:clamp(24px,2.7vw,38px);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:var(--ink-3);transition:color .4s var(--spring),transform .7s var(--rebound)}
+.rr-name i{font-size:.7em;color:var(--brand);opacity:0;transform:translateX(-10px);transition:opacity .4s var(--spring),transform .7s var(--rebound)}
+.rr:hover .rr-name,.rr[aria-expanded="true"] .rr-name{color:var(--brand)}
+.rr[aria-expanded="true"] .rr-name{transform:translateX(4px)}
+.rr[aria-expanded="true"] .rr-name i{opacity:1;transform:none}
+.rr:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:12px}
+.rr-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--spring)}
+.rr[aria-expanded="true"] .rr-more{grid-template-rows:1fr}
+.rr-more > div{overflow:hidden;min-height:0}
+.rr-desc{margin:12px 0 0;font-size:16.5px;color:var(--ink-2);max-width:46ch;opacity:0;transform:translateY(8px);transition:opacity .5s var(--spring) .1s,transform .7s var(--spring) .1s}
+.rr-skills{margin:10px 0 2px;font-size:14px;font-weight:600;color:var(--ink);opacity:0;transition:opacity .5s var(--spring) .18s}
+.rr-skills span+span::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--ink-3);margin:0 10px 3px}
+.rr[aria-expanded="true"] .rr-desc,.rr[aria-expanded="true"] .rr-skills{opacity:1;transform:none}
+.rr-art{display:none}
 
 /* ---------- 4. Evidence ---------- */
 .figures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,56px);margin-top:clamp(44px,6vw,64px)}
@@ -239,7 +264,6 @@ section{padding:clamp(88px,11vw,136px) 0}
   .chip-set.is-on{display:flex}
   .chip{position:static}
   .chip-label{display:none}
-  .roles{grid-template-columns:1fr 1fr}
   .about{grid-template-columns:1fr}
   .road{grid-template-columns:1fr 1fr;row-gap:44px}
   .road::before{display:none}
@@ -263,8 +287,6 @@ section{padding:clamp(88px,11vw,136px) 0}
   .road::before{display:block;left:12px;right:auto;top:14px;bottom:14px;width:4px;height:auto;background:repeating-linear-gradient(180deg,var(--brand) 0 14px,transparent 14px 24px);transform-origin:top}
   .road li{padding-left:50px}
   .road .dot{position:absolute;left:0;top:0;margin:0}
-  .roles{grid-template-columns:1fr;gap:8px}
-  .roles li{padding:12px}
   .figures{grid-template-columns:1fr;gap:36px}
   .notes{grid-template-columns:1fr}
   .closing .field{border-radius:30px}
@@ -368,24 +390,6 @@ section{padding:clamp(88px,11vw,136px) 0}
 }
 @media (min-width:768px){ .road::before{top:98px} }
 
-/* Roles: each tile is a button that shows the role in the hero */
-.roles li{display:block;padding:0}
-.role-tile{all:unset;box-sizing:border-box;display:grid;grid-template-columns:76px 1fr;gap:18px;align-items:center;width:100%;padding:18px;border-radius:28px;cursor:pointer;text-align:left;
-  transition:background .5s var(--spring),transform .6s var(--spring),box-shadow .5s var(--spring)}
-.role-tile:hover{background:#fff;transform:translateY(-3px);box-shadow:var(--soft)}
-.role-tile:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
-.role-tile .thumb{transition:transform .6s var(--rebound)}
-.role-tile:hover .thumb{transform:rotate(-6deg) scale(1.06)}
-.roles li:nth-child(2) .thumb{background:linear-gradient(140deg,var(--f-mint),var(--f-aqua))}
-.roles li:nth-child(3) .thumb{background:linear-gradient(140deg,var(--f-lav),#f2f0ff)}
-.roles li:nth-child(4) .thumb{background:linear-gradient(140deg,var(--f-aqua),var(--f-mint))}
-.roles li:nth-child(5) .thumb{background:linear-gradient(140deg,#ffe3e8,var(--f-lav))}
-.roles li:nth-child(6) .thumb{background:linear-gradient(140deg,var(--f-lav),var(--f-aqua))}
-.role-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.role-skills span{font-size:12px;font-weight:600;color:var(--teal);background:var(--mint-2);border-radius:999px;padding:4px 10px}
-.role-go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:600;color:var(--brand);opacity:0;transform:translateX(-6px);transition:opacity .4s var(--spring),transform .5s var(--spring)}
-.role-tile:hover .role-go,.role-tile:focus-visible .role-go{opacity:1;transform:none}
-
 /* Evidence: figures live in a soft colour band */
 .band{margin-top:clamp(40px,5vw,56px);padding:clamp(28px,4vw,56px);border-radius:36px}
 .band .figures{margin-top:0}
@@ -406,6 +410,12 @@ section{padding:clamp(88px,11vw,136px) 0}
   .closing .in .lineup img:nth-child(4){animation-delay:-1.8s}.closing .in .lineup img:nth-child(5){animation-delay:-2.4s}
   .closing .in .lineup img:nth-child(6){animation-delay:-3s}
   @keyframes line-bob{to{transform:translateY(-8px)}}
+}
+@media (max-width:899px){
+  .roster{grid-template-columns:1fr;gap:28px}
+  .roster-intro{position:static}
+  .r-stage{display:none}
+  .rr-art{display:block;width:min(78%,300px);margin:14px 0 6px;border-radius:28px;background:radial-gradient(60% 60% at 40% 40%,var(--f-aqua),var(--f-base))}
 }
 @media (max-width:767px){
   .vig{margin:0 0 12px}

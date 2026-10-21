@@ -236,13 +236,6 @@
     }
     go(0);
     setPaused(paused);
-    document.addEventListener('edupath:role', function (e) {
-      go(e.detail, true);
-      var top = document.getElementById('top');
-      if (lenis) { lenis.scrollTo(0, { duration: 1.2 }); if (typeof kick === 'function') kick(); }
-      else window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-      setTimeout(function () { tabBtns[e.detail].focus({ preventScroll: true }); }, reduce ? 0 : 900);
-    });
 
     /* Cursor drift: each chip eases toward the pointer by its depth, then springs back.
        One requestAnimationFrame loop that stops itself when everything has settled. */
@@ -279,24 +272,39 @@
     }
   }
 
-  /* ---------- Role tiles: tap one to meet its character in the hero ---------- */
-  var tiles = document.querySelector('[data-role-tiles]');
-  if (tiles) {
+  /* ---------- Roles roster: one role open at a time; its character takes the stage ---------- */
+  var roster = document.querySelector('[data-roster]');
+  if (roster) {
+    var stage = document.querySelector('[data-roster-stage]'), stageName = document.querySelector('[data-stage-name]');
+    var rows = [], arts = [];
     ROLES.forEach(function (r, i) {
-      var li = el('li', 'reveal' + (i % 3 ? ' d' + (i % 3) : ''));
-      var btn = el('button', 'role-tile'); btn.type = 'button';
-      btn.setAttribute('aria-label', r.name + ': show this role in the hero');
-      var th = el('div', 'thumb'); th.setAttribute('aria-hidden', 'true');
-      var ic = el('i', 'ph-light ' + r.icon); th.appendChild(ic);
-      var body = el('div'); body.append(el('h3', null, r.name), el('p', null, r.desc));
-      var sk = el('div', 'role-skills'); r.skills.forEach(function (x) { sk.appendChild(el('span', null, x)); });
-      var go = el('span', 'role-go'); go.append(document.createTextNode('Meet the character'));
-      var ar = el('i', 'ph-light ph-arrow-up'); ar.setAttribute('aria-hidden', 'true'); go.appendChild(ar);
-      body.append(sk, go);
-      btn.append(th, body);
-      btn.addEventListener('click', function () { document.dispatchEvent(new CustomEvent('edupath:role', { detail: i })); });
-      li.appendChild(btn); tiles.appendChild(li);
+      var img = new Image(); img.src = r.art; img.alt = ''; img.decoding = 'async';
+      stage.appendChild(img); arts.push(img);
+      var li = el('li'), btn = el('button', 'rr'); btn.type = 'button';
+      btn.id = 'rr-' + r.id; btn.setAttribute('aria-controls', 'rr-more-' + r.id);
+      var name = el('span', 'rr-name', r.name);
+      var ar = el('i', 'ph-light ph-arrow-right'); ar.setAttribute('aria-hidden', 'true'); name.appendChild(ar);
+      var more = el('span', 'rr-more'); more.id = 'rr-more-' + r.id;
+      var inner = el('div');
+      var sk = el('span', 'rr-skills'); sk.style.display = 'block';
+      r.skills.forEach(function (x) { sk.appendChild(el('span', null, x)); });
+      var small = new Image(); small.src = r.art; small.alt = ''; small.className = 'rr-art'; small.loading = 'lazy';
+      inner.append(el('span', 'rr-desc', r.desc), sk, small);
+      inner.firstChild.style.display = 'block';
+      more.appendChild(inner);
+      btn.append(name, more);
+      li.appendChild(btn); roster.appendChild(li); rows.push(btn);
+      btn.addEventListener('click', function () { openRole(i); });
+      btn.addEventListener('focus', function () { openRole(i); });
+      btn.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') openRole(i); });
     });
+    var openRole = function (i) {
+      rows.forEach(function (b, k) { b.setAttribute('aria-expanded', String(k === i)); });
+      arts.forEach(function (im, k) { im.classList.toggle('is-on', k === i); });
+      stage.dataset.on = String(i);
+      stageName.textContent = ROLES[i].name;
+    };
+    openRole(0);
   }
 
   /* ---------- Figures count up when they come into view ---------- */

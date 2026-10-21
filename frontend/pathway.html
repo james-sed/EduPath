@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your learning pathway | EduPath</title>
+<meta name="description" content="Your EduPath learning pathway: the subjects and microcredentials that close each skill gap.">
+<meta name="theme-color" content="#fbfbfd">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="preload" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+</head>
+<body>
+
+<header class="nav" aria-label="Site">
+  <a href="index.html" class="brand" aria-label="EduPath home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#161d6f"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/></svg>
+    EduPath
+  </a>
+  <div class="nav-end"><span class="who" data-who></span><a href="results.html#summary" class="nav-btn">Results</a><button type="button" class="nav-btn" data-signout>Sign Out</button></div>
+</header>
+
+<div class="page" data-page>
+<main class="app">
+  <div class="wrap" data-pathway aria-live="polite">
+    <div class="scoring"><div class="dots"><i></i><i></i><i></i></div><p>Loading your pathway</p></div>
+  </div>
+</main>
+</div>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/scroll.js"></script>
+<script src="js/pathway.js"></script>
+</body>
+</html>

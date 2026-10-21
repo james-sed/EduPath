@@ -49,12 +49,13 @@
       h.textContent = s.group.name;
       p.appendChild(el('p', 'lead', 'Rate yourself honestly from 0 to 5. There are no wrong answers: this is about where you are today.'));
       M.SKILLS.filter(function (k) { return k.group === s.group.id; }).forEach(function (k) {
-        var row = el('div', 'skill');
+        var row = el('div', 'skill reveal');
         var head = el('div', 'skill-head'); head.append(el('b', null, k.name), el('span', null, ''));
         head.lastChild.dataset.levelFor = k.id;
         row.append(head, el('p', 'skill-desc', k.desc));
         var fs = el('fieldset', 'scale'); fs.dataset.skill = k.id;
         var lg = el('legend', 'sr-only', 'Your level in ' + k.name); fs.appendChild(lg);
+        var fl = el('span', 'scale-fill'); fl.setAttribute('aria-hidden', 'true'); fs.appendChild(fl);
         M.LEVELS.forEach(function (L) {
           var lab = el('label'), inp = el('input'); inp.type = 'radio'; inp.name = 'r-' + k.id; inp.value = String(L.v);
           inp.checked = draft.ratings[k.id] === L.v;
@@ -89,7 +90,8 @@
   function levelLabel(v) { return M.LEVELS[v] ? M.LEVELS[v].label : ''; }
   function syncLabels() {
     document.querySelectorAll('[data-level-for]').forEach(function (n) {
-      var v = draft.ratings[n.dataset.levelFor]; n.textContent = v == null ? 'Not rated' : v + ', ' + levelLabel(v);
+      var v = draft.ratings[n.dataset.levelFor]; n.textContent = v == null ? 'Not rated yet' : v + ', ' + levelLabel(v);
+      n.classList.toggle('is-set', v != null);
     });
   }
 
@@ -107,8 +109,23 @@
     }
     showAlert('');
     syncLabels();
+    syncCount();
     api.saveDraft(Object.assign({}, draft, { step: current }));
   });
+
+  // Side note: how many skills on this step are rated so far
+  var countBox = $('[data-side-count]');
+  function syncCount() {
+    var s = STEPS[current]; countBox.innerHTML = '';
+    if (!s || !s.group) return;
+    var ks = M.SKILLS.filter(function (k) { return k.group === s.group.id; });
+    var done = ks.filter(function (k) { return draft.ratings[k.id] != null; }).length;
+    var dots = el('span', 'dots');
+    ks.forEach(function (k) { dots.appendChild(el('i', draft.ratings[k.id] != null ? 'on' : null)); });
+    countBox.append(dots, document.createTextNode(done === ks.length ? 'All rated' : done + ' of ' + ks.length + ' rated'));
+  }
+
+  function mini(v) { var m = el('span', 'mini'); for (var i = 1; i <= 5; i++) m.appendChild(el('i', i <= v ? 'on' : null)); return m; }
 
   function showAlert(msg) { alertBox.textContent = msg; alertBox.className = 'form-alert' + (msg ? ' is-error' : ''); }
 
@@ -118,7 +135,8 @@
       var sec = el('div', 'review-group'); sec.appendChild(el('h3', null, g.name));
       M.SKILLS.filter(function (k) { return k.group === g.id; }).forEach(function (k) {
         var row = el('div', 'review-row'); var v = draft.ratings[k.id];
-        row.append(el('span', null, k.name), el('b', null, v + ' · ' + levelLabel(v)));
+        var b = el('b', null, v + ', ' + levelLabel(v)); b.appendChild(mini(v));
+        row.append(el('span', null, k.name), b);
         sec.appendChild(row);
       });
       box.appendChild(sec);
@@ -144,10 +162,12 @@
     $('[data-side-title]').textContent = s.side;
     $('[data-side-text]').textContent = s.text;
     if (s.id === 'review') buildReview();
+    syncCount();
+    if (window.EduPath.reveal) window.EduPath.reveal([]);   // the page height changed: let smooth scroll re-measure
     announce.textContent = 'Step ' + (n + 1) + ' of ' + STEPS.length + ': ' + s.label;
     showAlert('');
     api.saveDraft(Object.assign({}, draft, { step: n }));
-    if (focus) { var h = form.querySelector('.panel.is-on h1'); h.tabIndex = -1; h.focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    if (focus) { var h = form.querySelector('.panel.is-on h1'); h.tabIndex = -1; h.focus({ preventScroll: true }); if (window.EduPath.scrollTo) window.EduPath.scrollTo(0); else window.scrollTo({ top: 0, behavior: 'smooth' }); }
   }
 
   function missingIn(step) {
@@ -188,4 +208,6 @@
 
   syncLabels();
   go(current);
+  // Skill rows rise as they scroll into view (rows on hidden steps wait until their step is shown)
+  if (window.EduPath.reveal) window.EduPath.reveal(form.querySelectorAll('.skill.reveal')); else form.querySelectorAll('.skill.reveal').forEach(function (n) { n.classList.add('in'); });
 })();
