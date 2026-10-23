@@ -22,10 +22,26 @@
 
   var draft = api.loadDraft() || { step: 0, ratings: {}, interests: [], held: [] };
   var current = Math.min(draft.step || 0, STEPS.length - 1);
+  // The furthest step reached: stops up to here can be jumped to from the road, later ones stay locked
+  draft.furthest = Math.min(Math.max(draft.furthest || 0, current), STEPS.length - 1);
+  var busy = false;
 
   // ---------- Road ----------
-  var road = $('[data-road]'), fill = $('[data-road-fill]');
-  STEPS.forEach(function (s) { var li = el('li'); li.append(el('i'), document.createTextNode(s.label)); road.appendChild(li); });
+  var road = $('[data-road]'), fill = $('[data-road-fill]'), reach = $('[data-road-reach]');
+  STEPS.forEach(function (s, k) {
+    var li = el('li'), b = el('button', 'stop'); b.type = 'button'; b.dataset.go = k;
+    b.append(el('i'), el('span', null, s.label)); li.appendChild(b); road.appendChild(li);
+  });
+  road.addEventListener('click', function (e) {
+    var b = e.target.closest('.stop'); if (!b || busy) return;
+    var k = Number(b.dataset.go);
+    if (k === current || k > draft.furthest) return;
+    // Jumping forward: every step in between must still be complete
+    for (var j = current; j < k; j++) {
+      if (missingIn(STEPS[j]).length) { go(j, true); showAlert('Rate every skill on this step to continue.'); return; }
+    }
+    go(k, true);
+  });
 
   // ---------- Panels ----------
   var panels = $('[data-panels]');
@@ -129,33 +145,75 @@
 
   function showAlert(msg) { alertBox.textContent = msg; alertBox.className = 'form-alert' + (msg ? ' is-error' : ''); }
 
+  function stepIndex(id) { for (var i = 0; i < STEPS.length; i++) if (STEPS[i].id === id) return i; return 0; }
+  function editBtn(id, what) {
+    var b = el('button', 'rv-edit'); b.type = 'button'; b.dataset.edit = stepIndex(id);
+    b.setAttribute('aria-label', 'Edit ' + what);
+    var ic = el('i', 'ph-light ph-pencil-simple'); ic.setAttribute('aria-hidden', 'true');
+    b.append(ic, document.createTextNode('Edit')); return b;
+  }
+  function chips(list, icon) {
+    var d = el('div', 'rv-chips');
+    if (!list.length) { d.appendChild(el('span', 'rv-none', 'None picked')); return d; }
+    list.forEach(function (t) { var c = el('span', 'rv-chip'); var ic = el('i', 'ph-light ' + (icon ? icon(t) : 'ph-seal-check')); ic.setAttribute('aria-hidden', 'true'); c.append(ic, document.createTextNode(t.name || t)); d.appendChild(c); });
+    return d;
+  }
+
+  // Review: a snapshot of the whole profile, one block per skill group, each with a way back to edit it
   function buildReview() {
     var box = form.querySelector('.review'); box.innerHTML = '';
+    var vals = M.SKILLS.map(function (k) { return draft.ratings[k.id] || 0; });
+    var strong = vals.filter(function (v) { return v >= 4; }).length;
+    var top = null, topAvg = 0;
     M.GROUPS.forEach(function (g) {
-      var sec = el('div', 'review-group'); sec.appendChild(el('h3', null, g.name));
-      M.SKILLS.filter(function (k) { return k.group === g.id; }).forEach(function (k) {
-        var row = el('div', 'review-row'); var v = draft.ratings[k.id];
-        var b = el('b', null, v + ', ' + levelLabel(v)); b.appendChild(mini(v));
-        row.append(el('span', null, k.name), b);
-        sec.appendChild(row);
-      });
-      box.appendChild(sec);
+      var ks = M.SKILLS.filter(function (k) { return k.group === g.id; });
+      var avg = ks.reduce(function (a, k) { return a + (draft.ratings[k.id] || 0); }, 0) / ks.length;
+      if (avg > topAvg) { topAvg = avg; top = g; }
     });
-    var extra = el('div', 'review-group'); extra.appendChild(el('h3', null, 'Interests and credentials'));
-    var ir = el('div', 'review-row'); ir.append(el('span', null, 'Roles you picked'), el('b', null, draft.interests.length ? draft.interests.map(function (id) { return M.roleById(id).name; }).join(', ') : 'None'));
-    var hr = el('div', 'review-row'); hr.append(el('span', null, 'Microcredentials held'), el('b', null, draft.held.length ? String(draft.held.length) : 'None'));
-    extra.append(ir, hr); box.appendChild(extra);
+
+    var sum = el('div', 'rv-sum');
+    [[String(M.SKILLS.length), 'skills rated'], [String(strong), strong === 1 ? 'skill at Strong or higher' : 'skills at Strong or higher'], [top ? top.name : 'None yet', 'your strongest area']]
+      .forEach(function (f, i) { var d = el('div', i === 2 ? 'is-text' : null); d.append(el('b', null, f[0]), el('span', null, f[1])); sum.appendChild(d); });
+    box.appendChild(sum);
+
+    var n = 0;
+    M.GROUPS.forEach(function (g) {
+      var sec = el('section', 'rv-group'), head = el('header', 'rv-head');
+      head.append(el('h3', null, g.name), editBtn(g.id, g.name)); sec.appendChild(head);
+      var ul = el('ul', 'rv-list');
+      M.SKILLS.filter(function (k) { return k.group === g.id; }).forEach(function (k) {
+        var v = draft.ratings[k.id], li = el('li');
+        var m = el('span', 'rv-meter'); m.setAttribute('aria-hidden', 'true');
+        for (var i = 1; i <= 5; i++) { var seg = el('i', i <= v ? 'on' : null); seg.style.setProperty('--d', n * 2 + i); m.appendChild(seg); }
+        var lv = el('span', 'rv-lv'); lv.append(el('b', null, String(v)), document.createTextNode(levelLabel(v)));
+        li.append(el('span', 'nm', k.name), m, lv); ul.appendChild(li); n++;
+      });
+      sec.appendChild(ul); box.appendChild(sec);
+    });
+
+    var extra = el('section', 'rv-group rv-extra');
+    var ih = el('header', 'rv-head'); ih.append(el('h3', null, 'Roles you picked'), editBtn('interests', 'roles you picked'));
+    var hh = el('header', 'rv-head'); hh.append(el('h3', null, 'Microcredentials held'), editBtn('held', 'microcredentials'));
+    extra.append(ih, chips(draft.interests.map(M.roleById), function (r) { return r.icon; }), hh, chips(draft.held));
+    box.appendChild(extra);
   }
+  form.addEventListener('click', function (e) { var b = e.target.closest('[data-edit]'); if (b && !busy) go(Number(b.dataset.edit), true); });
 
   function go(n, focus) {
     current = n;
+    draft.furthest = Math.max(draft.furthest, n);
     var s = STEPS[n];
     form.querySelectorAll('.panel').forEach(function (p, k) { p.classList.toggle('is-on', k === n); });
     road.querySelectorAll('li').forEach(function (li, k) {
+      var b = li.firstChild, open = k <= draft.furthest && k !== n;
       li.classList.toggle('done', k < n); li.classList.toggle('now', k === n);
-      if (k === n) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+      li.classList.toggle('seen', k > n && k <= draft.furthest);
+      b.disabled = k > draft.furthest;
+      b.setAttribute('aria-label', STEPS[k].label + (k === n ? ', current step' : open ? ', go to this step' : ', not reached yet'));
+      if (k === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
     });
     fill.style.transform = 'scaleX(' + (n / (STEPS.length - 1)) + ')';
+    reach.style.transform = 'scaleX(' + (draft.furthest / (STEPS.length - 1)) + ')';
     back.style.visibility = n === 0 ? 'hidden' : 'visible';
     next.firstChild.nodeValue = n === STEPS.length - 1 ? 'See My Matches ' : (s.id === 'interests' && !draft.interests.length ? 'Skip for Now ' : 'Continue ');
     if (cast && cast.show) cast.show(s.role);
@@ -189,7 +247,7 @@
     // Submit
     var allMissing = M.SKILLS.filter(function (k) { return draft.ratings[k.id] == null; });
     if (allMissing.length) { showAlert('Some skills are still unrated. Go back and rate them first.'); return; }
-    next.disabled = true; back.disabled = true; next.setAttribute('aria-busy', 'true');
+    busy = true; next.disabled = true; back.disabled = true; next.setAttribute('aria-busy', 'true');
     var on = form.querySelector('.panel.is-on');
     on.innerHTML = '';
     var sc = el('div', 'scoring'); var dots = el('div', 'dots'); dots.append(el('i'), el('i'), el('i'));
@@ -200,7 +258,7 @@
       await api.submitAssessment({ ratings: draft.ratings, interests: draft.interests, held: draft.held });
       location.href = 'results.html';
     } catch (err) {
-      next.disabled = false; back.disabled = false; next.removeAttribute('aria-busy');
+      busy = false; next.disabled = false; back.disabled = false; next.removeAttribute('aria-busy');
       go(STEPS.length - 1); showAlert(err.message);
     }
   });

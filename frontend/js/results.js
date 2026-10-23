@@ -219,8 +219,10 @@
     root.appendChild(hero);
     if (!fromStory) countUp(num, topMatch, 1300);
 
-    // Ranking + what decided it
-    var row = el('div', 'grid-2');
+    // Ranking + what decided it. Both run full width and stack, so a long skill list never leaves a gap
+    // beside the ranking: the ranking is always six roles (best fit tile beside five rows), and the skill
+    // list grows downward one row per skill.
+    var row = el('div', 'sum-stack');
     var rank = el('section', 'plate card reveal');
     rank.append(el('h2', null, 'How you rank'),
       el('p', 'sub', 'All six roles, ranked by how closely your skills line up with what each one asks for. 100% would be an exact match.'));
@@ -235,6 +237,7 @@
       var track = el('span', 'track'); track.setAttribute('aria-hidden', 'true');
       var bar = el('span', 'bar'); bar.style.setProperty('--w', (mm.match / 100).toFixed(3)); track.appendChild(bar);
       li.append(el('span', 'pos', String(i + 1)), ic, nm, pc, track);
+      if (i === 0) li.appendChild(el('span', 'cap', 'Closest match of the six roles'));
       var behind = topMatch - mm.match;
       if (i > 0) li.appendChild(el('span', 'behind', behind ? plural(behind, 'point', 'points') + ' below your best fit' : 'Tied with your best fit'));
       ol.appendChild(li);
