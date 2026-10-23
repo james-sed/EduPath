@@ -34,7 +34,16 @@
   function pips(s) {
     var d = el('div', 'pips'); d.setAttribute('aria-hidden', 'true');
     for (var i = 1; i <= 5; i++) { var p = el('i'); if (i <= s.you) p.className = 'on'; else if (i <= s.role) p.className = 'need'; d.appendChild(p); }
-    d.appendChild(el('span', null, 'You ' + s.you + ', role ' + s.role));
+    d.appendChild(el('span', null, 'You ' + s.you + ', role expects ' + s.role));
+    return d;
+  }
+  function levelName(v) { return M.LEVELS[v] ? M.LEVELS[v].label : String(v); }
+  // Five segments on the 0 to 5 scale: filled up to your rating, hatched from there up to the role's level,
+  // with a notch at the role's level. The words underneath say the same thing for screen readers.
+  function meter(s) {
+    var d = el('div', 'meter'); d.setAttribute('aria-hidden', 'true');
+    for (var i = 1; i <= 5; i++) { d.appendChild(el('i', i <= s.you ? 'you' : i <= s.role ? 'need' : null)); }
+    if (s.role > 0) { var mk = el('span', 'mark'); mk.style.setProperty('--at', s.role); d.appendChild(mk); }
     return d;
   }
   function countUp(node, to, ms) {
@@ -113,7 +122,7 @@
           el('h2', 's-big s s2', gapSkills.length ? plural(gapSkills.length, 'skill', 'skills') + ' to close.' : 'Nothing left to close.'));
         if (gapSkills.length) {
           var ul = el('ul', 's-list s s3');
-          gapSkills.slice(0, 3).forEach(function (k) { var li = el('li'); li.append(el('span', 'nm', k.name), el('span', 'vl', plural(k.gap, 'pt', 'pts') + ' short'), pips(k)); ul.appendChild(li); });
+          gapSkills.slice(0, 3).forEach(function (k) { var li = el('li'); li.append(el('span', 'nm', k.name), el('span', 'vl', plural(k.gap, 'level', 'levels') + ' to go'), pips(k)); ul.appendChild(li); });
           s.append(ul, el('p', 's-text s s4', 'Each one comes with a subject or microcredential in your learning pathway.'));
         } else {
           s.append(el('p', 's-text s s3', 'You meet every skill the ' + top.name + ' benchmark asks for.'));
@@ -213,33 +222,59 @@
     // Ranking + what decided it
     var row = el('div', 'grid-2');
     var rank = el('section', 'plate card reveal');
-    rank.append(el('h2', null, 'How you rank'), el('p', 'sub', 'All six roles, by how closely your skills match each benchmark.'));
+    rank.append(el('h2', null, 'How you rank'),
+      el('p', 'sub', 'All six roles, ranked by how closely your skills line up with what each one asks for. 100% would be an exact match.'));
     var ol = el('ol', 'rank');
-    res.matches.forEach(function (mm) {
-      var r = M.roleById(mm.role), li = el('li');
+    res.matches.forEach(function (mm, i) {
+      var r = M.roleById(mm.role), li = el('li', i === 0 ? 'is-top' : null);
       var ic = el('span', 'ic'); ic.appendChild(icon(r.icon));
-      var bar = el('span', 'bar'); bar.setAttribute('aria-hidden', 'true'); bar.style.setProperty('--w', (mm.match / 100).toFixed(3));
-      li.append(ic, el('span', 'nm', r.name), el('span', 'pc', mm.match + '%'), bar);
+      var nm = el('span', 'nm'); nm.appendChild(el('b', null, r.name));
+      if (i === 0) nm.appendChild(el('span', 'flag top', 'Best fit'));
+      if (res.interests && res.interests.indexOf(mm.role) >= 0) nm.appendChild(el('span', 'flag', 'You picked this'));
+      var pc = el('span', 'pc', mm.match + '%');
+      var track = el('span', 'track'); track.setAttribute('aria-hidden', 'true');
+      var bar = el('span', 'bar'); bar.style.setProperty('--w', (mm.match / 100).toFixed(3)); track.appendChild(bar);
+      li.append(el('span', 'pos', String(i + 1)), ic, nm, pc, track);
+      var behind = topMatch - mm.match;
+      if (i > 0) li.appendChild(el('span', 'behind', behind ? plural(behind, 'point', 'points') + ' below your best fit' : 'Tied with your best fit'));
       ol.appendChild(li);
     });
     rank.appendChild(ol);
 
     var why = el('section', 'plate card reveal d1');
-    why.append(el('h2', null, 'What decided it'), el('p', 'sub', 'Your ratings next to the ' + top.name + ' benchmark.'));
+    why.append(el('h2', null, 'What decided it'),
+      el('p', 'sub', 'Your rating for each skill next to the level a ' + top.name + ' is expected to have, on the same 0 to 5 scale you used.'));
+    var key = el('div', 'key'); key.setAttribute('aria-hidden', 'true');
+    [['you', 'Your level'], ['need', 'Still to go'], ['mark', 'Level the role expects']].forEach(function (k) {
+      var it = el('span'); it.append(el('i', k[0]), document.createTextNode(k[1])); key.appendChild(it);
+    });
+    why.appendChild(key);
+    function skillRow(s, met) {
+      var li = el('li');
+      var head = el('div', 'why-top');
+      head.append(el('b', 'nm', s.name), el('span', 'tag ' + (met ? 'up' : 'down'), met ? 'Meets the level' : plural(s.gap, 'level', 'levels') + ' to go'));
+      li.append(head, meter(s));
+      var cmp = el('p', 'cmp');
+      cmp.append('You: ', el('b', null, levelName(s.you)), ' (' + s.you + ')  ·  Role expects: ', el('b', null, levelName(s.role)), ' (' + s.role + ')');
+      li.appendChild(cmp);
+      return li;
+    }
     if (res.raised.length) {
-      why.appendChild(el('h3', null, 'Raised your match'));
-      var up = el('ul', 'why');
-      res.raised.forEach(function (s) { var li = el('li'); li.append(el('span', 'nm', s.name), el('span', 'tag up', 'Meets the bar'), pips(s)); up.appendChild(li); });
-      why.appendChild(up);
+      var g1 = el('div', 'why-group');
+      g1.append(el('h3', null, 'Strengths that raised your match'), el('p', 'why-note', 'You already meet the level the role expects.'));
+      var up = el('ul', 'why'); res.raised.forEach(function (s) { up.appendChild(skillRow(s, true)); });
+      g1.appendChild(up); why.appendChild(g1);
     }
-    why.appendChild(el('h3', null, 'Below the benchmark'));
+    var g2 = el('div', 'why-group');
+    g2.appendChild(el('h3', null, res.gaps.length ? plural(res.gaps.length, 'skill', 'skills') + ' to grow' : 'Skills to grow'));
     if (res.gaps.length) {
-      var down = el('ul', 'why');
-      res.gaps.forEach(function (s) { var li = el('li'); li.append(el('span', 'nm', s.name), el('span', 'tag down', plural(s.gap, 'pt', 'pts') + ' short'), pips(s)); down.appendChild(li); });
-      why.appendChild(down);
+      g2.appendChild(el('p', 'why-note', 'Below the level the role expects, biggest gap first. Your learning pathway covers each one.'));
+      var down = el('ul', 'why'); res.gaps.forEach(function (s) { down.appendChild(skillRow(s, false)); });
+      g2.appendChild(down);
     } else {
-      why.appendChild(el('p', null, 'Nothing: you meet every skill this benchmark asks for.'));
+      g2.appendChild(el('p', 'why-note', 'None. You meet every skill this role expects.'));
     }
+    why.appendChild(g2);
     row.append(rank, why);
     root.appendChild(row);
 

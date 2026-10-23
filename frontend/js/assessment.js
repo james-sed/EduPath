@@ -1,4 +1,4 @@
-/* Skill assessment: interests, four skill groups rated 0 to 5, credentials already held,
+/* Skill assessment: interests, three technical skill groups rated 0 to 5, credentials already held,
    then a review and submit. Answers autosave so a refresh never loses progress. */
 (async function () {
   'use strict';
@@ -13,7 +13,7 @@
   document.querySelector('[data-signout]').addEventListener('click', async function () { await api.logout(); location.href = 'index.html'; });
 
   // ---------- Steps ----------
-  var STEPS = [{ id: 'interests', label: 'Interests', role: 'frontend', side: 'Curious about a role?', text: 'Picking one is optional. EduPath still compares you with all six.' }]
+  var STEPS = [{ id: 'interests', label: 'Interests', role: 'mobile', side: 'Curious about a role?', text: 'Picking one is optional. EduPath still compares you with all six.' }]
     .concat(M.GROUPS.map(function (g) { return { id: g.id, label: g.name, role: g.role, group: g, side: g.name, text: g.blurb }; }))
     .concat([
       { id: 'held', label: 'Credentials', role: 'backend', side: 'Already certified?', text: "Anything you already hold won't be recommended again." },

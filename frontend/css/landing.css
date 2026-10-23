@@ -159,31 +159,33 @@ section{padding:clamp(88px,11vw,136px) 0}
 .roster-intro{position:sticky;top:112px}
 .roster-intro .h2{margin:0}
 .roster-intro .sub{margin:14px 0 0;max-width:34ch}
-.r-stage{position:relative;margin-top:clamp(28px,4vw,44px);aspect-ratio:1/0.86;border-radius:40px;overflow:hidden;overflow:clip;isolation:isolate;background:var(--f-base);transition:background 1s var(--spring)}
+/* The stage is capped to the screen height so the sticky column never runs past the fold */
+.r-stage{position:relative;margin-top:clamp(24px,3.4vh,44px);aspect-ratio:1/0.86;max-height:max(280px,calc(100svh - 400px));border-radius:40px;overflow:hidden;overflow:clip;isolation:isolate;background:var(--f-base);transition:background 1s var(--spring)}
 .r-stage::before{content:"";position:absolute;inset:-20%;z-index:-1;background:radial-gradient(48% 48% at 30% 30%,var(--g1,var(--f-aqua)) 0%,transparent 70%),radial-gradient(52% 52% at 76% 74%,var(--g2,var(--f-lav)) 0%,transparent 70%);transition:opacity .8s var(--spring)}
 .r-stage[data-on="1"]{--g1:var(--f-mint);--g2:var(--f-aqua)}
 .r-stage[data-on="2"]{--g1:var(--f-lav);--g2:var(--f-mint)}
 .r-stage[data-on="3"]{--g1:var(--f-aqua);--g2:var(--f-mint)}
 .r-stage[data-on="4"]{--g1:#ffe3e8;--g2:var(--f-lav)}
 .r-stage[data-on="5"]{--g1:var(--f-lav);--g2:var(--f-aqua)}
-.r-stage img{position:absolute;left:8%;right:8%;bottom:4%;width:84%;height:auto;opacity:0;transform:translateY(22px) scale(.95);filter:blur(6px);transition:opacity .6s var(--spring),transform .9s var(--rebound),filter .6s var(--spring)}
-.r-stage img.is-on{opacity:1;transform:none;filter:none}
+/* Characters crossfade in place with only a hint of lift, so quick switching never makes the stage jump */
+.r-stage img{position:absolute;left:0;right:0;bottom:4%;width:100%;height:86%;object-fit:contain;object-position:50% 100%;opacity:0;transform:translateY(6px) scale(.985);transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.r-stage img.is-on{opacity:1;transform:none}
 .r-stage .stage-name{position:absolute;left:24px;top:20px;font-size:13px;font-weight:700;color:var(--brand);background:rgba(255,255,255,.72);border-radius:999px;padding:6px 12px}
 
 .roster-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-2)}
 .roster-list li{border-bottom:1px solid var(--hair-2)}
-.rr{all:unset;box-sizing:border-box;display:block;width:100%;padding:clamp(18px,2.2vw,26px) 4px;cursor:pointer}
-.rr-name{display:flex;align-items:center;gap:14px;font-size:clamp(24px,2.7vw,38px);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:var(--ink-3);transition:color .4s var(--spring),transform .7s var(--rebound)}
+.rr{all:unset;box-sizing:border-box;display:block;width:100%;padding:clamp(12px,2.1vh,24px) 4px;cursor:pointer}
+.rr-name{display:flex;align-items:center;gap:14px;font-size:clamp(22px,min(2.5vw,4.4vh),36px);overflow-wrap:anywhere;font-weight:800;letter-spacing:-.04em;line-height:1.1;color:var(--ink-3);transition:color .4s var(--spring),transform .7s var(--rebound)}
 .rr-name i{font-size:.7em;color:var(--brand);opacity:0;transform:translateX(-10px);transition:opacity .4s var(--spring),transform .7s var(--rebound)}
 .rr:hover .rr-name,.rr[aria-expanded="true"] .rr-name{color:var(--brand)}
-.rr[aria-expanded="true"] .rr-name{transform:translateX(4px)}
 .rr[aria-expanded="true"] .rr-name i{opacity:1;transform:none}
 .rr:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:12px}
 .rr-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--spring)}
 .rr[aria-expanded="true"] .rr-more{grid-template-rows:1fr}
 .rr-more > div{overflow:hidden;min-height:0}
-.rr-desc{margin:12px 0 0;font-size:16.5px;color:var(--ink-2);max-width:46ch;opacity:0;transform:translateY(8px);transition:opacity .5s var(--spring) .1s,transform .7s var(--spring) .1s}
-.rr-skills{margin:10px 0 2px;font-size:14px;font-weight:600;color:var(--ink);opacity:0;transition:opacity .5s var(--spring) .18s}
+/* Every description reserves two lines, so each open row is the same height and the list never changes size */
+.rr-desc{display:block;margin:10px 0 0;font-size:16px;line-height:1.55;min-height:3.1em;color:var(--ink-2);max-width:46ch;opacity:0;transform:translateY(8px);transition:opacity .5s var(--spring) .1s,transform .7s var(--spring) .1s}
+.rr-skills{display:block;margin:8px 0 2px;font-size:14px;font-weight:600;color:var(--ink);opacity:0;transition:opacity .5s var(--spring) .18s}
 .rr-skills span+span::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--ink-3);margin:0 10px 3px}
 .rr[aria-expanded="true"] .rr-desc,.rr[aria-expanded="true"] .rr-skills{opacity:1;transform:none}
 .rr-art{display:none}

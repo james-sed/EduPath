@@ -46,16 +46,14 @@
     { id: 'testing', group: 'data',        name: 'Software testing',         desc: 'Test cases, bug reports, and automated tests' },
     { id: 'net',     group: 'systems',     name: 'Networking and Linux',     desc: 'Networks, IP addressing, and the Linux command line' },
     { id: 'git',     group: 'systems',     name: 'Git and version control',  desc: 'Commits, branches, and pull requests' },
-    { id: 'devops',  group: 'systems',     name: 'Docker, CI/CD, and cloud', desc: 'Containers, deployment pipelines, cloud basics' },
-    { id: 'problem', group: 'soft',        name: 'Problem solving',          desc: 'Breaking problems down and debugging calmly' },
-    { id: 'comm',    group: 'soft',        name: 'Communication and teamwork', desc: 'Explaining ideas and working in a team' }
+    { id: 'devops',  group: 'systems',     name: 'Docker, CI/CD, and cloud', desc: 'Containers, deployment pipelines, cloud basics' }
   ];
+  // Technical skills only: soft skills are outside EduPath's scope.
 
   var GROUPS = [
     { id: 'programming', name: 'Programming', role: 'frontend', blurb: 'The languages and frameworks you build with.' },
     { id: 'data',        name: 'Data and quality', role: 'database', blurb: 'How you store data and make sure software works.' },
-    { id: 'systems',     name: 'Systems and tools', role: 'network', blurb: 'The tools and infrastructure that ship software.' },
-    { id: 'soft',        name: 'Soft skills', role: 'qa', blurb: 'How you think through problems and work with people.' }
+    { id: 'systems',     name: 'Systems and tools', role: 'network', blurb: 'The tools and infrastructure that ship software.' }
   ];
 
   var ROLES = [
@@ -74,14 +72,14 @@
   ];
 
   // SAMPLE benchmarks (0 to 5) per role, in SKILLS order:
-  //            prog web backend mobile db testing net git devops problem comm
+  //            prog web backend mobile db testing net git devops
   var BENCH = {
-    frontend: [4, 5, 2, 1, 2, 3, 1, 4, 2, 4, 4],
-    backend:  [4, 2, 5, 1, 4, 3, 2, 4, 3, 4, 3],
-    mobile:   [4, 3, 2, 5, 2, 3, 1, 4, 2, 4, 3],
-    database: [3, 1, 3, 1, 5, 2, 3, 3, 2, 4, 3],
-    qa:       [3, 3, 2, 2, 3, 5, 1, 3, 2, 4, 4],
-    network:  [2, 1, 2, 1, 2, 2, 5, 3, 4, 4, 3]
+    frontend: [4, 5, 2, 1, 2, 3, 1, 4, 2],
+    backend:  [4, 2, 5, 1, 4, 3, 2, 4, 3],
+    mobile:   [4, 3, 2, 5, 2, 3, 1, 4, 2],
+    database: [3, 1, 3, 1, 5, 2, 3, 3, 2],
+    qa:       [3, 3, 2, 2, 3, 5, 1, 3, 2],
+    network:  [2, 1, 2, 1, 2, 2, 5, 3, 4]
   };
 
   // SAMPLE learning catalog: one JRU subject and one microcredential per skill. Names are placeholders.
@@ -94,9 +92,7 @@
     testing: [{ type: 'JRU subject', title: 'Software Quality Assurance' }, { type: 'Microcredential', title: 'Software Testing Foundations' }],
     net:     [{ type: 'JRU subject', title: 'Networking 2' }, { type: 'Microcredential', title: 'Linux Administration Basics' }],
     git:     [{ type: 'JRU subject', title: 'Software Engineering 1' }, { type: 'Microcredential', title: 'Git and GitHub Essentials' }],
-    devops:  [{ type: 'JRU subject', title: 'Cloud and Container Basics' }, { type: 'Microcredential', title: 'DevOps Fundamentals' }],
-    problem: [{ type: 'JRU subject', title: 'Data Structures and Algorithms' }, { type: 'Microcredential', title: 'Problem Solving with Algorithms' }],
-    comm:    [{ type: 'JRU subject', title: 'Professional Communication' }, { type: 'Microcredential', title: 'Teamwork in Agile Projects' }]
+    devops:  [{ type: 'JRU subject', title: 'Cloud and Container Basics' }, { type: 'Microcredential', title: 'DevOps Fundamentals' }]
   };
 
   // Microcredentials a student may already hold (excluded from their pathway).
@@ -139,7 +135,7 @@
     });
 
     return {
-      version: 2, sample: true, completedAt: new Date().toISOString(),
+      version: 3, sample: true, completedAt: new Date().toISOString(),
       ratings: ratings, held: held, interests: interests,
       matches: matches, topRole: top, skills: skills, gaps: gaps,
       raised: raised, heldBack: heldBack, pathway: pathway, skipped: skipped,
@@ -186,7 +182,7 @@
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
   // Sample answers for the team-only demo account, scored with the same model.
-  var DEMO_RATINGS = { prog: 4, web: 3, backend: 4, mobile: 1, db: 4, testing: 2, net: 2, git: 3, devops: 1, problem: 4, comm: 3 };
+  var DEMO_RATINGS = { prog: 4, web: 3, backend: 4, mobile: 1, db: 4, testing: 2, net: 2, git: 3, devops: 1 };
 
   async function ensureDemoAccount() {
     var users = read(KEYS.users, []);
@@ -199,7 +195,7 @@
       write(KEYS.users, users);
     }
     var results = read(KEYS.results, {});
-    if (!results.demo || results.demo.version !== 2) {
+    if (!results.demo || results.demo.version !== 3) {
       results.demo = score(DEMO_RATINGS, ['Git and GitHub Essentials'], ['backend']);
       write(KEYS.results, results);
     }
@@ -290,7 +286,7 @@
       await ensureDemoAccount();
       var id = sessionUserId();
       var r = id ? (read(KEYS.results, {})[id] || null) : null;
-      return r && r.version === 2 ? r : null;
+      return r && r.version === 3 ? r : null;   // version 3: technical skills only (older results included soft skills)
     },
 
     // POST /api/assessments  (demo: scored in the browser with the sample model)

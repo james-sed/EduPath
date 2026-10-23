@@ -266,27 +266,62 @@ button{font-family:inherit}
 .match sup{font-size:.34em;margin-top:.14em}
 .match-cap{font-size:13.5px;color:var(--ink-3)}
 .result-hero .cast{justify-self:center}
-.grid-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:20px}
+.grid-2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;margin-top:20px;align-items:start}
 .card{padding:clamp(22px,3vw,36px)}
 .card h2{font-size:22px;font-weight:800;letter-spacing:-.035em;margin:0 0 4px}
-.card .sub{margin:0 0 20px;font-size:14px;color:var(--ink-2)}
-.card h3{font-size:13px;font-weight:700;color:var(--ink-3);margin:24px 0 10px}
-.card .sub + h3{margin-top:0}
-.rank{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.rank li{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:6px 12px}
-.rank .ic{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(140deg,var(--f-aqua),var(--f-lav));color:var(--brand);font-size:17px;grid-row:span 2}
-.rank .nm{font-size:15px;font-weight:700}
-.rank .pc{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
-.rank .bar{grid-column:2 / -1;height:5px;border-radius:99px;background:linear-gradient(90deg,#98ded9,var(--brand));transform-origin:left;transform:scaleX(var(--w,0));transition:transform 1.2s var(--spring)}
-.rank li:not(:first-child) .bar{opacity:.45}
+.card .sub{margin:0 0 20px;font-size:14px;color:var(--ink-2);max-width:60ch}
+
+/* How you rank: a numbered list; the best fit sits on its own tinted row with the biggest number.
+   Bars run on a visible 0 to 100 track so the scale is obvious, and each runner-up says how far behind it is. */
+.rank{list-style:none;margin:0;padding:0}
+.rank li{display:grid;grid-template-columns:18px 34px minmax(0,1fr) auto;column-gap:12px;row-gap:8px;align-items:center;padding:14px 4px;border-top:1px solid var(--hair)}
+.rank li.is-top{padding:16px 16px 18px 12px;margin-bottom:6px;border:0;border-radius:20px;background:linear-gradient(120deg,rgba(191,238,233,.55),rgba(223,223,251,.45))}
+.rank li.is-top + li{border-top:0}
+.rank .pos{font-size:13px;font-weight:800;color:var(--ink-3);text-align:center;font-variant-numeric:tabular-nums}
+.rank .is-top .pos{color:var(--brand)}
+.rank .ic{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:var(--bg-2);color:var(--brand);font-size:17px}
+.rank .is-top .ic{background:#fff}
+.rank .nm{display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px;min-width:0}
+.rank .nm b{font-size:15px;font-weight:700;line-height:1.3}
+.rank .flag{font-size:11.5px;font-weight:700;line-height:1;padding:5px 9px;border-radius:999px;background:var(--gap-bg);color:var(--brand);white-space:nowrap}
+.rank .flag.top{background:var(--brand);color:#fff}
+.rank .pc{font-size:16px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.rank .is-top .pc{font-size:28px;letter-spacing:-.04em;color:var(--brand)}
+.rank .track{grid-column:3 / -1;height:8px;border-radius:99px;background:rgba(15,20,80,.07);overflow:hidden}
+.rank .is-top .track{background:rgba(255,255,255,.75)}
+.rank .bar{display:block;height:100%;border-radius:inherit;background:rgba(22,29,111,.34);transform-origin:left;transform:scaleX(var(--w,0));transition:transform 1.2s var(--spring)}
+.rank .is-top .bar{background:var(--brand)}
 .js .reveal:not(.in) .rank .bar{transform:scaleX(0)}
 .rank li:nth-child(2) .bar{transition-delay:.08s}.rank li:nth-child(3) .bar{transition-delay:.16s}.rank li:nth-child(4) .bar{transition-delay:.24s}.rank li:nth-child(5) .bar{transition-delay:.32s}.rank li:nth-child(6) .bar{transition-delay:.4s}
-.why{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.why li{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
-.why .nm{font-size:15px;font-weight:700}
-.why .tag{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.rank .behind{grid-column:3 / -1;margin-top:-2px;font-size:12.5px;color:var(--ink-3)}
+
+/* What decided it: a key, then one row per skill with a 5-step meter and the comparison in words */
+.key{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0 0 6px;padding:11px 14px;border-radius:16px;background:var(--bg-2);font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.key span{display:inline-flex;align-items:center;gap:8px}
+.key i{width:22px;height:10px;border-radius:99px}
+.key i.you{background:var(--brand)}
+.key i.need{box-shadow:inset 0 0 0 1.5px var(--brand);background:repeating-linear-gradient(90deg,transparent 0 4px,rgba(22,29,111,.16) 4px 6px)}
+.key i.mark{width:3px;height:16px;border-radius:2px;background:var(--teal)}
+.why-group h3{margin:22px 0 2px;font-size:15.5px;font-weight:800;letter-spacing:-.015em;color:var(--ink)}
+.why-group + .why-group{margin-top:8px;border-top:1px solid var(--hair-2)}
+.why-group + .why-group h3{margin-top:22px}
+.why-note{margin:0 0 6px;font-size:13.5px;color:var(--ink-3)}
+.why{list-style:none;margin:0;padding:0}
+.why li{padding:14px 0;border-top:1px solid var(--hair)}
+.why li:first-child{border-top:0}
+.why-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.why .nm{font-size:15px;font-weight:700;line-height:1.3}
+.why .tag{flex:none;font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;white-space:nowrap}
 .why .tag.up{background:var(--mint-2);color:var(--teal)}
 .why .tag.down{background:var(--gap-bg);color:var(--brand)}
+.meter{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;max-width:360px;margin:11px 0 9px}
+.meter i{height:10px;border-radius:99px;box-shadow:inset 0 0 0 1.5px var(--hair-2)}
+.meter i.you{background:var(--brand);box-shadow:none;transform-origin:left;transition:transform .7s var(--spring) .25s}
+.meter i.need{box-shadow:inset 0 0 0 1.5px var(--brand);background:repeating-linear-gradient(90deg,transparent 0 4px,rgba(22,29,111,.16) 4px 6px)}
+.meter .mark{position:absolute;top:-4px;bottom:-4px;width:3px;border-radius:2px;background:var(--teal);left:min(calc((100% - 16px) / 5 * var(--at) + 4px * var(--at) - 3.5px),calc(100% - 3px))}
+.js .reveal:not(.in) .meter i.you{transform:scaleX(0)}
+.cmp{margin:0;font-size:13px;color:var(--ink-3)}
+.cmp b{font-weight:700;color:var(--ink)}
 .pips{grid-column:1/-1;display:flex;align-items:center;gap:5px}
 .pips i{width:30px;height:8px;border-radius:99px;box-shadow:inset 0 0 0 1.5px var(--hair-2)}
 .pips i.on{background:var(--brand);box-shadow:none;transform-origin:left;transition:transform .7s var(--spring) .25s}

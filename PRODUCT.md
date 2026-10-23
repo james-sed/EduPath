@@ -30,7 +30,7 @@ An explainable diagnostic, not a black box and not a job board. Roles come from 
 
 Flow (from the project paper's process model):
 
-1. **Acquire:** multi-step intake: academic program, career interests/preferred track, existing credentials, and self-rated competencies on a 0–5 Likert scale across core programming, databases, tools, and soft skills.
+1. **Acquire:** multi-step intake: academic program, career interests/preferred track, existing credentials, and self-rated competencies on a 0–5 Likert scale across programming, data and quality (databases, testing), and systems and tools. **Technical skills only:** soft skills are outside the project's scope and are not assessed.
 2. **Preprocess:** handle missing values and normalize into skill vectors (backend).
 3. **Classify:** predict the most suitable entry-level role.
 4. **Diagnose:** match percentage via Cosine Similarity; per-skill deficits via Euclidean subtraction.

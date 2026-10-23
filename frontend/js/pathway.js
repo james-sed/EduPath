@@ -63,7 +63,7 @@
     var g = bySkill[id], s = skillById[id], li = el('li', 'reveal');
     var stop = el('span', 'stop', String(i + 1)); stop.setAttribute('aria-hidden', 'true');
     var line = el('div', 'gapline');
-    line.appendChild(el('span', 'tag', plural(g.gap, 'pt', 'pts') + ' to close'));
+    line.appendChild(el('span', 'tag', plural(g.gap, 'level', 'levels') + ' to close'));
     if (s) {
       var pp = el('div', 'pips'); pp.setAttribute('aria-hidden', 'true');
       for (var k = 1; k <= 5; k++) { var p = el('i'); if (k <= s.you) p.className = 'on'; else if (k <= s.role) p.className = 'need'; pp.appendChild(p); }

@@ -272,36 +272,46 @@
     }
   }
 
-  /* ---------- Roles roster: one role open at a time; its character takes the stage ---------- */
+  /* ---------- Roles roster: one role open at a time; its character takes the stage ----------
+     Own names (rStage, rArts) so this block never overwrites the hero theater's stage and arts.
+     Mouse hover waits a beat before switching, so sweeping across the list doesn't flick through
+     every character; click, tap and keyboard focus switch at once. */
   var roster = document.querySelector('[data-roster]');
   if (roster) {
-    var stage = document.querySelector('[data-roster-stage]'), stageName = document.querySelector('[data-stage-name]');
-    var rows = [], arts = [];
+    var rStage = document.querySelector('[data-roster-stage]'), stageName = document.querySelector('[data-stage-name]');
+    var rows = [], rArts = [], openAt = -1, hoverTimer = 0;
     ROLES.forEach(function (r, i) {
       var img = new Image(); img.src = r.art; img.alt = ''; img.decoding = 'async';
-      stage.appendChild(img); arts.push(img);
+      rStage.appendChild(img); rArts.push(img);
       var li = el('li'), btn = el('button', 'rr'); btn.type = 'button';
       btn.id = 'rr-' + r.id; btn.setAttribute('aria-controls', 'rr-more-' + r.id);
       var name = el('span', 'rr-name', r.name);
       var ar = el('i', 'ph-light ph-arrow-right'); ar.setAttribute('aria-hidden', 'true'); name.appendChild(ar);
       var more = el('span', 'rr-more'); more.id = 'rr-more-' + r.id;
       var inner = el('div');
-      var sk = el('span', 'rr-skills'); sk.style.display = 'block';
+      var sk = el('span', 'rr-skills');
       r.skills.forEach(function (x) { sk.appendChild(el('span', null, x)); });
       var small = new Image(); small.src = r.art; small.alt = ''; small.className = 'rr-art'; small.loading = 'lazy';
       inner.append(el('span', 'rr-desc', r.desc), sk, small);
-      inner.firstChild.style.display = 'block';
       more.appendChild(inner);
       btn.append(name, more);
       li.appendChild(btn); roster.appendChild(li); rows.push(btn);
       btn.addEventListener('click', function () { openRole(i); });
       btn.addEventListener('focus', function () { openRole(i); });
-      btn.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') openRole(i); });
+      btn.addEventListener('pointerenter', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(function () { openRole(i); }, 110);
+      });
     });
+    roster.addEventListener('pointerleave', function () { clearTimeout(hoverTimer); });
     var openRole = function (i) {
+      clearTimeout(hoverTimer);
+      if (i === openAt) return;
+      openAt = i;
       rows.forEach(function (b, k) { b.setAttribute('aria-expanded', String(k === i)); });
-      arts.forEach(function (im, k) { im.classList.toggle('is-on', k === i); });
-      stage.dataset.on = String(i);
+      rArts.forEach(function (im, k) { im.classList.toggle('is-on', k === i); });
+      rStage.dataset.on = String(i);
       stageName.textContent = ROLES[i].name;
     };
     openRole(0);
