@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin dashboard | EduPath</title>
+<meta name="description" content="EduPath admin dashboard: maintain role benchmarks and the learning catalog (demo mode). For program chairs and Career Center staff.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#fbfbfd">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+
+<header class="nav" aria-label="Site navigation">
+  <a href="index.html" class="brand" aria-label="EduPath home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#161d6f"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/></svg>
+    EduPath
+  </a>
+  <div class="nav-end"><button type="button" class="nav-btn" data-admin-signout hidden>Sign Out</button></div>
+</header>
+
+<div class="admin-shell">
+  <div class="admin-notice admin-notice--info" id="admin-demo-notice">
+    <strong>Demo mode:</strong> benchmarks, catalog, and this session are saved only in this browser (localStorage / sessionStorage). Backend endpoints are not connected yet.
+  </div>
+
+  <section id="admin-gate"></section>
+
+  <section id="admin-dashboard" hidden>
+    <header class="admin-head">
+      <h1>Admin dashboard</h1>
+      <p>Maintain the role benchmarks and learning catalog behind EduPath's skill-gap recommendations. All data shown is sample data.</p>
+    </header>
+
+    <nav class="admin-tabs" role="tablist" aria-label="Admin screens">
+      <button type="button" role="tab" aria-selected="true" aria-controls="tab-bench" id="tab-btn-bench" data-tab="bench">Role benchmarks</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="tab-catalog" id="tab-btn-catalog" data-tab="catalog">Learning catalog</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="tab-summary" id="tab-btn-summary" data-tab="summary">Skill-gap summary</button>
+    </nav>
+
+    <div class="admin-tabpanels">
+      <div role="tabpanel" id="tab-bench" aria-labelledby="tab-btn-bench" data-tabpanel="bench"></div>
+      <div role="tabpanel" id="tab-catalog" aria-labelledby="tab-btn-catalog" data-tabpanel="catalog" hidden></div>
+      <div role="tabpanel" id="tab-summary" aria-labelledby="tab-btn-summary" data-tabpanel="summary" hidden></div>
+    </div>
+  </section>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
