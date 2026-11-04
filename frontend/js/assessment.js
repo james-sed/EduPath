@@ -1,5 +1,6 @@
-/* Skill assessment: interests, three technical skill groups rated 0 to 5, credentials already held,
-   then a review and submit. Answers autosave so a refresh never loses progress. */
+/* Skill assessment: interests, credentials already held, three technical skill groups and four
+   soft-skill competencies rated 0 to 5, then a review and submit. Answers autosave so a refresh
+   never loses progress. */
 (async function () {
   'use strict';
   var api = window.EduPath.api, M = window.EduPath.model;
@@ -14,13 +15,22 @@
 
   // ---------- Steps ----------
   var STEPS = [{ id: 'interests', label: 'Interests', role: 'mobile', side: 'Curious about a role?', text: 'Picking one is optional. EduPath still compares you with all six.' }]
+    .concat([{ id: 'held', label: 'Credentials', role: 'backend', side: 'Already certified?', text: "Anything you already hold won't be recommended again." }])
     .concat(M.GROUPS.map(function (g) { return { id: g.id, label: g.name, role: g.role, group: g, side: g.name, text: g.blurb }; }))
     .concat([
-      { id: 'held', label: 'Credentials', role: 'backend', side: 'Already certified?', text: "Anything you already hold won't be recommended again." },
-      { id: 'review', label: 'Review', role: 'qa', side: 'Almost there', text: 'Check your answers, then see your matches.' }
+      { id: 'soft', label: 'Soft skills', role: 'qa', soft: true, side: 'How you work with people', text: 'Four everyday competencies. Rate each one; there are no wrong answers.' },
+      { id: 'review', label: 'Review', role: 'network', side: 'Almost there', text: 'Check your answers, then see your matches.' }
     ]);
 
-  var draft = api.loadDraft() || { step: 0, ratings: {}, interests: [], held: [] };
+  var draft = api.loadDraft() || { step: 0, ratings: {}, interests: [], held: [], softSkills: {} };
+  draft.ratings = draft.ratings || {};
+  draft.interests = draft.interests || [];
+  draft.held = draft.held || [];
+  draft.softSkills = draft.softSkills || {};
+  M.SOFT.forEach(function (g) {
+    var saved = draft.softSkills[g.id];
+    draft.softSkills[g.id] = g.items.map(function (it, i) { return saved && saved[i] != null ? saved[i] : null; });
+  });
   var current = Math.min(draft.step || 0, STEPS.length - 1);
   // The furthest step reached: stops up to here can be jumped to from the road, later ones stay locked
   draft.furthest = Math.min(Math.max(draft.furthest || 0, current), STEPS.length - 1);
@@ -80,6 +90,32 @@
         });
         row.appendChild(fs); p.appendChild(row);
       });
+    } else if (s.soft) {
+      h.textContent = 'How you work with people';
+      p.appendChild(el('p', 'lead', 'Rate yourself honestly from 0 to 5. These four competencies sit beside technical skills in most entry-level IT jobs.'));
+      M.SOFT.forEach(function (g) {
+        var sec = el('section', 'soft-group');
+        sec.appendChild(el('h2', 'soft-title', g.name));
+        g.items.forEach(function (it, i) {
+          var row = el('div', 'skill reveal');
+          var head = el('div', 'skill-head'); head.append(el('b', null, it.name), el('span', null, ''));
+          head.lastChild.dataset.levelFor = it.id;
+          row.append(head, el('p', 'skill-desc', it.desc));
+          var fs = el('fieldset', 'scale'); fs.dataset.skill = it.id;
+          var lg = el('legend', 'sr-only', 'Your level in ' + it.name); fs.appendChild(lg);
+          var fl = el('span', 'scale-fill'); fl.setAttribute('aria-hidden', 'true'); fs.appendChild(fl);
+          M.LEVELS.forEach(function (L) {
+            var lab = el('label'), inp = el('input');
+            inp.type = 'radio'; inp.name = 's-' + it.id; inp.value = String(L.v);
+            inp.dataset.soft = g.id; inp.dataset.softIndex = String(i);
+            inp.checked = draft.softSkills[g.id][i] === L.v;
+            var sp = el('span'); sp.append(el('b', null, String(L.v)), el('small', null, L.label));
+            lab.title = L.hint; lab.append(inp, sp); fs.appendChild(lab);
+          });
+          row.appendChild(fs); sec.appendChild(row);
+        });
+        p.appendChild(sec);
+      });
     } else if (s.id === 'held') {
       h.textContent = 'Do you already hold any of these?';
       p.appendChild(el('p', 'lead', 'Optional. Tick any microcredential you have finished so your pathway skips it. Sample list: names are placeholders.'));
@@ -104,9 +140,20 @@
   var cast = document.querySelector('[data-cast]');
 
   function levelLabel(v) { return M.LEVELS[v] ? M.LEVELS[v].label : ''; }
+  function softValue(id) {
+    var v = null;
+    M.SOFT.forEach(function (g) {
+      g.items.forEach(function (it, i) {
+        if (it.id === id && draft.softSkills[g.id]) v = draft.softSkills[g.id][i];
+      });
+    });
+    return v;
+  }
   function syncLabels() {
     document.querySelectorAll('[data-level-for]').forEach(function (n) {
-      var v = draft.ratings[n.dataset.levelFor]; n.textContent = v == null ? 'Not rated yet' : v + ', ' + levelLabel(v);
+      var id = n.dataset.levelFor;
+      var v = draft.ratings[id] != null ? draft.ratings[id] : softValue(id);
+      n.textContent = v == null ? 'Not rated yet' : v + ', ' + levelLabel(v);
       n.classList.toggle('is-set', v != null);
     });
   }
@@ -116,6 +163,10 @@
     if (t.name && t.name.indexOf('r-') === 0) {
       draft.ratings[t.name.slice(2)] = Number(t.value);
       var fs = t.closest('.scale'); if (fs) fs.classList.remove('is-missing');
+    } else if (t.name && t.name.indexOf('s-') === 0) {
+      var gid = t.dataset.soft, ix = Number(t.dataset.softIndex);
+      if (draft.softSkills[gid]) draft.softSkills[gid][ix] = Number(t.value);
+      var softScale = t.closest('.scale'); if (softScale) softScale.classList.remove('is-missing');
     } else if (t.name === 'interest') {
       var chosen = Array.prototype.slice.call(form.querySelectorAll('input[name="interest"]:checked')).map(function (i) { return i.value; });
       if (chosen.length > 2) { t.checked = false; showAlert('Pick up to two roles.'); return; }
@@ -133,7 +184,22 @@
   var countBox = $('[data-side-count]');
   function syncCount() {
     var s = STEPS[current]; countBox.innerHTML = '';
-    if (!s || !s.group) return;
+    if (!s) return;
+    if (s.soft) {
+      var items = M.SOFT_ITEMS;
+      var done = items.filter(function (it) {
+        var v = draft.softSkills[it.group] ? draft.softSkills[it.group][it.index] : null;
+        return v != null;
+      }).length;
+      var softDots = el('span', 'dots');
+      items.forEach(function (it) {
+        var v = draft.softSkills[it.group] ? draft.softSkills[it.group][it.index] : null;
+        softDots.appendChild(el('i', v != null ? 'on' : null));
+      });
+      countBox.append(softDots, document.createTextNode(done === items.length ? 'All rated' : done + ' of ' + items.length + ' rated'));
+      return;
+    }
+    if (!s.group) return;
     var ks = M.SKILLS.filter(function (k) { return k.group === s.group.id; });
     var done = ks.filter(function (k) { return draft.ratings[k.id] != null; }).length;
     var dots = el('span', 'dots');
@@ -172,7 +238,7 @@
     });
 
     var sum = el('div', 'rv-sum');
-    [[String(M.SKILLS.length), 'skills rated'], [String(strong), strong === 1 ? 'skill at Strong or higher' : 'skills at Strong or higher'], [top ? top.name : 'None yet', 'your strongest area']]
+    [[String(M.SKILLS.length), 'technical skills rated'], [String(strong), strong === 1 ? 'technical skill at Strong or higher' : 'technical skills at Strong or higher'], [top ? top.name : 'None yet', 'your strongest technical area']]
       .forEach(function (f, i) { var d = el('div', i === 2 ? 'is-text' : null); d.append(el('b', null, f[0]), el('span', null, f[1])); sum.appendChild(d); });
     box.appendChild(sum);
 
@@ -187,6 +253,22 @@
         for (var i = 1; i <= 5; i++) { var seg = el('i', i <= v ? 'on' : null); seg.style.setProperty('--d', n * 2 + i); m.appendChild(seg); }
         var lv = el('span', 'rv-lv'); lv.append(el('b', null, String(v)), document.createTextNode(levelLabel(v)));
         li.append(el('span', 'nm', k.name), m, lv); ul.appendChild(li); n++;
+      });
+      sec.appendChild(ul); box.appendChild(sec);
+    });
+
+    M.SOFT.forEach(function (g) {
+      var sec = el('section', 'rv-group'), head = el('header', 'rv-head');
+      head.append(el('h3', null, g.name), editBtn('soft', g.name)); sec.appendChild(head);
+      var ul = el('ul', 'rv-list');
+      g.items.forEach(function (it, i) {
+        var v = draft.softSkills[g.id] ? draft.softSkills[g.id][i] : null;
+        var li = el('li');
+        var m = el('span', 'rv-meter'); m.setAttribute('aria-hidden', 'true');
+        for (var j = 1; j <= 5; j++) { var seg = el('i', v != null && j <= v ? 'on' : null); seg.style.setProperty('--d', n * 2 + j); m.appendChild(seg); }
+        var lv = el('span', 'rv-lv');
+        lv.append(el('b', null, v == null ? '–' : String(v)), document.createTextNode(v == null ? 'Not rated' : levelLabel(v)));
+        li.append(el('span', 'nm', it.name), m, lv); ul.appendChild(li); n++;
       });
       sec.appendChild(ul); box.appendChild(sec);
     });
@@ -229,6 +311,12 @@
   }
 
   function missingIn(step) {
+    if (step.soft) {
+      return M.SOFT_ITEMS.filter(function (it) {
+        var v = draft.softSkills[it.group] ? draft.softSkills[it.group][it.index] : null;
+        return v == null;
+      });
+    }
     if (!step.group) return [];
     return M.SKILLS.filter(function (k) { return k.group === step.group.id && draft.ratings[k.id] == null; });
   }
@@ -245,7 +333,11 @@
     if (current < STEPS.length - 1) { go(current + 1, true); return; }
 
     // Submit
-    var allMissing = M.SKILLS.filter(function (k) { return draft.ratings[k.id] == null; });
+    var allMissing = M.SKILLS.filter(function (k) { return draft.ratings[k.id] == null; })
+      .concat(M.SOFT_ITEMS.filter(function (it) {
+        var v = draft.softSkills[it.group] ? draft.softSkills[it.group][it.index] : null;
+        return v == null;
+      }));
     if (allMissing.length) { showAlert('Some skills are still unrated. Go back and rate them first.'); return; }
     busy = true; next.disabled = true; back.disabled = true; next.setAttribute('aria-busy', 'true');
     var on = form.querySelector('.panel.is-on');
@@ -255,7 +347,7 @@
     on.appendChild(sc);
     announce.textContent = 'Scoring your assessment';
     try {
-      await api.submitAssessment({ ratings: draft.ratings, interests: draft.interests, held: draft.held });
+      await api.submitAssessment({ ratings: draft.ratings, interests: draft.interests, held: draft.held, softSkills: draft.softSkills });
       location.href = 'results.html';
     } catch (err) {
       busy = false; next.disabled = false; back.disabled = false; next.removeAttribute('aria-busy');

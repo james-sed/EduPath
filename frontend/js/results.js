@@ -12,6 +12,7 @@
   var img = function (src, cls) { var i = new Image(); i.src = src; i.alt = ''; if (cls) i.className = cls; return i; };
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var plural = function (n, one, many) { return n + ' ' + (n === 1 ? one : many); };
+  var fmt = function (n) { return (Math.round(n * 10) / 10).toFixed(1); };
 
   document.querySelector('[data-who]').textContent = user.name;
   document.querySelector('[data-signout]').addEventListener('click', async function () { await api.logout(); location.href = 'index.html'; });
@@ -63,7 +64,7 @@
     var c = el('div', 'cast'); c.style.margin = '0 auto 10px'; c.style.width = 'min(70%,320px)';
     c.appendChild(img('assets/roles/frontend.svg', 'is-on'));
     var a = btn('a', 'btn-primary has-isle', 'Start the Assessment', 'ph-arrow-right'); a.href = 'assessment.html';
-    empty.append(c, el('h1', null, 'No results yet'), el('p', null, 'Take the five-minute skill assessment to see which roles fit you and what to learn next.'), a);
+    empty.append(c, el('h1', null, 'No results yet'), el('p', null, 'Take the seven-minute skill assessment to see which roles fit you and what to learn next.'), a);
     root.appendChild(empty);
     return;
   }
@@ -89,7 +90,7 @@
         var line = el('div', 's-lineup s');
         M.ROLES.forEach(function (r) { line.appendChild(img(r.art)); });
         s.append(line, el('p', 's-say s s2', first + ', your results are in.'), el('h1', 's-big s s3', 'Six roles. One best fit.'),
-          el('p', 's-text s s4', 'We compared your ' + res.skills.length + ' skill ratings with what each entry-level IT role asks for.'));
+          el('p', 's-text s s4', 'We compared your ' + res.skills.length + ' technical skill ratings with what each entry-level IT role asks for.'));
       },
       function (s) {
         s.append(el('p', 's-say s', 'Your best fit is'), img(top.art, 's-art s s2'), el('h2', 's-big s s3', top.name), el('p', 's-text s s4', top.desc));
@@ -280,6 +281,51 @@
     why.appendChild(g2);
     row.append(rank, why);
     root.appendChild(row);
+
+    // Soft skills: a separate advisory report after the technical gap report, with the same
+    // max(0, benchmark - student) deficit rule and a sample next step for every gap.
+    if (res.softGaps && res.softGaps.length) {
+      var soft = el('section', 'plate card reveal');
+      var softTag = el('span', 'sample-tag'); softTag.append(icon('ph-flask'), document.createTextNode('Sample soft-skill benchmarks'));
+      var softHead = el('div', 'soft-head');
+      var softCopy = el('div', 'soft-head-copy');
+      softCopy.append(el('h2', null, 'Soft skills'),
+        el('p', 'sub', 'How you rated yourself across four ways of working, against the sample benchmarks for a ' + top.name + '. Advisory guidance only: these stay separate from your role match and do not predict hiring.'));
+      softHead.append(softCopy, softTag);
+      soft.appendChild(softHead);
+      var sul = el('ul', 'soft-why');
+      res.softGaps.forEach(function (s) {
+        var li = el('li');
+        var name = el('b', 'nm', s.name);
+        var tag = el('span', 'tag ' + (s.gap > 0 ? 'down' : 'up'), s.gap > 0 ? fmt(s.gap) + ' below' : 'Meets benchmark');
+        var bar = el('div', 'soft-meter');
+        bar.setAttribute('role', 'img');
+        bar.setAttribute('aria-label', s.name + ': you ' + fmt(s.you) + ' of 5, benchmark ' + fmt(s.role));
+        bar.style.setProperty('--at', s.role);
+        var fill = el('span', 'fill'); fill.style.setProperty('--w', (s.you / 5).toFixed(3));
+        var mark = el('span', 'mark');
+        bar.append(fill, mark, el('span', 'mark-label', 'Benchmark'));
+        var scale = el('div', 'soft-scale'); scale.setAttribute('aria-hidden', 'true');
+        scale.append(el('span', null, '0'), el('span', null, '5'));
+        var meterWrap = el('div', 'soft-meter-wrap');
+        meterWrap.append(bar, scale);
+        var math = el('p', 'cmp');
+        math.append('You: ', el('b', null, fmt(s.you)), '  ·  Sample benchmark: ', el('b', null, fmt(s.role)),
+          '  ·  Deficit: max(0, ', fmt(s.role), ' − ', fmt(s.you), ') = ', el('b', null, fmt(s.gap)));
+        li.append(name, tag, meterWrap, math);
+        if (s.gap > 0) {
+          var next = el('p', 'soft-next');
+          next.append('Next step: ', el('b', null, s.next && s.next[0] ? s.next[0].title : 'A suggested activity'), ' ');
+          next.appendChild(el('span', 'sample-tag', 'Sample activity'));
+          li.appendChild(next);
+        } else {
+          li.appendChild(el('p', 'soft-next', 'No gap to close at this benchmark.'));
+        }
+        sul.appendChild(li);
+      });
+      soft.appendChild(sul);
+      root.appendChild(soft);
+    }
 
     // The pathway, one click away
     var skills = {}; res.pathway.forEach(function (p) { skills[p.skill] = 1; });

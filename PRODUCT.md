@@ -30,10 +30,10 @@ An explainable diagnostic, not a black box and not a job board. Roles come from 
 
 Flow (from the project paper's process model):
 
-1. **Acquire:** multi-step intake: academic program, career interests/preferred track, existing credentials, and self-rated competencies on a 0–5 Likert scale across programming, data and quality (databases, testing), and systems and tools. **Technical skills only:** soft skills are outside the project's scope and are not assessed.
+1. **Acquire:** multi-step intake: academic program, career interests/preferred track, existing credentials, self-rated technical competencies on a 0–5 Likert scale across programming, data and quality (databases, testing), and systems and tools, plus a four-competency soft skills step (communication, teamwork, problem solving, adaptability; three self-ratings each). Soft skills are stored as their own vector, separate from technical skills, and are not folded into the role match.
 2. **Preprocess:** handle missing values and normalize into skill vectors (backend).
 3. **Classify:** predict the most suitable entry-level role.
-4. **Diagnose:** match percentage via Cosine Similarity; per-skill deficits via Euclidean subtraction.
+4. **Diagnose:** match percentage via Cosine Similarity; per-skill deficits via Euclidean subtraction; soft-skill averages compared with sample per-role benchmarks in a separate advisory report.
 5. **Remediate:** map each gap to JRU CSE subjects and CHED microcredentials, excluding credentials the student already holds.
 6. **Feedback loop:** the student updates their profile after completing subjects or credentials, and the system recalculates.
 
@@ -62,8 +62,8 @@ Pages in the repo: `index.html` (landing, built), `login.html`, `assessment.html
 ## Evidence on Hand
 
 - Project paper, Chapters 1–3 (problem, framework, objectives, scope, methodology); written in thesis format but not a thesis. Citable context: PSA 2025 (digital economy ₱2.25T, 8.5% of GDP), Melchor 2022 (39% overeducated / 25%+ undereducated), Tutor et al. 2021 (fewer than half of graduates get jobs aligned with their degree).
-- **No real data yet:** no role benchmarks, no course/elective catalog, no microcredential list, no trained model, no user results. Any sample scorecard, role percentage, deficit, or course name must be clearly labeled as a sample/illustration, never presented as a real result or a real JRU course.
-- No testimonials, user counts, accuracy figures, or evaluation results exist. Do not fabricate them. The "~5 min" self-assessment time is an estimate and is labelled as one on the landing page.
+- **No real data yet:** no role benchmarks (technical or soft-skill), no course/elective catalog, no microcredential list, no trained model, no user results. Any sample scorecard, role percentage, deficit, or course name must be clearly labeled as a sample/illustration, never presented as a real result or a real JRU course.
+- No testimonials, user counts, accuracy figures, or evaluation results exist. Do not fabricate them. The "~7 min" self-assessment time is an estimate and is labelled as one on the landing page.
 
 ## Product Principles
 

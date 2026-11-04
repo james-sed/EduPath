@@ -48,7 +48,36 @@
     { id: 'git',     group: 'systems',     name: 'Git and version control',  desc: 'Commits, branches, and pull requests' },
     { id: 'devops',  group: 'systems',     name: 'Docker, CI/CD, and cloud', desc: 'Containers, deployment pipelines, cloud basics' }
   ];
-  // Technical skills only: soft skills are outside EduPath's scope.
+
+  // Soft skills: four competencies, three self-ratings each. Kept separate from SKILLS so the
+  // technical vector and the soft-skill vector can be used independently.
+  var SOFT = [
+    { id: 'communication', name: 'Communication', items: [
+      { id: 'communication-1', name: 'Explaining technical ideas clearly in writing', desc: 'Docs, emails, and written updates another person can follow.' },
+      { id: 'communication-2', name: 'Presenting or speaking to a group', desc: 'Walking a class or team through your work out loud.' },
+      { id: 'communication-3', name: 'Listening and asking clarifying questions', desc: 'Checking what someone means before you start.' }
+    ] },
+    { id: 'teamwork', name: 'Teamwork', items: [
+      { id: 'teamwork-1', name: 'Contributing reliably to group projects', desc: 'Doing your share and meeting the commitments you make.' },
+      { id: 'teamwork-2', name: 'Giving and accepting feedback', desc: 'Offering useful comments and taking suggestions without defensiveness.' },
+      { id: 'teamwork-3', name: 'Resolving disagreements respectfully', desc: 'Working toward a decision without making it personal.' }
+    ] },
+    { id: 'problemSolving', name: 'Problem Solving', items: [
+      { id: 'problemSolving-1', name: 'Breaking a problem into smaller parts', desc: 'Turning a vague task into steps you can actually start.' },
+      { id: 'problemSolving-2', name: 'Debugging or troubleshooting systematically', desc: 'Testing one cause at a time instead of guessing.' },
+      { id: 'problemSolving-3', name: 'Evaluating options before deciding', desc: 'Comparing trade-offs before committing to an approach.' }
+    ] },
+    { id: 'adaptability', name: 'Adaptability', items: [
+      { id: 'adaptability-1', name: 'Learning new tools or languages quickly', desc: "Getting productive with unfamiliar software or syntax." },
+      { id: 'adaptability-2', name: 'Staying effective when requirements change', desc: 'Adjusting your plan without losing the goal.' },
+      { id: 'adaptability-3', name: 'Recovering from setbacks or failed attempts', desc: 'Trying a different approach after something breaks.' }
+    ] }
+  ];
+
+  var SOFT_ITEMS = [];
+  SOFT.forEach(function (g) {
+    g.items.forEach(function (it, i) { it.group = g.id; it.groupName = g.name; it.index = i; SOFT_ITEMS.push(it); });
+  });
 
   var GROUPS = [
     { id: 'programming', name: 'Programming', role: 'frontend', blurb: 'The languages and frameworks you build with.' },
@@ -82,6 +111,17 @@
     network:  [2, 1, 2, 1, 2, 2, 5, 3, 4]
   };
 
+  // SAMPLE soft-skill benchmarks (0 to 5) per role, in SOFT order:
+  //            communication teamwork problemSolving adaptability
+  var SOFT_BENCH = {
+    frontend: [4, 4, 4, 4],
+    backend:  [4, 4, 5, 4],
+    mobile:   [3, 4, 4, 4],
+    database: [4, 3, 4, 3],
+    qa:       [4, 4, 5, 4],
+    network:  [4, 4, 4, 4]
+  };
+
   // SAMPLE learning catalog: one JRU subject and one microcredential per skill. Names are placeholders.
   var CATALOG = {
     prog:    [{ type: 'JRU subject', title: 'Computer Programming 2' }, { type: 'Microcredential', title: 'Python Essentials' }],
@@ -95,11 +135,36 @@
     devops:  [{ type: 'JRU subject', title: 'Cloud and Container Basics' }, { type: 'Microcredential', title: 'DevOps Fundamentals' }]
   };
 
+  // SAMPLE next steps for soft-skill gaps: suggested activities, not real course names.
+  var SOFT_CATALOG = {
+    communication: [{ type: 'Suggested activity', title: 'Present a class project and collect one round of feedback' }],
+    teamwork:      [{ type: 'Suggested activity', title: 'Take a shared role in a group project and run a peer review' }],
+    problemSolving: [{ type: 'Suggested activity', title: 'Work through one debugging or troubleshooting exercise each week' }],
+    adaptability:  [{ type: 'Suggested activity', title: 'Rebuild a small project with a tool or language that is new to you' }]
+  };
+
   // Microcredentials a student may already hold (excluded from their pathway).
   var CREDENTIALS = [];
   Object.keys(CATALOG).forEach(function (k) {
     CATALOG[k].forEach(function (c) { if (c.type === 'Microcredential') CREDENTIALS.push(c.title); });
   });
+
+  function round1(n) { return Math.round(n * 10) / 10; }
+  function average(values) { return values.length ? values.reduce(function (s, v) { return s + v; }, 0) / values.length : 0; }
+
+  // Per-competency average (0 to 5) from its three item ratings.
+  function softAverages(soft) {
+    soft = soft || {};
+    var out = {};
+    SOFT.forEach(function (g) {
+      var vals = g.items.map(function (it, i) {
+        var v = soft[g.id] ? soft[g.id][i] : null;
+        return v == null || isNaN(v) ? 0 : Number(v);
+      });
+      out[g.id] = round1(average(vals));
+    });
+    return out;
+  }
 
   function cosine(a, b) {
     var dot = 0, na = 0, nb = 0;
@@ -108,9 +173,10 @@
   }
 
   /* Score a completed assessment.
-     ratings: { skillId: 0..5 }, held: [microcredential titles], interests: [roleIds] */
-  function score(ratings, held, interests) {
-    held = held || []; interests = interests || [];
+     ratings: { skillId: 0..5 }, held: [microcredential titles], interests: [roleIds],
+     soft: { competencyId: [0..5, 0..5, 0..5] } */
+  function score(ratings, held, interests, soft) {
+    held = held || []; interests = interests || []; soft = soft || {};
     var you = SKILLS.map(function (s) { return Number(ratings[s.id] || 0); });
     var matches = ROLES.map(function (r) {
       var b = BENCH[r.id];
@@ -134,12 +200,26 @@
       });
     });
 
+    // Soft skills are reported separately: per-competency average against the top role's sample
+    // benchmark, with the same max(0, benchmark - student) deficit rule. They do not affect matches.
+    var softAvg = softAverages(soft), softBench = {};
+    SOFT.forEach(function (g, i) { softBench[g.id] = SOFT_BENCH[top][i]; });
+    var softGaps = SOFT.map(function (g) {
+      var roleLevel = softBench[g.id], avg = softAvg[g.id];
+      return {
+        id: g.id, name: g.name, you: avg, role: roleLevel,
+        gap: round1(Math.max(0, roleLevel - avg)),
+        items: (soft[g.id] || []).slice(), next: SOFT_CATALOG[g.id], sample: true
+      };
+    });
+
     return {
-      version: 3, sample: true, completedAt: new Date().toISOString(),
+      version: 4, sample: true, completedAt: new Date().toISOString(),
       ratings: ratings, held: held, interests: interests,
+      softSkills: soft, softAverages: softAvg, softBench: softBench, softGaps: softGaps,
       matches: matches, topRole: top, skills: skills, gaps: gaps,
       raised: raised, heldBack: heldBack, pathway: pathway, skipped: skipped,
-      method: 'Demo scoring: roles ranked by Cosine Similarity against sample benchmarks until the trained Decision Tree and Random Forest models are connected.'
+      method: 'Demo scoring: roles ranked by Cosine Similarity against sample benchmarks until the trained Decision Tree and Random Forest models are connected. Soft skills are reported separately.'
     };
   }
 
@@ -183,6 +263,12 @@
 
   // Sample answers for the team-only demo account, scored with the same model.
   var DEMO_RATINGS = { prog: 4, web: 3, backend: 4, mobile: 1, db: 4, testing: 2, net: 2, git: 3, devops: 1 };
+  var DEMO_SOFT = {
+    communication: [4, 4, 3],
+    teamwork: [4, 4, 4],
+    problemSolving: [3, 4, 3],
+    adaptability: [3, 4, 4]
+  };
 
   async function ensureDemoAccount() {
     var users = read(KEYS.users, []);
@@ -195,8 +281,8 @@
       write(KEYS.users, users);
     }
     var results = read(KEYS.results, {});
-    if (!results.demo || results.demo.version !== 3) {
-      results.demo = score(DEMO_RATINGS, ['Git and GitHub Essentials'], ['backend']);
+    if (!results.demo || results.demo.version !== 4) {
+      results.demo = score(DEMO_RATINGS, ['Git and GitHub Essentials'], ['backend'], DEMO_SOFT);
       write(KEYS.results, results);
     }
   }
@@ -261,7 +347,7 @@
       }
       write(KEYS.session, { userId: user.id });
       var results = read(KEYS.results, {});
-      return { user: publicUser(user), hasResults: !!results[user.id] };
+      return { user: publicUser(user), hasResults: !!(results[user.id] && results[user.id].version === 4) };
     },
 
     // POST /api/auth/logout
@@ -286,7 +372,7 @@
       await ensureDemoAccount();
       var id = sessionUserId();
       var r = id ? (read(KEYS.results, {})[id] || null) : null;
-      return r && r.version === 3 ? r : null;   // version 3: technical skills only (older results included soft skills)
+      return r && r.version === 4 ? r : null;   // version 4: technical plus separately stored soft skills
     },
 
     // POST /api/assessments  (demo: scored in the browser with the sample model)
@@ -295,7 +381,7 @@
       await wait(900);
       var id = sessionUserId();
       if (!id) throw ApiError('Your session ended. Sign in again to save your results.', null, 'no_session');
-      var result = score(answers.ratings, answers.held, answers.interests);
+      var result = score(answers.ratings, answers.held, answers.interests, answers.softSkills);
       var all = read(KEYS.results, {});
       all[id] = result;
       if (!write(KEYS.results, all)) throw ApiError("This browser isn't allowing EduPath to save data. Your results weren't saved.", null, 'storage');
@@ -320,6 +406,10 @@
 
   window.EduPath = {
     api: api,
-    model: { LEVELS: LEVELS, SKILLS: SKILLS, GROUPS: GROUPS, ROLES: ROLES, BENCH: BENCH, CATALOG: CATALOG, CREDENTIALS: CREDENTIALS, score: score, roleById: roleById }
+    model: {
+      LEVELS: LEVELS, SKILLS: SKILLS, SOFT: SOFT, SOFT_ITEMS: SOFT_ITEMS, GROUPS: GROUPS,
+      ROLES: ROLES, BENCH: BENCH, SOFT_BENCH: SOFT_BENCH, CATALOG: CATALOG, SOFT_CATALOG: SOFT_CATALOG,
+      CREDENTIALS: CREDENTIALS, score: score, roleById: roleById, softAverages: softAverages
+    }
   };
 })();
