@@ -3,53 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Admin dashboard | EduPath</title>
-<meta name="description" content="EduPath admin dashboard: maintain role benchmarks and the learning catalog (demo mode). For program chairs and Career Center staff.">
+<title>Admin overview | EduPath</title>
+<meta name="description" content="EduPath admin overview: aggregated student skill profiles, predicted roles and skill gaps.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#fbfbfd">
+<meta name="theme-color" content="#161d6f">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fonts.css">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css">
 <link rel="stylesheet" href="css/admin.css">
 </head>
 <body class="admin">
 
-<header class="nav" aria-label="Site navigation">
-  <a href="index.html" class="brand" aria-label="EduPath home">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#161d6f"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#c7ffd8"/></svg>
-    EduPath
-  </a>
-  <div class="nav-end"><button type="button" class="nav-btn" data-admin-signout hidden>Sign Out</button></div>
-</header>
+<!-- Sign-in gate (shown until an admin session exists) -->
+<main class="gate" id="admin-gate" hidden></main>
 
-<div class="admin-shell">
-  <div class="admin-notice admin-notice--info" id="admin-demo-notice">
-    <strong>Demo mode:</strong> benchmarks, catalog, and this session are saved only in this browser (localStorage / sessionStorage). Backend endpoints are not connected yet.
-  </div>
-
-  <section id="admin-gate"></section>
-
-  <section id="admin-dashboard" hidden>
-    <header class="admin-head">
-      <h1>Admin dashboard</h1>
-      <p>Maintain the role benchmarks and learning catalog behind EduPath's skill-gap recommendations. All data shown is sample data.</p>
-    </header>
-
-    <nav class="admin-tabs" role="tablist" aria-label="Admin screens">
-      <button type="button" role="tab" aria-selected="true" aria-controls="tab-bench" id="tab-btn-bench" data-tab="bench">Role benchmarks</button>
-      <button type="button" role="tab" aria-selected="false" aria-controls="tab-catalog" id="tab-btn-catalog" data-tab="catalog">Learning catalog</button>
-      <button type="button" role="tab" aria-selected="false" aria-controls="tab-summary" id="tab-btn-summary" data-tab="summary">Skill-gap summary</button>
-    </nav>
-
-    <div class="admin-tabpanels">
-      <div role="tabpanel" id="tab-bench" aria-labelledby="tab-btn-bench" data-tabpanel="bench"></div>
-      <div role="tabpanel" id="tab-catalog" aria-labelledby="tab-btn-catalog" data-tabpanel="catalog" hidden></div>
-      <div role="tabpanel" id="tab-summary" aria-labelledby="tab-btn-summary" data-tabpanel="summary" hidden></div>
+<!-- Dashboard shell -->
+<div class="shell" id="admin-app" hidden>
+  <aside class="rail" aria-label="Admin navigation">
+    <a href="index.html" class="rail-brand" aria-label="EduPath home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#ffffff"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#161d6f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#0b6560"/></svg>
+      <span>EduPath <small>Admin</small></span>
+    </a>
+    <nav class="rail-nav" data-nav></nav>
+    <div class="rail-foot">
+      <p class="rail-who" data-who></p>
+      <button type="button" class="rail-signout" data-signout aria-label="Sign out"><i class="ph-light ph-sign-out" aria-hidden="true"></i><span>Sign out</span></button>
     </div>
-  </section>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1 data-page-title>Overview</h1>
+        <p data-page-sub>Aggregated, anonymised skill-gap data across assessed students.</p>
+      </div>
+      <form class="filters" data-filters aria-label="Filter the overview">
+        <label class="field">
+          <span>Program</span>
+          <select name="program" data-filter="program"></select>
+        </label>
+        <label class="field">
+          <span>Year level</span>
+          <select name="year" data-filter="year"></select>
+        </label>
+        <label class="switch">
+          <input type="checkbox" data-sample>
+          <span class="switch-track" aria-hidden="true"></span>
+          <span>Sample data</span>
+        </label>
+      </form>
+    </header>
+    <p class="updated" data-updated></p>
+    <div class="board" id="admin-board" aria-live="polite"></div>
+  </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/admin.js"></script>
 </body>
