@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin overview | EduPath</title>
+<meta name="description" content="EduPath admin overview: aggregated student skill profiles, predicted roles and skill gaps.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#161d6f">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+
+<!-- Sign-in gate (shown until an admin session exists) -->
+<main class="gate" id="admin-gate" hidden></main>
+
+<!-- Dashboard shell -->
+<div class="shell" id="admin-app" hidden>
+  <aside class="rail" aria-label="Admin navigation">
+    <a href="index.html" class="rail-brand" aria-label="EduPath home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#ffffff"/><path d="M8 22 L14 14 L18 18 L24 9" fill="none" stroke="#161d6f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="9" r="2.4" fill="#0b6560"/></svg>
+      <span>EduPath <small>Admin</small></span>
+    </a>
+    <nav class="rail-nav" data-nav></nav>
+    <div class="rail-foot">
+      <p class="rail-who" data-who></p>
+      <button type="button" class="rail-signout" data-signout aria-label="Sign out"><i class="ph-light ph-sign-out" aria-hidden="true"></i><span>Sign out</span></button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1 data-page-title>Overview</h1>
+        <p data-page-sub>Aggregated, anonymised skill-gap data across assessed students.</p>
+      </div>
+      <form class="filters" data-filters aria-label="Filter the overview">
+        <label class="field">
+          <span>Program</span>
+          <select name="program" data-filter="program"></select>
+        </label>
+        <label class="field">
+          <span>Year level</span>
+          <select name="year" data-filter="year"></select>
+        </label>
+        <label class="switch">
+          <input type="checkbox" data-sample>
+          <span class="switch-track" aria-hidden="true"></span>
+          <span>Sample data</span>
+        </label>
+      </form>
+    </header>
+    <p class="updated" data-updated></p>
+    <div class="board" id="admin-board" aria-live="polite"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
